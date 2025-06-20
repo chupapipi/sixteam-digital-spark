@@ -4,7 +4,7 @@ import { MessageCircle, Mail, MapPin } from 'lucide-react';
 
 const Footer = () => {
   const handleWhatsAppClick = () => {
-    window.open('https://wa.me/+573004567890?text=Hola%2C%20me%20interesa%20conocer%20más%20sobre%20los%20servicios%20de%20Sixteam.pro', '_blank');
+    window.open('https://wa.me/+573023515392?text=Hola%2C%20me%20interesa%20conocer%20más%20sobre%20los%20servicios%20de%20Sixteam.pro', '_blank');
   };
 
   return (
@@ -13,19 +13,21 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Company Info */}
           <div>
-            <div className="flex items-center space-x-2 mb-4">
-              <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
-                <span className="text-sixteam-navy font-bold">S</span>
-              </div>
+            <div className="flex items-center space-x-3 mb-4">
+              <img 
+                src="/lovable-uploads/3b066a0e-1bea-4907-b036-3b460d543754.png" 
+                alt="Sixteam.pro Logo" 
+                className="w-8 h-8"
+              />
               <span className="text-xl font-bold">Sixteam.pro</span>
             </div>
             <p className="text-gray-200 mb-4">
-              Impulsamos el crecimiento digital de tu negocio optimizando tus sistemas de marketing y ventas.
+              Transformamos tu negocio con IA y automatización. Combinamos procesos, tecnología y personas para impulsar tu crecimiento digital.
             </p>
             <div className="flex space-x-4">
               <button
                 onClick={handleWhatsAppClick}
-                className="bg-sixteam-teal hover:bg-sixteam-teal/80 px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors"
+                className="bg-sixteam-teal hover:bg-sixteam-teal/80 px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors glow-button"
               >
                 <MessageCircle className="w-4 h-4" />
                 <span>WhatsApp</span>
@@ -43,7 +45,7 @@ const Footer = () => {
               </div>
               <div className="flex items-center space-x-3">
                 <MessageCircle className="w-5 h-5 text-sixteam-teal" />
-                <span className="text-gray-200">+57 300 456 7890</span>
+                <span className="text-gray-200">+57 302 351 5392</span>
               </div>
               <div className="flex items-center space-x-3">
                 <MapPin className="w-5 h-5 text-sixteam-teal" />
@@ -58,7 +60,7 @@ const Footer = () => {
             <ul className="space-y-2 text-gray-200">
               <li>Consultoría Estratégica</li>
               <li>Implementación de CRM</li>
-              <li>Desarrollo a Medida</li>
+              <li>Soluciones de IA</li>
               <li>Operación y Mantenimiento</li>
             </ul>
           </div>
