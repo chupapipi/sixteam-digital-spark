@@ -3,7 +3,6 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { MessageCircle, Target, Eye, Award, Users, Briefcase } from 'lucide-react';
-import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 const Nosotros = () => {
@@ -55,7 +54,6 @@ const Nosotros = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <Header />
       
       {/* Hero Section */}
       <section className="gradient-bg text-white py-20">

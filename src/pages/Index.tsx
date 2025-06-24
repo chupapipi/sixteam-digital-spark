@@ -2,7 +2,6 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { MessageCircle, Target, Settings, Brain, Headphones, CheckCircle, Star, Zap, Bot } from 'lucide-react';
-import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 const Index = () => {
@@ -58,7 +57,6 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-white font-lato">
-      <Header />
       
       {/* Hero Section */}
       <section className="relative min-h-screen bg-gradient-to-br from-sixteam-navy via-sixteam-blue to-sixteam-navy text-white overflow-hidden">
