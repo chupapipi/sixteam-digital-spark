@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -82,30 +81,21 @@ const Index = () => {
         </div>
 
         {/* Content */}
-        <div className="container mx-auto px-4 relative z-10 min-h-screen flex items-center">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center w-full">
-            {/* Text Content - Left Side */}
-            <div className="space-y-6 animate-fade-in">
-              <h1 className="text-2xl md:text-3xl lg:text-4xl font-poppins font-bold leading-tight">
-                ¿Tus procesos de marketing y ventas te están impidiendo crecer?
-              </h1>
-              <p className="text-lg md:text-xl font-lato text-gray-200 leading-relaxed">
-                En Sixteam.pro combinamos Procesos, Tecnología y Personas para que puedas enfocarte en el crecimiento de tu negocio
-              </p>
-              <Button 
-                onClick={handleWhatsAppClick}
-                size="lg"
-                className="bg-sixteam-teal hover:bg-sixteam-teal/90 text-white text-lg px-8 py-4 h-auto glow-button font-lato"
-              >
-                <MessageCircle className="w-6 h-6 mr-3" />
-                Agenda una cita por WhatsApp
-              </Button>
-            </div>
-
-            {/* Visual Space - Right Side */}
-            <div className="hidden lg:block">
-              {/* This space allows the background image to be more visible */}
-            </div>
+        <div className="container mx-auto px-4 relative z-10 min-h-screen flex items-center justify-center">
+          <div className="text-center max-w-4xl mx-auto space-y-8 animate-fade-in">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-poppins font-bold leading-tight">
+              ¿Tus procesos de marketing y ventas te están impidiendo crecer?
+            </h1>
+            <p className="text-xl md:text-2xl lg:text-3xl font-lato text-gray-200 leading-relaxed max-w-3xl mx-auto">
+              En Sixteam.pro combinamos Procesos, Tecnología y Personas para que puedas enfocarte en el crecimiento de tu negocio
+            </p>
+            <Button 
+              onClick={handleWhatsAppClick}
+              className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-lato font-medium transition-colors"
+            >
+              <MessageCircle className="w-5 h-5 mr-2" />
+              Agenda una cita
+            </Button>
           </div>
         </div>
 
@@ -153,10 +143,10 @@ const Index = () => {
             <Card className="text-center hover:shadow-lg transition-all duration-300 hover:scale-105">
               <CardContent className="p-8">
                 <div className="w-16 h-16 gradient-accent rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Brain className="w-8 h-8 text-white" />
+                  <Settings className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-xl font-poppins font-semibold text-sixteam-navy mb-3">Análisis Predictivo</h3>
-                <p className="font-lato text-gray-600">IA que predice comportamientos y optimiza estrategias de ventas</p>
+                <h3 className="text-xl font-poppins font-semibold text-sixteam-navy mb-3">Integraciones de Software</h3>
+                <p className="font-lato text-gray-600">Operación sobre Manychat, Brevo, Mailchimp o Kommo para comunicaciones automatizadas optimizando workflows</p>
               </CardContent>
             </Card>
           </div>
