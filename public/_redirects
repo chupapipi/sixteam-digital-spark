@@ -1,0 +1,10 @@
+# SPA fallback
+/*    /index.html   200
+
+# Headers para archivos JS
+/*.js
+  Content-Type: application/javascript; charset=utf-8
+
+# Headers para archivos CSS
+/*.css
+  Content-Type: text/css; charset=utf-8 
