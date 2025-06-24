@@ -62,29 +62,55 @@ const Index = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="hero-bg text-white py-20 relative">
+      <section className="relative min-h-screen bg-gradient-to-br from-sixteam-navy via-sixteam-blue to-sixteam-navy text-white overflow-hidden">
+        {/* Background Image */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='1920' height='1080' viewBox='0 0 1920 1080' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='hologram' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%2300bfa5;stop-opacity:0.8'/%3E%3Cstop offset='50%25' style='stop-color:%231d70a2;stop-opacity:0.6'/%3E%3Cstop offset='100%25' style='stop-color:%230a2342;stop-opacity:0.4'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1920' height='1080' fill='%230a2342'/%3E%3C!-- Office Environment --%3E%3Crect x='100' y='200' width='1720' height='680' fill='%23f8f9fa' opacity='0.1'/%3E%3C!-- Holographic Monitor --%3E%3Crect x='800' y='300' width='400' height='300' fill='url(%23hologram)' opacity='0.7' rx='10'/%3E%3C!-- Growth Chart --%3E%3Cpath d='M820 550 L860 520 L900 480 L940 440 L980 400 L1020 360 L1060 320 L1100 280 L1140 240 L1180 200' stroke='%2300bfa5' stroke-width='3' fill='none' opacity='0.9'/%3E%3C!-- Data Points --%3E%3Ccircle cx='860' cy='520' r='4' fill='%2300bfa5' opacity='0.9'/%3E%3Ccircle cx='940' cy='440' r='4' fill='%2300bfa5' opacity='0.9'/%3E%3Ccircle cx='1020' cy='360' r='4' fill='%2300bfa5' opacity='0.9'/%3E%3Ccircle cx='1100' cy='280' r='4' fill='%2300bfa5' opacity='0.9'/%3E%3C!-- Flow Diagrams --%3E%3Crect x='820' y='400' width='60' height='20' fill='%231d70a2' opacity='0.6' rx='3'/%3E%3Crect x='900' y='380' width='60' height='20' fill='%231d70a2' opacity='0.6' rx='3'/%3E%3Crect x='980' y='360' width='60' height='20' fill='%231d70a2' opacity='0.6' rx='3'/%3E%3C!-- Connection Lines --%3E%3Cline x1='880' y1='400' x2='900' y2='390' stroke='%2300bfa5' stroke-width='2' opacity='0.7'/%3E%3Cline x1='960' y1='380' x2='980' y2='370' stroke='%2300bfa5' stroke-width='2' opacity='0.7'/%3E%3C!-- Professional Silhouettes --%3E%3Cellipse cx='700' cy='500' rx='40' ry='120' fill='%23ffffff' opacity='0.1'/%3E%3Cellipse cx='1300' cy='480' rx='40' ry='120' fill='%23ffffff' opacity='0.1'/%3E%3C!-- Ambient Light Effects --%3E%3Ccircle cx='1000' cy='400' r='200' fill='%2300bfa5' opacity='0.05'/%3E%3Ccircle cx='1000' cy='400' r='150' fill='%231d70a2' opacity='0.08'/%3E%3C/svg%3E")`
+          }}
+        />
+        
+        {/* Digital Flow Lines */}
         <div className="flow-lines">
           <div className="flow-line"></div>
           <div className="flow-line"></div>
           <div className="flow-line"></div>
         </div>
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center animate-fade-in">
-            <h1 className="text-3xl md:text-5xl font-bold mb-6 leading-tight">
-              ¿Tus procesos de marketing y ventas te están impidiendo crecer?
-            </h1>
-            <p className="text-xl md:text-2xl mb-8 text-gray-200">
-              En Sixteam.pro combinamos Procesos, Tecnología y Personas para que puedas enfocarte en el crecimiento de tu negocio
-            </p>
-            <Button 
-              onClick={handleWhatsAppClick}
-              size="lg"
-              className="bg-sixteam-teal hover:bg-sixteam-teal/90 text-white text-lg px-8 py-4 h-auto glow-button"
-            >
-              <MessageCircle className="w-6 h-6 mr-3" />
-              Agenda una cita por WhatsApp
-            </Button>
+
+        {/* Content */}
+        <div className="container mx-auto px-4 relative z-10 min-h-screen flex items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center w-full">
+            {/* Text Content - Left Side */}
+            <div className="space-y-6 animate-fade-in">
+              <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold leading-tight">
+                ¿Tus procesos de marketing y ventas te están impidiendo crecer?
+              </h1>
+              <p className="text-lg md:text-xl text-gray-200 leading-relaxed">
+                En Sixteam.pro combinamos Procesos, Tecnología y Personas para que puedas enfocarte en el crecimiento de tu negocio
+              </p>
+              <Button 
+                onClick={handleWhatsAppClick}
+                size="lg"
+                className="bg-sixteam-teal hover:bg-sixteam-teal/90 text-white text-lg px-8 py-4 h-auto glow-button"
+              >
+                <MessageCircle className="w-6 h-6 mr-3" />
+                Agenda una cita por WhatsApp
+              </Button>
+            </div>
+
+            {/* Visual Space - Right Side */}
+            <div className="hidden lg:block">
+              {/* This space allows the background image to be more visible */}
+            </div>
           </div>
+        </div>
+
+        {/* Decorative Elements */}
+        <div className="absolute bottom-0 left-0 right-0">
+          <svg className="w-full h-24" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M0,0V120H1200V0C1200,0 1000,60 600,60C200,60 0,0 0,0Z" fill="white" fillOpacity="0.1"/>
+          </svg>
         </div>
       </section>
 
