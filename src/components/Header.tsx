@@ -1,4 +1,5 @@
 
+
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Menu, X, MessageCircle, ChevronDown } from 'lucide-react';
@@ -34,7 +35,7 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-white shadow-sm sticky top-0 z-50 font-inter">
+    <header className="bg-white shadow-sm sticky top-0 z-50 font-lato">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
@@ -44,7 +45,7 @@ const Header = () => {
               alt="Sixteam.pro Logo" 
               className="w-8 h-8"
             />
-            <span className="text-2xl font-orbitron font-bold text-sixteam-navy">
+            <span className="text-2xl font-poppins font-bold text-sixteam-navy">
               Sixteam.pro
             </span>
           </Link>

@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -20,8 +19,8 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				'orbitron': ['Orbitron', 'sans-serif'], // Para títulos
-				'inter': ['Inter', 'sans-serif'], // Para subtítulos y texto general
+				'poppins': ['Poppins', 'sans-serif'], // Para títulos
+				'lato': ['Lato', 'sans-serif'], // Para párrafos y texto general
 			},
 			colors: {
 				border: 'hsl(var(--border))',

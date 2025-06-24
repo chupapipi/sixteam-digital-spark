@@ -8,7 +8,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="gradient-bg text-white font-inter">
+    <footer className="gradient-bg text-white font-lato">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Company Info */}
@@ -19,7 +19,7 @@ const Footer = () => {
                 alt="Sixteam.pro Logo" 
                 className="w-8 h-8"
               />
-              <span className="text-xl font-orbitron font-bold">Sixteam.pro</span>
+              <span className="text-xl font-poppins font-bold">Sixteam.pro</span>
             </div>
             <p className="text-gray-200 mb-4">
               Transformamos tu negocio con IA y automatización. Combinamos procesos, tecnología y personas para impulsar tu crecimiento digital.
@@ -37,7 +37,7 @@ const Footer = () => {
 
           {/* Contact Info */}
           <div>
-            <h3 className="text-lg font-orbitron font-semibold mb-4">Contacto</h3>
+            <h3 className="text-lg font-poppins font-semibold mb-4">Contacto</h3>
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
                 <Mail className="w-5 h-5 text-sixteam-teal" />
@@ -56,7 +56,7 @@ const Footer = () => {
 
           {/* Services */}
           <div>
-            <h3 className="text-lg font-orbitron font-semibold mb-4">Servicios</h3>
+            <h3 className="text-lg font-poppins font-semibold mb-4">Servicios</h3>
             <ul className="space-y-2 text-gray-200">
               <li>Consultoría Estratégica</li>
               <li>Implementación de CRM</li>

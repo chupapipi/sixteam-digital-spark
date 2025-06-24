@@ -58,7 +58,7 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white font-inter">
+    <div className="min-h-screen bg-white font-lato">
       <Header />
       
       {/* Hero Section */}
@@ -86,16 +86,16 @@ const Index = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center w-full">
             {/* Text Content - Left Side */}
             <div className="space-y-6 animate-fade-in">
-              <h1 className="text-2xl md:text-3xl lg:text-4xl font-orbitron font-bold leading-tight">
+              <h1 className="text-2xl md:text-3xl lg:text-4xl font-poppins font-bold leading-tight">
                 ¿Tus procesos de marketing y ventas te están impidiendo crecer?
               </h1>
-              <p className="text-lg md:text-xl font-inter text-gray-200 leading-relaxed">
+              <p className="text-lg md:text-xl font-lato text-gray-200 leading-relaxed">
                 En Sixteam.pro combinamos Procesos, Tecnología y Personas para que puedas enfocarte en el crecimiento de tu negocio
               </p>
               <Button 
                 onClick={handleWhatsAppClick}
                 size="lg"
-                className="bg-sixteam-teal hover:bg-sixteam-teal/90 text-white text-lg px-8 py-4 h-auto glow-button font-inter"
+                className="bg-sixteam-teal hover:bg-sixteam-teal/90 text-white text-lg px-8 py-4 h-auto glow-button font-lato"
               >
                 <MessageCircle className="w-6 h-6 mr-3" />
                 Agenda una cita por WhatsApp
@@ -121,10 +121,10 @@ const Index = () => {
       <section className="py-20 bg-gray-50 network-bg">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-orbitron font-bold text-sixteam-navy mb-4">
+            <h2 className="text-3xl md:text-4xl font-poppins font-bold text-sixteam-navy mb-4">
               Transformación Digital con IA
             </h2>
-            <p className="text-xl font-inter text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl font-lato text-gray-600 max-w-3xl mx-auto">
               Implementamos inteligencia artificial y automatización avanzada para revolucionar tus procesos
             </p>
           </div>
@@ -135,8 +135,8 @@ const Index = () => {
                 <div className="w-16 h-16 gradient-accent rounded-full flex items-center justify-center mx-auto mb-4">
                   <Bot className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-xl font-orbitron font-semibold text-sixteam-navy mb-3">IA Conversacional</h3>
-                <p className="font-inter text-gray-600">Chatbots inteligentes que cualifican leads y automatizan el primer contacto</p>
+                <h3 className="text-xl font-poppins font-semibold text-sixteam-navy mb-3">IA Conversacional</h3>
+                <p className="font-lato text-gray-600">Chatbots inteligentes que cualifican leads y automatizan el primer contacto</p>
               </CardContent>
             </Card>
             
@@ -145,8 +145,8 @@ const Index = () => {
                 <div className="w-16 h-16 gradient-accent rounded-full flex items-center justify-center mx-auto mb-4">
                   <Zap className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-xl font-orbitron font-semibold text-sixteam-navy mb-3">Automatización</h3>
-                <p className="font-inter text-gray-600">Integraciones con Make, n8n y Zapier para flujos de trabajo inteligentes</p>
+                <h3 className="text-xl font-poppins font-semibold text-sixteam-navy mb-3">Automatización</h3>
+                <p className="font-lato text-gray-600">Integraciones con Make, n8n y Zapier para flujos de trabajo inteligentes</p>
               </CardContent>
             </Card>
             
@@ -155,8 +155,8 @@ const Index = () => {
                 <div className="w-16 h-16 gradient-accent rounded-full flex items-center justify-center mx-auto mb-4">
                   <Brain className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-xl font-orbitron font-semibold text-sixteam-navy mb-3">Análisis Predictivo</h3>
-                <p className="font-inter text-gray-600">IA que predice comportamientos y optimiza estrategias de ventas</p>
+                <h3 className="text-xl font-poppins font-semibold text-sixteam-navy mb-3">Análisis Predictivo</h3>
+                <p className="font-lato text-gray-600">IA que predice comportamientos y optimiza estrategias de ventas</p>
               </CardContent>
             </Card>
           </div>
@@ -164,7 +164,7 @@ const Index = () => {
           <div className="text-center">
             <Button 
               onClick={handleWhatsAppClick}
-              className="bg-sixteam-blue hover:bg-sixteam-blue/90 text-white glow-button font-inter"
+              className="bg-sixteam-blue hover:bg-sixteam-blue/90 text-white glow-button font-lato"
             >
               Descubre cómo transformar tu negocio
             </Button>
@@ -176,10 +176,10 @@ const Index = () => {
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-orbitron font-bold text-sixteam-navy mb-4">
+            <h2 className="text-3xl md:text-4xl font-poppins font-bold text-sixteam-navy mb-4">
               Cómo te ayudamos
             </h2>
-            <p className="text-xl font-inter text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl font-lato text-gray-600 max-w-3xl mx-auto">
               Servicios diseñados para cada etapa de tu transformación digital con IA
             </p>
           </div>
@@ -191,10 +191,10 @@ const Index = () => {
                   <div className="w-16 h-16 gradient-accent rounded-full flex items-center justify-center mx-auto mb-4">
                     <service.icon className="w-8 h-8 text-white" />
                   </div>
-                  <h3 className="text-xl font-orbitron font-semibold text-sixteam-navy mb-3">
+                  <h3 className="text-xl font-poppins font-semibold text-sixteam-navy mb-3">
                     {service.title}
                   </h3>
-                  <p className="font-inter text-gray-600">
+                  <p className="font-lato text-gray-600">
                     {service.description}
                   </p>
                 </CardContent>
@@ -208,18 +208,18 @@ const Index = () => {
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-orbitron font-bold text-sixteam-navy mb-8 text-center">
+            <h2 className="text-3xl md:text-4xl font-poppins font-bold text-sixteam-navy mb-8 text-center">
               Nuestra Ventaja Competitiva
             </h2>
             <div className="bg-gradient-to-r from-sixteam-blue to-sixteam-teal p-8 rounded-2xl text-white">
-              <p className="text-lg md:text-xl font-inter leading-relaxed mb-6">
+              <p className="text-lg md:text-xl font-lato leading-relaxed mb-6">
                 Somos especialistas en RevOps con enfoque en IA. No solo implementamos tecnología, creamos ecosistemas inteligentes que aprenden y se adaptan a tu negocio.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {advantages.map((advantage, index) => (
                   <div key={index} className="flex items-center space-x-3">
                     <CheckCircle className="w-5 h-5 text-sixteam-teal flex-shrink-0" />
-                    <span className="font-inter">{advantage}</span>
+                    <span className="font-lato">{advantage}</span>
                   </div>
                 ))}
               </div>
@@ -232,10 +232,10 @@ const Index = () => {
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-orbitron font-bold text-sixteam-navy mb-4">
+            <h2 className="text-3xl md:text-4xl font-poppins font-bold text-sixteam-navy mb-4">
               Casos de Éxito
             </h2>
-            <p className="text-xl font-inter text-gray-600">
+            <p className="text-xl font-lato text-gray-600">
               Resultados reales de empresas que confiaron en nuestra experiencia en IA
             </p>
           </div>
@@ -249,12 +249,12 @@ const Index = () => {
                       <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
                     ))}
                   </div>
-                  <p className="font-inter text-gray-600 mb-6 italic">
+                  <p className="font-lato text-gray-600 mb-6 italic">
                     "{testimonial.text}"
                   </p>
                   <div>
-                    <p className="font-orbitron font-semibold text-sixteam-navy">{testimonial.name}</p>
-                    <p className="font-inter text-gray-500">{testimonial.company}</p>
+                    <p className="font-poppins font-semibold text-sixteam-navy">{testimonial.name}</p>
+                    <p className="font-lato text-gray-500">{testimonial.company}</p>
                   </div>
                 </CardContent>
               </Card>
@@ -270,16 +270,16 @@ const Index = () => {
           <div className="flow-line"></div>
         </div>
         <div className="container mx-auto px-4 text-center relative z-10">
-          <h2 className="text-3xl md:text-4xl font-orbitron font-bold mb-6">
+          <h2 className="text-3xl md:text-4xl font-poppins font-bold mb-6">
             ¿Listo para transformar tu negocio con IA?
           </h2>
-          <p className="text-xl font-inter mb-8 text-gray-200">
+          <p className="text-xl font-lato mb-8 text-gray-200">
             Agenda una consulta estratégica y descubre cómo la inteligencia artificial puede impulsar tu crecimiento
           </p>
           <Button 
             onClick={handleWhatsAppClick}
             size="lg"
-            className="bg-sixteam-teal hover:bg-sixteam-teal/90 text-white text-lg px-8 py-4 h-auto glow-button font-inter"
+            className="bg-sixteam-teal hover:bg-sixteam-teal/90 text-white text-lg px-8 py-4 h-auto glow-button font-lato"
           >
             <MessageCircle className="w-6 h-6 mr-3" />
             Agendar Consulta Estratégica
