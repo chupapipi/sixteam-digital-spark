@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Menu, X, MessageCircle, ChevronDown } from 'lucide-react';
@@ -6,6 +5,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const location = useLocation();
 
@@ -33,7 +33,7 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-white shadow-lg sticky top-0 z-50">
+    <header className="bg-white shadow-sm sticky top-0 z-50 font-inter">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
@@ -41,13 +41,15 @@ const Header = () => {
             <img 
               src="/lovable-uploads/3b066a0e-1bea-4907-b036-3b460d543754.png" 
               alt="Sixteam.pro Logo" 
-              className="w-10 h-10"
+              className="w-8 h-8"
             />
-            <span className="text-2xl font-bold text-sixteam-navy">Sixteam.pro</span>
+            <span className="text-2xl font-orbitron font-bold text-sixteam-navy">
+              Sixteam.pro
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-6">
+          <nav className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
               <div
                 key={item.name}
@@ -90,18 +92,22 @@ const Header = () => {
             </Button>
           </nav>
 
-          {/* Mobile menu button */}
+          {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-2"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="md:hidden"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
-            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {isMobileMenuOpen ? (
+              <X className="w-6 h-6 text-sixteam-navy" />
+            ) : (
+              <Menu className="w-6 h-6 text-sixteam-navy" />
+            )}
           </button>
         </div>
 
         {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="md:hidden py-4 border-t">
+        {isMobileMenuOpen && (
+          <nav className="md:hidden pb-4 border-t border-gray-200">
             <nav className="flex flex-col space-y-4">
               {navItems.map((item) => (
                 <Link
@@ -110,7 +116,7 @@ const Header = () => {
                   className={`text-sm font-medium transition-colors hover:text-sixteam-blue ${
                     isActive(item.path) ? 'text-sixteam-blue' : 'text-sixteam-navy'
                   }`}
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {item.name}
                 </Link>
