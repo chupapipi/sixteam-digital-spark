@@ -25,13 +25,13 @@ export default defineConfig(({ mode }) => ({
     rollupOptions: {
       output: {
         format: 'es',
-        entryFileNames: 'assets/[name]-[hash].js',
-        chunkFileNames: 'assets/[name]-[hash].js',
-        assetFileNames: 'assets/[name]-[hash].[ext]',
+        entryFileNames: 'assets/[name].[hash].js',
+        chunkFileNames: 'assets/[name].[hash].js',
+        assetFileNames: 'assets/[name].[hash].[ext]',
         manualChunks: undefined,
       },
     },
-    target: 'esnext',
+    target: 'es2015',
     minify: 'esbuild',
   },
 }));
