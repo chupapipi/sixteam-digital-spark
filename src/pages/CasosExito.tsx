@@ -3,7 +3,6 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { MessageCircle, TrendingUp, Clock, Users, ArrowRight } from 'lucide-react';
-import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 const CasosExito = () => {
@@ -70,7 +69,6 @@ const CasosExito = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <Header />
       
       {/* Hero Section */}
       <section className="gradient-bg text-white py-20">
