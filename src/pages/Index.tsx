@@ -84,8 +84,8 @@ const Index = () => {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-poppins font-bold leading-tight">
               ¿Tus procesos de marketing y ventas te están impidiendo crecer?
             </h1>
-            <div className="bg-green-500 text-white px-4 py-2 rounded-lg mt-4 text-sm">
-              ✅ BRANCH: deploy-final - SIN NAVBAR ✅
+            <div className="bg-blue-500 text-white px-4 py-2 rounded-lg mt-4 text-sm font-bold">
+              🚀 EXPRESS SERVER - DEPLOY-FINAL - SIN NAVBAR 🚀
             </div>
             <p className="text-xl md:text-2xl lg:text-3xl font-lato text-gray-200 leading-relaxed max-w-3xl mx-auto">
               En Sixteam.pro combinamos Procesos, Tecnología y Personas para que puedas enfocarte en el crecimiento de tu negocio
