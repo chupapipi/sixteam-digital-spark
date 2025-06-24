@@ -34,4 +34,7 @@ export default defineConfig(({ mode }) => ({
     target: 'es2015',
     minify: 'esbuild',
   },
+  optimizeDeps: {
+    exclude: ['lucide-react'],
+  },
 }));
