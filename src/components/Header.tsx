@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Menu, X, MessageCircle, ChevronDown } from 'lucide-react';
@@ -107,8 +108,8 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
-          <nav className="md:hidden pb-4 border-t border-gray-200">
-            <nav className="flex flex-col space-y-4">
+          <div className="md:hidden pb-4 border-t border-gray-200">
+            <nav className="flex flex-col space-y-4 pt-4">
               {navItems.map((item) => (
                 <Link
                   key={item.name}
