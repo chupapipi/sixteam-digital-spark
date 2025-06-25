@@ -84,28 +84,28 @@ const Index = () => {
             {/* Etiqueta profesional */}
             <div className="inline-flex items-center gap-3 px-6 py-3 bg-gray-800/70 border border-gray-600/50 rounded-full backdrop-blur-sm">
               <div className="w-2 h-2 bg-teal-400 rounded-full"></div>
-              <span className="text-gray-200 font-medium text-sm tracking-wide">SIXTEAM.PRO - ELITE AI AUTOMATION</span>
+              <span className="text-gray-200 font-medium text-sm tracking-wide">PARA CEOs · CTOs · COOs</span>
             </div>
 
             {/* Título principal profesional */}
             <div className="space-y-6">
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight">
-                <span className="text-white">Transformamos</span>
+                <span className="text-white">Multiplica tu ROI</span>
                 <br />
-                <span className="text-gray-300">empresas con</span>
+                <span className="text-gray-300">con</span>
                 <br />
                 <span className="bg-gradient-to-r from-blue-400 to-teal-400 bg-clip-text text-transparent">
-                  IA & Automatización
+                  Revenue Operations + IA
                 </span>
               </h1>
               
               <div className="max-w-4xl mx-auto space-y-4 pt-4">
                 <p className="text-xl md:text-2xl text-gray-300 leading-relaxed">
-                  Especialistas en Revenue Operations con IA avanzada.
+                  Reduce costos operacionales hasta 60% mientras escalas ingresos exponencialmente.
                 </p>
                 <p className="text-lg text-gray-400 leading-relaxed">
-                  Implementamos ecosistemas inteligentes que automatizan procesos, 
-                  cualifican leads y escalan tu negocio de forma exponencial.
+                  Sistema integral que automatiza ventas, marketing y operaciones para empresas 
+                  que buscan dominar su mercado con ventaja tecnológica decisiva.
                 </p>
               </div>
             </div>
@@ -117,30 +117,30 @@ const Index = () => {
                 className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl"
               >
                 <MessageCircle className="w-5 h-5 mr-3" />
-                Consultoría Estratégica Gratuita
+                Análisis Estratégico Ejecutivo (Gratis)
               </Button>
               
               <Button 
                 variant="outline"
                 className="px-8 py-4 border-2 border-gray-600 text-gray-300 hover:bg-gray-800 hover:border-gray-500 rounded-lg font-semibold text-lg transition-all duration-300"
               >
-                Ver Casos de Éxito
+                Ver ROI Casos Enterprise
               </Button>
             </div>
 
-            {/* Métricas profesionales */}
+            {/* Métricas de impacto C-Level */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-16">
               <div className="text-center space-y-2">
-                <div className="text-4xl md:text-5xl font-bold text-blue-400">500%</div>
-                <div className="text-gray-400 text-sm tracking-wide uppercase">Incremento ROI Promedio</div>
+                <div className="text-4xl md:text-5xl font-bold text-blue-400">350%</div>
+                <div className="text-gray-400 text-sm tracking-wide uppercase">Incremento en Revenue</div>
               </div>
               <div className="text-center space-y-2">
-                <div className="text-4xl md:text-5xl font-bold text-teal-400">24/7</div>
-                <div className="text-gray-400 text-sm tracking-wide uppercase">Automatización Inteligente</div>
+                <div className="text-4xl md:text-5xl font-bold text-teal-400">60%</div>
+                <div className="text-gray-400 text-sm tracking-wide uppercase">Reducción Costos Operacionales</div>
               </div>
               <div className="text-center space-y-2">
-                <div className="text-4xl md:text-5xl font-bold text-blue-400">90%</div>
-                <div className="text-gray-400 text-sm tracking-wide uppercase">Reducción Tareas Manuales</div>
+                <div className="text-4xl md:text-5xl font-bold text-blue-400">18m</div>
+                <div className="text-gray-400 text-sm tracking-wide uppercase">Payback Period Promedio</div>
               </div>
             </div>
           </div>
@@ -171,27 +171,27 @@ const Index = () => {
         </div>
 
         <div className="container mx-auto px-6 relative z-10">
-          {/* Título de sección profesional */}
+          {/* Título de sección para C-Level */}
           <div className="text-center mb-20 space-y-8">
             <div className="inline-flex items-center gap-3 px-6 py-3 bg-gray-100 border border-gray-200 rounded-full">
               <div className="w-2 h-2 bg-teal-600 rounded-full"></div>
-              <span className="text-gray-700 font-medium text-sm tracking-wide">TECNOLOGÍA EMPRESARIAL</span>
+              <span className="text-gray-700 font-medium text-sm tracking-wide">VENTAJA COMPETITIVA DECISIVA</span>
             </div>
             
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-8 text-gray-900 leading-tight">
-              Ecosistema IA
+              Revenue Operations
               <br />
-              <span className="text-blue-600">de Clase Mundial</span>
+              <span className="text-blue-600">Impulsado por IA</span>
             </h2>
             
             <div className="max-w-4xl mx-auto space-y-6">
               <p className="text-xl text-gray-600 leading-relaxed">
-                Implementamos arquitecturas de inteligencia artificial enterprise que transforman 
-                completamente la operación de tu empresa.
+                Arquitectura tecnológica enterprise que elimina silos, optimiza márgenes 
+                y acelera el crecimiento con decisiones basadas en datos en tiempo real.
               </p>
               <p className="text-lg text-gray-500 leading-relaxed">
-                Desde la captación automatizada hasta la retención inteligente de clientes, 
-                nuestro ecosistema integra todas las áreas de tu negocio.
+                Desde lead scoring predictivo hasta customer success automatizado, 
+                cada proceso está diseñado para maximizar LTV y minimizar CAC.
               </p>
             </div>
           </div>
@@ -211,24 +211,24 @@ const Index = () => {
                   </div>
                 </div>
                 
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">IA Conversacional GPT-4</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">Lead Qualification Engine</h3>
                 <p className="text-gray-600 mb-8 leading-relaxed">
-                  Chatbots inteligentes que comprenden contexto, cualifican leads automáticamente 
-                  y manejan consultas complejas con precisión empresarial.
+                  Sistema IA que identifica y cualifica prospects de alto valor, reduce CAC 
+                  y aumenta conversion rates con scoring predictivo empresarial.
                 </p>
                 
                 <div className="space-y-4">
                   <div className="flex items-center gap-3 text-sm text-gray-700">
                     <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                    <span>Procesamiento de lenguaje natural avanzado</span>
+                    <span>Predictive lead scoring + intent data</span>
                   </div>
                   <div className="flex items-center gap-3 text-sm text-gray-700">
                     <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                    <span>Integración CRM y marketing automation</span>
+                    <span>Integración total CRM/Sales stack</span>
                   </div>
                   <div className="flex items-center gap-3 text-sm text-gray-700">
                     <div className="w-2 h-2 bg-teal-600 rounded-full"></div>
-                    <span>Aprendizaje continuo y optimización</span>
+                    <span>ROI tracking y attribution modeling</span>
                   </div>
                 </div>
               </div>
@@ -246,24 +246,24 @@ const Index = () => {
                   </div>
                 </div>
                 
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">Hiperrautomatización</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">Operational Excellence Engine</h3>
                 <p className="text-gray-600 mb-8 leading-relaxed">
-                  Flujos de trabajo inteligentes que conectan todas tus herramientas, 
-                  eliminan tareas repetitivas y escalan operaciones automáticamente.
+                  Automatización inteligente que elimina ineficiencias operacionales, 
+                  reduce costos estructurales y libera capital humano para iniciativas estratégicas.
                 </p>
                 
                 <div className="space-y-4">
                   <div className="flex items-center gap-3 text-sm text-gray-700">
                     <div className="w-2 h-2 bg-gray-800 rounded-full"></div>
-                    <span>Make.com, Zapier & n8n Enterprise</span>
+                    <span>Process mining + workflow optimization</span>
                   </div>
                   <div className="flex items-center gap-3 text-sm text-gray-700">
                     <div className="w-2 h-2 bg-gray-800 rounded-full"></div>
-                    <span>APIs personalizadas y webhooks</span>
+                    <span>Enterprise integrations + APIs</span>
                   </div>
                   <div className="flex items-center gap-3 text-sm text-gray-700">
                     <div className="w-2 h-2 bg-teal-600 rounded-full"></div>
-                    <span>Monitoreo y analítica en tiempo real</span>
+                    <span>Performance dashboards + KPI monitoring</span>
                   </div>
                 </div>
               </div>
@@ -281,24 +281,24 @@ const Index = () => {
                   </div>
                 </div>
                 
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">Stack Tecnológico Completo</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">Data-Driven Growth Platform</h3>
                 <p className="text-gray-600 mb-8 leading-relaxed">
-                  Integración total de CRM, marketing automation, analítica avanzada 
-                  y todas las herramientas empresariales en un ecosistema unificado.
+                  Plataforma unificada que conecta todos los sistemas empresariales, 
+                  genera insights accionables y acelera la toma de decisiones estratégicas.
                 </p>
                 
                 <div className="space-y-4">
                   <div className="flex items-center gap-3 text-sm text-gray-700">
                     <div className="w-2 h-2 bg-teal-600 rounded-full"></div>
-                    <span>HubSpot, Salesforce, Pipedrive CRM</span>
+                    <span>Unified data layer + single source of truth</span>
                   </div>
                   <div className="flex items-center gap-3 text-sm text-gray-700">
                     <div className="w-2 h-2 bg-teal-600 rounded-full"></div>
-                    <span>Marketing automation & email flows</span>
+                    <span>Executive dashboards + revenue attribution</span>
                   </div>
                   <div className="flex items-center gap-3 text-sm text-gray-700">
                     <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                    <span>Business Intelligence & dashboards</span>
+                    <span>Predictive analytics + growth forecasting</span>
                   </div>
                 </div>
               </div>
@@ -312,7 +312,7 @@ const Index = () => {
               className="px-12 py-4 bg-gray-900 hover:bg-gray-800 text-white rounded-lg font-semibold text-xl transition-all duration-300 shadow-lg hover:shadow-xl"
             >
               <MessageCircle className="w-6 h-6 mr-3" />
-              Implementar Ecosistema IA Enterprise
+              Consultoría C-Level: ROI & Growth Strategy
             </Button>
           </div>
         </div>
@@ -491,7 +491,7 @@ const Index = () => {
         {/* Elementos decorativos flotantes */}
         <div className="absolute inset-0">
           <div className="absolute top-16 right-16 w-32 h-32 border border-blue-200 rounded-full opacity-30 animate-spin" style={{animationDuration: '20s'}}></div>
-          <div className="absolute bottom-16 left-16 w-48 h-48 border border-purple-200 rounded-full opacity-20 animate-spin" style={{animationDuration: '30s'}}></div>
+                        <div className="absolute bottom-16 left-16 w-48 h-48 border border-gray-200 rounded-full opacity-20 animate-spin" style={{animationDuration: '30s'}}></div>
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
@@ -504,9 +504,9 @@ const Index = () => {
             <h2 className="text-4xl md:text-6xl font-bold mb-6">
               <span className="text-gray-900">Transformaciones</span>
               <br />
-              <span className="bg-gradient-to-r from-green-600 via-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Extraordinarias
-              </span>
+                              <span className="text-blue-600">
+                  de Alto Impacto
+                </span>
             </h2>
             
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
@@ -524,7 +524,7 @@ const Index = () => {
                 style={{ animationDelay: `${index * 0.2}s` }}
               >
                 {/* Glow effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-3xl blur opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-teal-500/10 rounded-3xl blur opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 
                 {/* Card principal */}
                 <div className="relative bg-white border border-gray-200 rounded-3xl p-10 hover:border-blue-300 hover:shadow-2xl transition-all duration-500 group-hover:-translate-y-2">
@@ -552,7 +552,7 @@ const Index = () => {
                   
                   {/* Información del cliente con avatar */}
                   <div className="flex items-center gap-4">
-                    <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                    <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-xl">
                       {testimonial.name.charAt(0)}
                     </div>
                     <div>
@@ -562,7 +562,7 @@ const Index = () => {
                   </div>
                   
                   {/* Línea decorativa */}
-                  <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></div>
+                  <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-blue-600 rounded-full"></div>
                 </div>
               </div>
             ))}
@@ -570,7 +570,7 @@ const Index = () => {
           
           {/* CTA final poderoso */}
           <div className="text-center mt-20">
-            <div className="max-w-3xl mx-auto bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl p-8 text-white">
+            <div className="max-w-3xl mx-auto bg-gradient-to-r from-blue-600 to-teal-600 rounded-3xl p-8 text-white">
               <h3 className="text-2xl md:text-3xl font-bold mb-4">
                 ¿Quieres ser el próximo caso de éxito?
               </h3>
@@ -592,9 +592,9 @@ const Index = () => {
       <footer className="relative bg-black text-white overflow-hidden">
         {/* Fondo futurista */}
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-950/30 via-purple-950/30 to-green-950/30"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-950/30 via-gray-950/30 to-teal-950/30"></div>
           <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl"></div>
+                      <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-teal-500/5 rounded-full blur-3xl"></div>
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
@@ -605,7 +605,7 @@ const Index = () => {
               {/* Logo y descripción */}
               <div className="space-y-6">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl flex items-center justify-center">
+                  <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center">
                     <span className="text-white font-bold text-xl">S</span>
                   </div>
                   <span className="text-2xl font-bold text-white">Sixteam.pro</span>
@@ -633,7 +633,7 @@ const Index = () => {
                     <span>IA Conversacional GPT-4</span>
                   </div>
                   <div className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors cursor-pointer">
-                    <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
+                                          <div className="w-2 h-2 bg-teal-600 rounded-full"></div>
                     <span>Hiperrautomatización</span>
                   </div>
                   <div className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors cursor-pointer">
@@ -649,7 +649,7 @@ const Index = () => {
 
               {/* CTA Final */}
               <div className="space-y-6">
-                <div className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 backdrop-blur-sm border border-blue-400/30 rounded-2xl p-6">
+                <div className="bg-gradient-to-r from-blue-600/20 to-teal-600/20 backdrop-blur-sm border border-blue-400/30 rounded-2xl p-6">
                   <h3 className="text-xl font-bold text-white mb-3">
                     ¿Listo para dominar tu mercado?
                   </h3>
