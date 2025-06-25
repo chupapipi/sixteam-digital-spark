@@ -78,17 +78,17 @@ const Index = () => {
         </div>
 
         {/* Contenido principal */}
-        <div className="container mx-auto px-8 relative z-10 min-h-screen flex items-center justify-center">
-          <div className="text-center max-w-6xl mx-auto space-y-12">
+        <div className="container mx-auto px-6 relative z-10 min-h-screen flex items-center justify-center">
+          <div className="text-center max-w-7xl mx-auto space-y-16">
             
             {/* Etiqueta profesional */}
-            <div className="inline-flex items-center gap-3 px-6 py-3 bg-gray-800/70 border border-gray-600/50 rounded-full backdrop-blur-sm">
+            <div className="inline-flex items-center gap-3 px-8 py-4 bg-gray-800/70 border border-gray-600/50 rounded-full backdrop-blur-sm">
               <div className="w-2 h-2 bg-teal-400 rounded-full"></div>
               <span className="text-gray-200 font-medium text-sm tracking-wide">PARA CEOs · CTOs · COOs</span>
             </div>
 
             {/* Título principal profesional */}
-            <div className="space-y-6">
+            <div className="space-y-8">
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight">
                 <span className="text-white">Multiplica tu ROI</span>
                 <br />
@@ -99,9 +99,9 @@ const Index = () => {
                 </span>
               </h1>
               
-              <div className="max-w-4xl mx-auto space-y-4 pt-4">
+              <div className="max-w-5xl mx-auto space-y-6 pt-6">
                 <p className="text-xl md:text-2xl text-gray-300 leading-relaxed">
-                  Reduce costos operacionales hasta 60% mientras escalas ingresos exponencialmente.
+                  Reduce costos operacionales hasta 35% mientras escalas ingresos de forma sostenible.
                 </p>
                 <p className="text-lg text-gray-400 leading-relaxed">
                   Sistema integral que automatiza ventas, marketing y operaciones para empresas 
@@ -111,10 +111,10 @@ const Index = () => {
             </div>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-5 justify-center items-center pt-6">
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center pt-8">
               <Button 
                 onClick={handleWhatsAppClick}
-                className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl"
+                className="px-10 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl"
               >
                 <MessageCircle className="w-5 h-5 mr-3" />
                 Análisis Estratégico Ejecutivo (Gratis)
@@ -122,25 +122,25 @@ const Index = () => {
               
               <Button 
                 variant="outline"
-                className="px-8 py-4 border-2 border-gray-600 text-gray-300 hover:bg-gray-800 hover:border-gray-500 rounded-lg font-semibold text-lg transition-all duration-300"
+                className="px-10 py-4 border-2 border-gray-600 text-gray-300 hover:bg-gray-800 hover:border-gray-500 rounded-lg font-semibold text-lg transition-all duration-300"
               >
                 Ver ROI Casos Enterprise
               </Button>
             </div>
 
-            {/* Métricas de impacto C-Level */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-16">
-              <div className="text-center space-y-2">
-                <div className="text-4xl md:text-5xl font-bold text-blue-400">350%</div>
-                <div className="text-gray-400 text-sm tracking-wide uppercase">Incremento en Revenue</div>
+            {/* Métricas realistas C-Level */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 pt-24">
+              <div className="text-center space-y-4">
+                <div className="text-5xl md:text-6xl font-bold text-blue-400">185%</div>
+                <div className="text-gray-400 text-sm tracking-wide uppercase font-medium">Incremento Revenue Promedio</div>
               </div>
-              <div className="text-center space-y-2">
-                <div className="text-4xl md:text-5xl font-bold text-teal-400">60%</div>
-                <div className="text-gray-400 text-sm tracking-wide uppercase">Reducción Costos Operacionales</div>
+              <div className="text-center space-y-4">
+                <div className="text-5xl md:text-6xl font-bold text-teal-400">35%</div>
+                <div className="text-gray-400 text-sm tracking-wide uppercase font-medium">Reducción Costos Operacionales</div>
               </div>
-              <div className="text-center space-y-2">
-                <div className="text-4xl md:text-5xl font-bold text-blue-400">18m</div>
-                <div className="text-gray-400 text-sm tracking-wide uppercase">Payback Period Promedio</div>
+              <div className="text-center space-y-4">
+                <div className="text-5xl md:text-6xl font-bold text-blue-400">12m</div>
+                <div className="text-gray-400 text-sm tracking-wide uppercase font-medium">ROI Break-Even Point</div>
               </div>
             </div>
           </div>
