@@ -1,11 +1,14 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Optimización de fuentes */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Lato:wght@300;400;500;600;700&display=swap');
+
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. */
 
 @layer base {
+  /* Variables CSS para mejor rendimiento */
   :root {
     --background: 0 0% 100%;
     --foreground: 210 54% 14%;
@@ -42,6 +45,62 @@
     --sixteam-teal: 168 100% 38%; /* #00bfa5 */
     --sixteam-navy: 210 54% 14%; /* #0a2342 */
     --sixteam-gray: 0 0% 88%; /* #e0e0e0 */
+
+    /* Font face optimizaciones */
+    html {
+      font-display: swap;
+      font-synthesis: none;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: 'Lato', system-ui, -apple-system, sans-serif;
+      font-display: swap;
+    }
+
+    /* Optimizaciones para títulos */
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+      font-display: swap;
+    }
+
+    /* Prevenir layout shift */
+    img {
+      height: auto;
+      max-width: 100%;
+    }
+
+    /* Optimizar transiciones */
+    * {
+      will-change: auto;
+    }
+
+    /* Reducir motion para usuarios que lo prefieren */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* Optimizar animaciones críticas */
+    .animate-pulse {
+      animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    .animate-ping {
+      animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+
+    /* Mejorar rendimiento de scroll */
+    .overflow-hidden {
+      contain: layout style paint;
+    }
   }
 
   .dark {
