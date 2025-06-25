@@ -78,17 +78,17 @@ const Index = () => {
         </div>
 
         {/* Contenido principal */}
-        <div className="container mx-auto px-6 relative z-10 min-h-screen flex items-center justify-center">
-          <div className="text-center max-w-5xl mx-auto space-y-16">
+        <div className="container mx-auto px-8 relative z-10 min-h-screen flex items-center justify-center">
+          <div className="text-center max-w-6xl mx-auto space-y-12">
             
             {/* Etiqueta profesional */}
-            <div className="inline-flex items-center gap-3 px-8 py-4 bg-gray-800/60 border border-gray-600/40 rounded-full backdrop-blur-sm">
+            <div className="inline-flex items-center gap-3 px-6 py-3 bg-gray-800/70 border border-gray-600/50 rounded-full backdrop-blur-sm">
               <div className="w-2 h-2 bg-teal-400 rounded-full"></div>
               <span className="text-gray-200 font-medium text-sm tracking-wide">SIXTEAM.PRO - ELITE AI AUTOMATION</span>
             </div>
 
             {/* Título principal profesional */}
-            <div className="space-y-8">
+            <div className="space-y-6">
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight">
                 <span className="text-white">Transformamos</span>
                 <br />
@@ -99,7 +99,7 @@ const Index = () => {
                 </span>
               </h1>
               
-              <div className="max-w-3xl mx-auto space-y-6">
+              <div className="max-w-4xl mx-auto space-y-4 pt-4">
                 <p className="text-xl md:text-2xl text-gray-300 leading-relaxed">
                   Especialistas en Revenue Operations con IA avanzada.
                 </p>
@@ -111,10 +111,10 @@ const Index = () => {
             </div>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center pt-8">
+            <div className="flex flex-col sm:flex-row gap-5 justify-center items-center pt-6">
               <Button 
                 onClick={handleWhatsAppClick}
-                className="px-10 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl"
+                className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl"
               >
                 <MessageCircle className="w-5 h-5 mr-3" />
                 Consultoría Estratégica Gratuita
@@ -122,24 +122,24 @@ const Index = () => {
               
               <Button 
                 variant="outline"
-                className="px-10 py-4 border-2 border-gray-600 text-gray-300 hover:bg-gray-800 hover:border-gray-500 rounded-lg font-semibold text-lg transition-all duration-300"
+                className="px-8 py-4 border-2 border-gray-600 text-gray-300 hover:bg-gray-800 hover:border-gray-500 rounded-lg font-semibold text-lg transition-all duration-300"
               >
                 Ver Casos de Éxito
               </Button>
             </div>
 
             {/* Métricas profesionales */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 pt-20">
-              <div className="text-center space-y-3">
-                <div className="text-5xl font-bold text-blue-400">500%</div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-16">
+              <div className="text-center space-y-2">
+                <div className="text-4xl md:text-5xl font-bold text-blue-400">500%</div>
                 <div className="text-gray-400 text-sm tracking-wide uppercase">Incremento ROI Promedio</div>
               </div>
-              <div className="text-center space-y-3">
-                <div className="text-5xl font-bold text-teal-400">24/7</div>
+              <div className="text-center space-y-2">
+                <div className="text-4xl md:text-5xl font-bold text-teal-400">24/7</div>
                 <div className="text-gray-400 text-sm tracking-wide uppercase">Automatización Inteligente</div>
               </div>
-              <div className="text-center space-y-3">
-                <div className="text-5xl font-bold text-blue-400">90%</div>
+              <div className="text-center space-y-2">
+                <div className="text-4xl md:text-5xl font-bold text-blue-400">90%</div>
                 <div className="text-gray-400 text-sm tracking-wide uppercase">Reducción Tareas Manuales</div>
               </div>
             </div>
@@ -356,17 +356,15 @@ const Index = () => {
             {services.map((service, index) => (
               <div key={index} className="group relative" style={{ animationDelay: `${index * 0.1}s` }}>
                 {/* Número de paso */}
-                <div className="absolute -top-4 -left-4 w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg z-10">
+                <div className="absolute -top-4 -left-4 w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg z-10">
                   {index + 1}
                 </div>
                 
                 {/* Card */}
-                <div className="relative bg-white border border-gray-200 rounded-2xl p-8 hover:border-blue-300 hover:shadow-xl transition-all duration-300 group-hover:-translate-y-2 h-full">
-                  {/* Gradiente sutil de fondo */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-transparent to-purple-50/50 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div className="relative bg-white border border-gray-200 rounded-xl p-8 hover:border-blue-300 hover:shadow-lg transition-all duration-300 h-full">
                   
                   <div className="relative">
-                    <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+                    <div className="w-16 h-16 bg-gray-800 rounded-lg flex items-center justify-center mx-auto mb-6">
                       <service.icon className="w-8 h-8 text-white" />
                     </div>
                     
@@ -380,7 +378,7 @@ const Index = () => {
                     
                     {/* Línea de conexión (excepto el último) */}
                     {index < services.length - 1 && (
-                      <div className="hidden lg:block absolute top-1/2 -right-4 w-8 h-px bg-gradient-to-r from-blue-400 to-purple-400 transform -translate-y-1/2"></div>
+                      <div className="hidden lg:block absolute top-1/2 -right-4 w-8 h-px bg-gray-300 transform -translate-y-1/2"></div>
                     )}
                   </div>
                 </div>
@@ -392,59 +390,55 @@ const Index = () => {
           <div className="text-center mt-16">
             <Button 
               onClick={handleWhatsAppClick}
-              className="group relative px-10 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-xl font-semibold text-lg transform hover:scale-105 transition-all duration-300 shadow-xl"
+              className="px-10 py-4 bg-gray-900 hover:bg-gray-800 text-white rounded-lg font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl"
             >
-              <div className="relative flex items-center gap-3">
-                <span>Iniciar Transformación</span>
-                <div className="w-2 h-2 bg-blue-200 rounded-full animate-pulse"></div>
-              </div>
+              <MessageCircle className="w-5 h-5 mr-3" />
+              Iniciar Transformación Empresarial
             </Button>
           </div>
         </div>
       </section>
 
-      {/* Elite Competitive Edge */}
-      <section className="relative py-32 bg-black overflow-hidden">
-        {/* Fondo con efectos de neón */}
+      {/* Ventajas Competitivas Empresariales */}
+      <section className="relative py-24 bg-gray-900 overflow-hidden">
+        {/* Fondo sutil empresarial */}
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-950/50 via-purple-950/50 to-green-950/50"></div>
-          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-black"></div>
+          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-600/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-teal-600/10 rounded-full blur-3xl"></div>
         </div>
 
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-6xl mx-auto">
-            {/* Título impactante */}
-            <div className="text-center mb-16">
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-500/10 border border-green-400/20 rounded-full mb-6">
-                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                <span className="text-green-400 font-medium">Ventaja Disruptiva</span>
+            {/* Título profesional */}
+            <div className="text-center mb-20 space-y-8">
+              <div className="inline-flex items-center gap-3 px-6 py-3 bg-gray-800/60 border border-gray-600/40 rounded-full">
+                <div className="w-2 h-2 bg-teal-400 rounded-full"></div>
+                <span className="text-gray-200 font-medium text-sm tracking-wide">VENTAJA COMPETITIVA</span>
               </div>
               
-              <h2 className="text-4xl md:text-6xl font-bold mb-6">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-8 leading-tight">
                 <span className="text-white">Lo que nos hace</span>
                 <br />
-                <span className="bg-gradient-to-r from-green-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
-                  Incomparables
-                </span>
+                <span className="text-blue-400">Únicos en el Mercado</span>
               </h2>
             </div>
 
-            {/* Grid de ventajas premium */}
+            {/* Grid empresarial */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               
               {/* Lado izquierdo - Texto principal */}
               <div className="space-y-8">
-                <div className="bg-gradient-to-r from-blue-900/30 to-purple-900/30 backdrop-blur-sm border border-blue-400/20 rounded-2xl p-8">
-                  <h3 className="text-2xl font-bold text-white mb-4">RevOps + IA de Vanguardia</h3>
+                <div className="bg-gray-800/60 backdrop-blur-sm border border-gray-600/40 rounded-xl p-8">
+                  <h3 className="text-2xl font-bold text-white mb-4">RevOps + IA Enterprise</h3>
                   <p className="text-lg text-gray-300 leading-relaxed">
                     No solo implementamos tecnología, creamos ecosistemas inteligentes que aprenden, 
-                    se adaptan y evolucionan con tu negocio. Nuestra metodología combina Revenue Operations 
-                    con inteligencia artificial de última generación.
+                    se adaptan y evolucionan con tu negocio. Metodología que combina Revenue Operations 
+                    con inteligencia artificial de nivel empresarial.
                   </p>
                 </div>
                 
-                <div className="bg-gradient-to-r from-purple-900/30 to-green-900/30 backdrop-blur-sm border border-purple-400/20 rounded-2xl p-8">
+                <div className="bg-gray-800/60 backdrop-blur-sm border border-gray-600/40 rounded-xl p-8">
                   <h3 className="text-2xl font-bold text-white mb-4">Arquitectura Escalable</h3>
                   <p className="text-lg text-gray-300 leading-relaxed">
                     Diseñamos infraestructuras tecnológicas que crecen contigo. Desde startups hasta 
@@ -458,29 +452,30 @@ const Index = () => {
                 {advantages.map((advantage, index) => (
                   <div 
                     key={index} 
-                    className="group flex items-center gap-4 p-4 bg-gray-900/40 backdrop-blur-sm border border-gray-700/50 rounded-xl hover:border-blue-400/50 transition-all duration-300"
+                    className="flex items-center gap-4 p-4 bg-gray-800/40 backdrop-blur-sm border border-gray-600/40 rounded-lg hover:border-blue-400/50 transition-all duration-300"
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
-                    <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <div className="w-12 h-12 bg-teal-600 rounded-full flex items-center justify-center">
                       <CheckCircle className="w-6 h-6 text-white" />
                     </div>
-                    <span className="text-gray-200 font-medium text-lg group-hover:text-white transition-colors">
+                    <span className="text-gray-200 font-medium text-lg">
                       {advantage}
                     </span>
                   </div>
                 ))}
                 
                 {/* CTA especial */}
-                <div className="mt-8 p-6 bg-gradient-to-r from-green-600/20 to-blue-600/20 border border-green-400/30 rounded-2xl">
-                  <div className="flex items-center justify-between">
+                <div className="mt-8 p-6 bg-gray-800/60 border border-gray-600/40 rounded-xl">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                     <div>
                       <h4 className="text-xl font-bold text-white mb-2">¿Listo para la transformación?</h4>
                       <p className="text-gray-300">Agenda una consultoría estratégica gratuita</p>
                     </div>
                     <Button 
                       onClick={handleWhatsAppClick}
-                      className="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white px-6 py-3 rounded-xl font-semibold transform hover:scale-105 transition-all"
+                      className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-all"
                     >
+                      <MessageCircle className="w-5 h-5 mr-2" />
                       Empezar Ahora
                     </Button>
                   </div>
