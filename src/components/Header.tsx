@@ -40,14 +40,14 @@ const Header = () => {
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
-            <div className="text-sm font-bold font-poppins tracking-tight">
+            <div className="text-sm font-bold font-poppins tracking-tight whitespace-nowrap">
               <span className="text-gray-800">Process</span>
               <span className="text-gray-800 mx-1">+</span>
               <span className="text-gray-800">Technology</span>
               <span className="text-gray-800 mx-1">+</span>
               <span className="text-blue-600">People</span>
               <span className="text-gray-800 mx-1">=</span>
-              <span className="text-green-600">Growth</span>
+              <span className="text-green-600 font-bold">Growth</span>
             </div>
             <span className="text-2xl font-poppins font-bold text-sixteam-navy">
               Sixteam.pro
