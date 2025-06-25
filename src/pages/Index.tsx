@@ -146,21 +146,14 @@ const Index = () => {
               </div>
             </div>
 
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center pt-8">
+            {/* CTA Button único a WhatsApp */}
+            <div className="flex justify-center items-center pt-8">
               <Button 
                 onClick={handleWhatsAppClick}
-                className="px-10 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl"
+                className="px-12 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
               >
                 <MessageCircle className="w-5 h-5 mr-3" />
                 Análisis Estratégico Ejecutivo (Gratis)
-              </Button>
-              
-              <Button 
-                variant="outline"
-                className="px-10 py-4 border-2 border-gray-600 text-gray-300 hover:bg-gray-800 hover:border-gray-500 rounded-lg font-semibold text-lg transition-all duration-300"
-              >
-                Ver ROI Casos Enterprise
               </Button>
             </div>
 
