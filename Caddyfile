@@ -1,0 +1,27 @@
+{
+    admin off
+}
+
+:80 {
+    root * /var/www/html
+    
+    # Configurar tipos MIME explícitamente
+    @js {
+        path *.js *.mjs
+    }
+    header @js Content-Type "application/javascript; charset=utf-8"
+    
+    @css {
+        path *.css
+    }
+    header @css Content-Type "text/css; charset=utf-8"
+    
+    # SPA fallback
+    try_files {path} /index.html
+    
+    file_server
+    
+    log {
+        output stdout
+    }
+} 
