@@ -24,14 +24,9 @@ export default defineConfig({
     },
     // Reducir el tamaño del chunk
     chunkSizeWarningLimit: 600,
-    // Minificar con terser para mejor compresión
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true,
-      },
-    },
+    // Usar esbuild en lugar de terser para mejor compatibilidad
+    minify: 'esbuild',
+    target: 'es2015',
   },
   // Optimizaciones de servidor de desarrollo
   server: {

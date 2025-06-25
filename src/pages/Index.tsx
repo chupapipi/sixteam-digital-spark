@@ -23,7 +23,7 @@ const Index = () => {
           if (entry.isIntersecting) {
             const interval = setInterval(() => {
               carouselApi.scrollNext();
-            }, 2000);
+            }, 1000);
 
             // Limpiar cuando el carrusel no esté visible
             return () => clearInterval(interval);
@@ -88,9 +88,59 @@ const Index = () => {
       alt: 'n8n Workflow Automation'
     },
     {
-      name: 'Sixteam',
-      src: '/logos/Logo-light.png',
-      alt: 'Sixteam Logo'
+      name: 'Zapier',
+      src: '/logos/zapier-logo-new.png',
+      alt: 'Zapier Automation'
+    },
+    {
+      name: 'Brevo',
+      src: '/logos/brevo.png',
+      alt: 'Brevo Email Marketing'
+    },
+    {
+      name: 'Google Ads',
+      src: '/logos/Google_Ads_logo.svg.png',
+      alt: 'Google Ads'
+    },
+    {
+      name: 'Meta Ads',
+      src: '/logos/ads meta_PNG12.png',
+      alt: 'Meta Facebook Ads'
+    },
+    {
+      name: 'Google Analytics',
+      src: '/logos/Logo_Google_Analytics.svg.png',
+      alt: 'Google Analytics'
+    },
+    {
+      name: 'WhatsApp Business',
+      src: '/logos/Whatsapp-Business-01-768x269.png',
+      alt: 'WhatsApp Business API'
+    },
+    {
+      name: 'Mailchimp',
+      src: '/logos/Mailchimp-logo.png',
+      alt: 'Mailchimp Email Marketing'
+    },
+    {
+      name: 'GoHighLevel',
+      src: '/logos/highlevel-logo.png',
+      alt: 'GoHighLevel CRM'
+    },
+    {
+      name: 'Kommo',
+      src: '/logos/kommo01.png',
+      alt: 'Kommo CRM'
+    },
+    {
+      name: 'Google Gemini',
+      src: '/logos/Google_Gemini_logo.svg.png',
+      alt: 'Google Gemini AI'
+    },
+    {
+      name: 'AtomChat',
+      src: '/logos/logo-atom-chat.png',
+      alt: 'AtomChat Live Chat'
     }
   ];
 
@@ -100,6 +150,21 @@ const Index = () => {
     'Integración inteligente entre plataformas',
     'Análisis predictivo y reportería avanzada',
     'Soporte especializado en RevOps'
+  ];
+
+  const pilarsOfValue = [
+    {
+      title: 'Diagnóstico y Estrategia a la Medida',
+      description: 'No aplicamos soluciones genéricas, invertimos tiempo en entender tu **operación** desde adentro, mapeando tus **flujos de trabajo** y entrevistando a tu equipo. Así podemos ofrecerte mejoras basadas en nuestra **experiencia** optimizando tu **eficiencia** y **rentabilidad**.'
+    },
+    {
+      title: 'Ecosistema RevOps + IA',
+      description: 'Para nosotros, **RevOps** no es un servicio, es la filosofía de alinear **Marketing**, **Ventas** y **Servicio** en una sola máquina de ingresos. Usamos la **IA** no solo para automatizar, sino para crear **ecosistemas** que aprenden, se adaptan y evolucionan contigo, asegurando que tu **inversión** de hoy sea relevante mañana.'
+    },
+    {
+      title: 'Arquitectura Abierta y Escalable',
+      description: 'No te atamos a una sola tecnología. Construimos tu solución integrando de forma inteligente las mejores **plataformas** del mercado (**Make**, **n8n**, **Zapier**, etc.) para crear una **arquitectura** que se adapta a ti, no al revés. Diseñamos sistemas que **crecen** contigo, desde pequeña hasta gran empresa.'
+    }
   ];
 
   const testimonials = [
@@ -242,15 +307,15 @@ const Index = () => {
                 decoding="async"
                 fetchPriority="high"
               />
-              <span className="text-gray-200 font-medium text-xs sm:text-sm tracking-wide">Sixteam</span>
+              <span className="text-gray-200 font-medium text-xs sm:text-sm tracking-wide">Sixteam.pro</span>
             </div>
 
             {/* Título principal profesional */}
             <div className="space-y-4 sm:space-y-6 lg:space-y-8">
               <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold leading-tight tracking-tight px-4 sm:px-0">
-                <span className="text-white">¿Tus procesos de marketing</span>
+                <span className="text-white">¿Tus procesos</span>
                 <br />
-                <span className="text-gray-300">y ventas te están</span>
+                <span className="text-gray-300">comerciales te están</span>
                 <br />
                 <span className="bg-gradient-to-r from-blue-400 to-teal-400 bg-clip-text text-transparent">
                   impidiendo crecer?
@@ -258,11 +323,11 @@ const Index = () => {
               </h1>
               
               <div className="max-w-5xl mx-auto space-y-4 sm:space-y-6 pt-4 sm:pt-6 px-4 sm:px-6 lg:px-0">
-                <p className="text-lg sm:text-xl lg:text-2xl text-gray-300 leading-relaxed">
-                  Multiplica tu ROI con Revenue Operations + IA
+                <p className="text-xl sm:text-2xl lg:text-3xl text-gray-300 leading-relaxed font-medium">
+                  Integramos áreas de Marketing, ventas y servicio bajo una estrategia de RevOps potenciada con IA
                 </p>
                 <p className="text-base sm:text-lg text-gray-400 leading-relaxed">
-                  En Sixteam combinamos Procesos, Tecnología y Personas para que puedas enfocarte en el crecimiento de tu negocio
+                  En Sixteam.pro combinamos Procesos, Tecnología y Personas para que puedas enfocarte en el crecimiento de tu negocio
                 </p>
               </div>
             </div>
@@ -274,28 +339,11 @@ const Index = () => {
                 className="w-full sm:w-auto px-6 sm:px-8 lg:px-12 py-3 sm:py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold text-base sm:text-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 max-w-sm sm:max-w-none"
               >
                 <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3" />
-                <span className="text-sm sm:text-base lg:text-lg">Análisis Estratégico Ejecutivo (Gratis)</span>
+                <span className="text-sm sm:text-base lg:text-lg">Solicita un Diagnóstico Inicial SIN COSTO</span>
               </Button>
             </div>
 
-            {/* Métricas específicas RevOps + IA */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-16 pt-12 sm:pt-16 lg:pt-24 pb-8 sm:pb-12 lg:pb-16 px-4 sm:px-0">
-              <div className="text-center space-y-3 sm:space-y-4 p-4 sm:p-6 bg-gray-800/30 rounded-xl border border-gray-700/30">
-                <div className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-blue-400">40%</div>
-                <div className="text-gray-300 text-xs sm:text-sm tracking-wide uppercase font-medium px-2">Reducción CAC (Customer Acquisition Cost)</div>
-                <div className="text-gray-500 text-xs">vs. procesos manuales tradicionales</div>
-              </div>
-              <div className="text-center space-y-3 sm:space-y-4 p-4 sm:p-6 bg-gray-800/30 rounded-xl border border-gray-700/30">
-                <div className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-teal-400">3.2x</div>
-                <div className="text-gray-300 text-xs sm:text-sm tracking-wide uppercase font-medium px-2">Incremento en Lead-to-Customer Rate</div>
-                <div className="text-gray-500 text-xs">con scoring predictivo + nurturing IA</div>
-              </div>
-              <div className="text-center space-y-3 sm:space-y-4 p-4 sm:p-6 bg-gray-800/30 rounded-xl border border-gray-700/30 sm:col-span-2 lg:col-span-1">
-                <div className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-blue-400">85%</div>
-                <div className="text-gray-300 text-xs sm:text-sm tracking-wide uppercase font-medium px-2">Automatización Sales Pipeline</div>
-                <div className="text-gray-500 text-xs">desde lead capture hasta customer success</div>
-              </div>
-            </div>
+
           </div>
         </div>
       </section>
@@ -314,8 +362,12 @@ const Index = () => {
           {/* Título de sección para C-Level */}
           <div className="text-center mb-12 sm:mb-16 lg:mb-20 space-y-6 sm:space-y-8">
             <div className="inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2 sm:py-3 bg-gray-100 border border-gray-200 rounded-full">
-              <div className="w-2 h-2 bg-teal-600 rounded-full"></div>
-              <span className="text-gray-700 font-medium text-xs sm:text-sm tracking-wide">VENTAJA COMPETITIVA DECISIVA</span>
+              <img 
+                src="/lovable-uploads/3b066a0e-1bea-4907-b036-3b460d543754.png" 
+                alt="Sixteam.pro Logo"
+                className="w-4 h-4 sm:w-5 sm:h-5"
+              />
+              <span className="text-gray-700 font-medium text-xs sm:text-sm tracking-wide">Sixteam.pro</span>
             </div>
             
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-6 sm:mb-8 text-gray-900 leading-tight px-4 sm:px-0">
@@ -326,10 +378,58 @@ const Index = () => {
             
             <div className="max-w-4xl mx-auto space-y-4 sm:space-y-6 px-4 sm:px-6 lg:px-0">
               <p className="text-lg sm:text-xl text-gray-600 leading-relaxed">
-                Transformamos la operación digital de tu empresa con tecnología que conecta todas tus áreas, reduce costos y te permite tomar decisiones inteligentes en tiempo real.
+                Transformamos tu negocio con estrategia de Operaciones de Ingresos (Revenue Operations) y tecnología que conecta todas tus áreas, reduce costos, optimiza procesos y te permite tomar decisiones informadas en tiempo real.
               </p>
               <p className="text-base sm:text-lg text-gray-500 leading-relaxed">
                 Implementamos procesos avanzados, desde la calificación automática de leads hasta la gestión proactiva de clientes, para que aumentes el valor de cada cliente y bajes tus costos de adquisición.
+              </p>
+
+              {/* Métricas específicas RevOps + IA */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-12 pt-8 sm:pt-12 px-4 sm:px-0">
+                <div className="text-center space-y-3 sm:space-y-4 p-4 sm:p-6 bg-gray-100 rounded-xl border border-gray-200">
+                  <div className="text-3xl sm:text-4xl lg:text-5xl font-bold text-blue-600">40%</div>
+                  <div className="text-gray-700 text-xs sm:text-sm tracking-wide uppercase font-medium px-2">Reducción CAC (Customer Acquisition Cost)</div>
+                  <div className="text-gray-500 text-xs">vs. procesos manuales tradicionales</div>
+                </div>
+                <div className="text-center space-y-3 sm:space-y-4 p-4 sm:p-6 bg-gray-100 rounded-xl border border-gray-200">
+                  <div className="text-3xl sm:text-4xl lg:text-5xl font-bold text-teal-600">3.2x</div>
+                  <div className="text-gray-700 text-xs sm:text-sm tracking-wide uppercase font-medium px-2">Incremento en Lead-to-Customer Rate</div>
+                  <div className="text-gray-500 text-xs">con scoring predictivo + nurturing IA</div>
+                </div>
+                <div className="text-center space-y-3 sm:space-y-4 p-4 sm:p-6 bg-gray-100 rounded-xl border border-gray-200 sm:col-span-2 lg:col-span-1">
+                  <div className="text-3xl sm:text-4xl lg:text-5xl font-bold text-blue-600">85%</div>
+                  <div className="text-gray-700 text-xs sm:text-sm tracking-wide uppercase font-medium px-2">Automatización Sales Pipeline</div>
+                  <div className="text-gray-500 text-xs">desde lead capture hasta customer success</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </section>
+
+      {/* Nueva sección: Nuestro Ciclo de Servicio */}
+      <section className="relative py-12 sm:py-16 lg:py-24 bg-gray-50 overflow-hidden">
+        {/* Fondo sutil */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0" style={{
+            backgroundImage: 'radial-gradient(circle, rgba(100, 116, 139, 0.08) 1px, transparent 1px)',
+            backgroundSize: '32px 32px'
+          }}></div>
+        </div>
+
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          {/* Título de la nueva sección */}
+          <div className="text-center mb-12 sm:mb-16 lg:mb-20 space-y-6 sm:space-y-8">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-6 sm:mb-8 text-gray-900 leading-tight px-4 sm:px-0">
+              Nuestro Ciclo de Servicio para tu
+              <br />
+              <span className="text-blue-600">Transformación Digital</span>
+            </h2>
+            
+            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-0">
+              <p className="text-lg sm:text-xl text-gray-600 leading-relaxed">
+                Entendemos que la verdadera transformación digital no se logra de manera aislada, sino con un socio estratégico que facilite este proceso. Por eso, diseñamos un ciclo de servicio para acompañarte en cada etapa y garantizar el resultado deseado.
               </p>
             </div>
           </div>
@@ -362,7 +462,7 @@ const Index = () => {
               className="w-full sm:w-auto px-8 sm:px-12 py-3 sm:py-4 bg-gray-900 hover:bg-gray-800 text-white rounded-lg font-semibold text-base sm:text-lg lg:text-xl transition-all duration-300 shadow-lg hover:shadow-xl max-w-md sm:max-w-none"
             >
               <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3" />
-              <span className="text-sm sm:text-base lg:text-lg">Consultoría C-Level: ROI & Growth Strategy</span>
+              <span className="text-sm sm:text-base lg:text-lg">Conoce más sobre estos servicios</span>
             </Button>
           </div>
         </div>
@@ -417,7 +517,7 @@ const Index = () => {
                   <CarouselItem key={index} className="pl-2 md:pl-4 basis-1/2 md:basis-1/4 lg:basis-1/5">
                     <div className="p-1">
                       <Card className="border-0 shadow-md hover:shadow-lg transition-all duration-300 bg-white/80 backdrop-blur-sm">
-                        <CardContent className="flex items-center justify-center p-4 overflow-hidden" style={{ aspectRatio: '4/3' }}>
+                        <CardContent className="flex items-center justify-center p-3 overflow-hidden" style={{ aspectRatio: '4/3' }}>
                           <img
                             src={logo.src}
                             alt={logo.alt}
@@ -425,10 +525,10 @@ const Index = () => {
                             decoding="async"
                             className="object-contain hover:scale-110 transition-all duration-300"
                             style={{
-                              maxWidth: '100px',
-                              maxHeight: '70px',
-                              width: '80%',
-                              height: '80%'
+                              maxWidth: '140px',
+                              maxHeight: '100px',
+                              width: '95%',
+                              height: '95%'
                             }}
                           />
                         </CardContent>
@@ -455,7 +555,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Ventajas Competitivas Empresariales */}
+      {/* Más que implementadores, tus Socios Estratégicos */}
       <section className="relative py-12 sm:py-16 lg:py-24 bg-gray-900 overflow-hidden">
         {/* Fondo sutil empresarial */}
         <div className="absolute inset-0">
@@ -469,38 +569,51 @@ const Index = () => {
             {/* Título profesional */}
             <div className="text-center mb-12 sm:mb-16 lg:mb-20 space-y-6 sm:space-y-8">
               <div className="inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2 sm:py-3 bg-gray-800/60 border border-gray-600/40 rounded-full">
-                <div className="w-2 h-2 bg-teal-400 rounded-full"></div>
-                <span className="text-gray-200 font-medium text-xs sm:text-sm tracking-wide">VENTAJA COMPETITIVA</span>
+                <img 
+                  src="/lovable-uploads/3b066a0e-1bea-4907-b036-3b460d543754.png" 
+                  alt="Sixteam.pro Logo"
+                  className="w-4 h-4 sm:w-5 sm:h-5"
+                />
+                <span className="text-gray-200 font-medium text-xs sm:text-sm tracking-wide">Sixteam.pro</span>
               </div>
               
               <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-6 sm:mb-8 leading-tight px-4 sm:px-0">
-                <span className="text-white">Lo que nos hace</span>
+                <span className="text-white">Más que implementadores,</span>
                 <br />
-                <span className="text-blue-400">Únicos en el Mercado</span>
+                <span className="text-blue-400">tus Socios Estratégicos</span>
               </h2>
+
+              {/* Párrafo introductorio */}
+              <div className="max-w-5xl mx-auto space-y-4 sm:space-y-6 px-4 sm:px-6 lg:px-0">
+                <p className="text-lg sm:text-xl text-gray-300 leading-relaxed">
+                  En el mercado encontrarás muchas empresas que implementan tecnología. Nuestra verdadera diferencia no radica en las herramientas que usamos, sino en cómo nos integramos con tu equipo.
+                </p>
+                <p className="text-lg sm:text-xl text-gray-300 leading-relaxed">
+                  Antes de implementar cualquier <span className="text-blue-400 font-semibold">herramienta tecnológica</span>, nos dedicamos a conocer a fondo los detalles de tus <span className="text-blue-400 font-semibold">procesos</span>, los desafíos del <span className="text-blue-400 font-semibold">personal</span> y tus objetivos estratégicos.
+                </p>
+                <p className="text-lg sm:text-xl text-gray-300 leading-relaxed">
+                  Esto nos permite crear soluciones que se sienten como una extensión de tu propia empresa:
+                </p>
+              </div>
             </div>
 
             {/* Grid empresarial */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-start">
               
-              {/* Lado izquierdo - Texto principal */}
+              {/* Lado izquierdo - Pilares de Valor */}
               <div className="space-y-6 sm:space-y-8 px-4 sm:px-0">
-                <div className="bg-gray-800/60 backdrop-blur-sm border border-gray-600/40 rounded-xl p-6 sm:p-8">
-                  <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4">RevOps + IA Enterprise</h3>
-                  <p className="text-base sm:text-lg text-gray-300 leading-relaxed">
-                    No solo implementamos tecnología, creamos ecosistemas inteligentes que aprenden, 
-                    se adaptan y evolucionan con tu negocio. Metodología que combina Revenue Operations 
-                    con inteligencia artificial de nivel empresarial.
-                  </p>
-                </div>
+                <h3 className="text-2xl sm:text-3xl font-bold text-white mb-6">Pilares de Valor</h3>
                 
-                <div className="bg-gray-800/60 backdrop-blur-sm border border-gray-600/40 rounded-xl p-6 sm:p-8">
-                  <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4">Arquitectura Escalable</h3>
-                  <p className="text-base sm:text-lg text-gray-300 leading-relaxed">
-                    Diseñamos infraestructuras tecnológicas que crecen contigo. Desde startups hasta 
-                    enterprise, nuestras soluciones se escalan automáticamente según tus necesidades.
-                  </p>
-                </div>
+                {pilarsOfValue.map((pilar, index) => (
+                  <div key={index} className="bg-gray-800/60 backdrop-blur-sm border border-gray-600/40 rounded-xl p-6 sm:p-8">
+                    <h4 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4">{pilar.title}</h4>
+                    <p className="text-base sm:text-lg text-gray-300 leading-relaxed">
+                      {pilar.description.split('**').map((part, i) => 
+                        i % 2 === 0 ? part : <span key={i} className="text-blue-400 font-semibold">{part}</span>
+                      )}
+                    </p>
+                  </div>
+                ))}
               </div>
               
               {/* Lado derecho - Lista de ventajas */}
