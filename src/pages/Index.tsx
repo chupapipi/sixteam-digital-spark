@@ -58,111 +58,89 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-white font-lato">
       
-      {/* Hero Section Ultra Moderno */}
-      <section className="relative min-h-screen bg-black text-white overflow-hidden">
-        {/* Fondo con partículas y neón */}
+      {/* Hero Section Profesional */}
+      <section className="relative min-h-screen bg-gray-900 text-white overflow-hidden">
+        {/* Fondo sutil y profesional */}
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-950 via-purple-950 to-black opacity-90"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-black"></div>
           <div className="absolute inset-0" style={{
-            backgroundImage: `radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.3) 0%, transparent 50%),
-                             radial-gradient(circle at 80% 20%, rgba(147, 51, 234, 0.3) 0%, transparent 50%),
-                             radial-gradient(circle at 40% 80%, rgba(16, 185, 129, 0.2) 0%, transparent 50%)`
+            backgroundImage: `radial-gradient(circle at 30% 50%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
+                             radial-gradient(circle at 70% 30%, rgba(16, 120, 120, 0.06) 0%, transparent 50%)`
           }}></div>
         </div>
 
-        {/* Grid de fondo futurista */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="grid grid-cols-12 gap-4 h-full w-full">
-            {Array.from({length: 48}).map((_, i) => (
-              <div key={i} className="border border-blue-400/20 animate-pulse" style={{animationDelay: `${i * 0.1}s`}}></div>
-            ))}
-          </div>
-        </div>
-
-        {/* Líneas de datos flotantes */}
-        <div className="absolute inset-0 overflow-hidden">
-          {Array.from({length: 5}).map((_, i) => (
-            <div
-              key={i}
-              className="absolute h-px bg-gradient-to-r from-transparent via-blue-400 to-transparent opacity-30 animate-pulse"
-              style={{
-                top: `${20 + i * 15}%`,
-                left: '-100%',
-                width: '200%',
-                animationDuration: `${3 + i}s`,
-                animationDelay: `${i * 0.5}s`
-              }}
-            ></div>
-          ))}
+        {/* Grid sutil de fondo */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0" style={{
+            backgroundImage: 'radial-gradient(circle, rgba(100, 116, 139, 0.3) 1px, transparent 1px)',
+            backgroundSize: '48px 48px'
+          }}></div>
         </div>
 
         {/* Contenido principal */}
-        <div className="container mx-auto px-4 relative z-10 min-h-screen flex items-center justify-center">
-          <div className="text-center max-w-6xl mx-auto space-y-12">
+        <div className="container mx-auto px-6 relative z-10 min-h-screen flex items-center justify-center">
+          <div className="text-center max-w-5xl mx-auto space-y-16">
             
-            {/* Etiqueta premium */}
-            <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-blue-400/30 rounded-full backdrop-blur-sm">
-              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-              <span className="text-blue-300 font-medium">Elite AI Automation Agency</span>
+            {/* Etiqueta profesional */}
+            <div className="inline-flex items-center gap-3 px-8 py-4 bg-gray-800/60 border border-gray-600/40 rounded-full backdrop-blur-sm">
+              <div className="w-2 h-2 bg-teal-400 rounded-full"></div>
+              <span className="text-gray-200 font-medium text-sm tracking-wide">SIXTEAM.PRO - ELITE AI AUTOMATION</span>
             </div>
 
-            {/* Título principal impactante */}
-            <div className="space-y-6">
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight">
-                <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-green-400 bg-clip-text text-transparent">
-                  Transformamos
-                </span>
+            {/* Título principal profesional */}
+            <div className="space-y-8">
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight">
+                <span className="text-white">Transformamos</span>
                 <br />
-                <span className="text-white">tu negocio con</span>
+                <span className="text-gray-300">empresas con</span>
                 <br />
-                <span className="bg-gradient-to-r from-green-400 via-blue-400 to-purple-400 bg-clip-text text-transparent animate-pulse">
+                <span className="bg-gradient-to-r from-blue-400 to-teal-400 bg-clip-text text-transparent">
                   IA & Automatización
                 </span>
               </h1>
               
-              <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
-                Implementamos ecosistemas de inteligencia artificial que revolucionan procesos, 
-                multiplican resultados y escalan tu empresa al siguiente nivel tecnológico.
-              </p>
+              <div className="max-w-3xl mx-auto space-y-6">
+                <p className="text-xl md:text-2xl text-gray-300 leading-relaxed">
+                  Especialistas en Revenue Operations con IA avanzada.
+                </p>
+                <p className="text-lg text-gray-400 leading-relaxed">
+                  Implementamos ecosistemas inteligentes que automatizan procesos, 
+                  cualifican leads y escalan tu negocio de forma exponencial.
+                </p>
+              </div>
             </div>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center pt-8">
               <Button 
                 onClick={handleWhatsAppClick}
-                className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-xl font-semibold text-lg transform hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-purple-500/25"
+                className="px-10 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-400 rounded-xl blur opacity-30 group-hover:opacity-50 transition-opacity"></div>
-                <div className="relative flex items-center gap-3">
-                  <MessageCircle className="w-6 h-6" />
-                  Consultoría Gratuita IA
-                </div>
+                <MessageCircle className="w-5 h-5 mr-3" />
+                Consultoría Estratégica Gratuita
               </Button>
               
               <Button 
                 variant="outline"
-                className="group px-8 py-4 border-2 border-blue-400/50 text-blue-300 hover:bg-blue-400/10 rounded-xl font-semibold text-lg backdrop-blur-sm transition-all duration-300"
+                className="px-10 py-4 border-2 border-gray-600 text-gray-300 hover:bg-gray-800 hover:border-gray-500 rounded-lg font-semibold text-lg transition-all duration-300"
               >
-                <div className="flex items-center gap-3">
-                  <span>Ver Casos de Éxito</span>
-                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                </div>
+                Ver Casos de Éxito
               </Button>
             </div>
 
-            {/* Métricas impresionantes */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-16">
-              <div className="text-center space-y-2">
-                <div className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-green-400 bg-clip-text text-transparent">500%</div>
-                <div className="text-gray-400">Incremento en ROI promedio</div>
+            {/* Métricas profesionales */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 pt-20">
+              <div className="text-center space-y-3">
+                <div className="text-5xl font-bold text-blue-400">500%</div>
+                <div className="text-gray-400 text-sm tracking-wide uppercase">Incremento ROI Promedio</div>
               </div>
-              <div className="text-center space-y-2">
-                <div className="text-4xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">24/7</div>
-                <div className="text-gray-400">Automatización inteligente</div>
+              <div className="text-center space-y-3">
+                <div className="text-5xl font-bold text-teal-400">24/7</div>
+                <div className="text-gray-400 text-sm tracking-wide uppercase">Automatización Inteligente</div>
               </div>
-              <div className="text-center space-y-2">
-                <div className="text-4xl font-bold bg-gradient-to-r from-green-400 to-purple-400 bg-clip-text text-transparent">90%</div>
-                <div className="text-gray-400">Reducción de tareas manuales</div>
+              <div className="text-center space-y-3">
+                <div className="text-5xl font-bold text-blue-400">90%</div>
+                <div className="text-gray-400 text-sm tracking-wide uppercase">Reducción Tareas Manuales</div>
               </div>
             </div>
           </div>
@@ -182,72 +160,75 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Ecosistema de IA - Premium Section */}
-      <section className="relative py-32 bg-gradient-to-b from-black via-gray-900 to-black overflow-hidden">
-        {/* Fondo con partículas */}
+      {/* Ecosistema de IA - Sección Profesional */}
+      <section className="relative py-24 bg-white overflow-hidden">
+        {/* Fondo sutil */}
         <div className="absolute inset-0">
           <div className="absolute inset-0" style={{
-            backgroundImage: 'radial-gradient(circle, rgba(59, 130, 246, 0.05) 1px, transparent 1px)',
-            backgroundSize: '60px 60px'
+            backgroundImage: 'radial-gradient(circle, rgba(100, 116, 139, 0.08) 1px, transparent 1px)',
+            backgroundSize: '32px 32px'
           }}></div>
         </div>
 
-        <div className="container mx-auto px-4 relative z-10">
-          {/* Título de sección élite */}
-          <div className="text-center mb-20">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/10 border border-blue-400/20 rounded-full mb-6">
-              <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
-              <span className="text-blue-400 font-medium">Tecnología de Vanguardia</span>
+        <div className="container mx-auto px-6 relative z-10">
+          {/* Título de sección profesional */}
+          <div className="text-center mb-20 space-y-8">
+            <div className="inline-flex items-center gap-3 px-6 py-3 bg-gray-100 border border-gray-200 rounded-full">
+              <div className="w-2 h-2 bg-teal-600 rounded-full"></div>
+              <span className="text-gray-700 font-medium text-sm tracking-wide">TECNOLOGÍA EMPRESARIAL</span>
             </div>
             
-            <h2 className="text-4xl md:text-6xl font-bold mb-6">
-              <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-green-400 bg-clip-text text-transparent">
-                Ecosistema IA
-              </span>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-8 text-gray-900 leading-tight">
+              Ecosistema IA
               <br />
-              <span className="text-white">de Clase Mundial</span>
+              <span className="text-blue-600">de Clase Mundial</span>
             </h2>
             
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              Implementamos arquitecturas de inteligencia artificial que transforman completamente 
-              la operación de tu empresa, desde la captación hasta la retención de clientes.
-            </p>
+            <div className="max-w-4xl mx-auto space-y-6">
+              <p className="text-xl text-gray-600 leading-relaxed">
+                Implementamos arquitecturas de inteligencia artificial enterprise que transforman 
+                completamente la operación de tu empresa.
+              </p>
+              <p className="text-lg text-gray-500 leading-relaxed">
+                Desde la captación automatizada hasta la retención inteligente de clientes, 
+                nuestro ecosistema integra todas las áreas de tu negocio.
+              </p>
+            </div>
           </div>
           
-          {/* Grid de servicios premium */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+          {/* Grid de servicios profesionales */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-20">
             
             {/* Card 1 - IA Conversacional */}
             <div className="group relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl blur opacity-20 group-hover:opacity-40 transition-opacity"></div>
-              <div className="relative bg-gray-900/80 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-8 hover:border-blue-400/50 transition-all duration-300">
-                <div className="flex items-center justify-between mb-6">
-                  <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl flex items-center justify-center">
+              <div className="bg-white border border-gray-200 rounded-xl p-8 hover:border-blue-300 hover:shadow-lg transition-all duration-300">
+                <div className="flex items-center justify-between mb-8">
+                  <div className="w-16 h-16 bg-blue-600 rounded-lg flex items-center justify-center">
                     <Bot className="w-8 h-8 text-white" />
                   </div>
-                  <div className="px-3 py-1 bg-green-500/20 text-green-400 text-xs font-medium rounded-full">
-                    AVANZADO
+                  <div className="px-4 py-2 bg-teal-100 text-teal-700 text-xs font-semibold rounded-full tracking-wide">
+                    ENTERPRISE
                   </div>
                 </div>
                 
-                <h3 className="text-2xl font-bold text-white mb-4">IA Conversacional Elite</h3>
-                <p className="text-gray-300 mb-6 leading-relaxed">
-                  Chatbots con GPT-4 que comprenden contexto, cualifican leads perfectamente 
-                  y manejan consultas complejas como un experto humano.
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">IA Conversacional GPT-4</h3>
+                <p className="text-gray-600 mb-8 leading-relaxed">
+                  Chatbots inteligentes que comprenden contexto, cualifican leads automáticamente 
+                  y manejan consultas complejas con precisión empresarial.
                 </p>
                 
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2 text-sm text-gray-400">
-                    <div className="w-1.5 h-1.5 bg-blue-400 rounded-full"></div>
-                    <span>Procesamiento de lenguaje natural</span>
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3 text-sm text-gray-700">
+                    <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
+                    <span>Procesamiento de lenguaje natural avanzado</span>
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-gray-400">
-                    <div className="w-1.5 h-1.5 bg-purple-400 rounded-full"></div>
-                    <span>Integración multi-plataforma</span>
+                  <div className="flex items-center gap-3 text-sm text-gray-700">
+                    <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
+                    <span>Integración CRM y marketing automation</span>
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-gray-400">
-                    <div className="w-1.5 h-1.5 bg-green-400 rounded-full"></div>
-                    <span>Aprendizaje continuo</span>
+                  <div className="flex items-center gap-3 text-sm text-gray-700">
+                    <div className="w-2 h-2 bg-teal-600 rounded-full"></div>
+                    <span>Aprendizaje continuo y optimización</span>
                   </div>
                 </div>
               </div>
@@ -255,35 +236,34 @@ const Index = () => {
 
             {/* Card 2 - Automatización */}
             <div className="group relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-green-600 rounded-2xl blur opacity-20 group-hover:opacity-40 transition-opacity"></div>
-              <div className="relative bg-gray-900/80 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-8 hover:border-purple-400/50 transition-all duration-300">
-                <div className="flex items-center justify-between mb-6">
-                  <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-green-500 rounded-xl flex items-center justify-center">
+              <div className="bg-white border border-gray-200 rounded-xl p-8 hover:border-blue-300 hover:shadow-lg transition-all duration-300">
+                <div className="flex items-center justify-between mb-8">
+                  <div className="w-16 h-16 bg-gray-800 rounded-lg flex items-center justify-center">
                     <Zap className="w-8 h-8 text-white" />
                   </div>
-                  <div className="px-3 py-1 bg-purple-500/20 text-purple-400 text-xs font-medium rounded-full">
-                    ENTERPRISE
+                  <div className="px-4 py-2 bg-blue-100 text-blue-700 text-xs font-semibold rounded-full tracking-wide">
+                    AVANZADO
                   </div>
                 </div>
                 
-                <h3 className="text-2xl font-bold text-white mb-4">Hiperrautomatización</h3>
-                <p className="text-gray-300 mb-6 leading-relaxed">
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">Hiperrautomatización</h3>
+                <p className="text-gray-600 mb-8 leading-relaxed">
                   Flujos de trabajo inteligentes que conectan todas tus herramientas, 
-                  eliminan tareas repetitivas y escalan operaciones infinitamente.
+                  eliminan tareas repetitivas y escalan operaciones automáticamente.
                 </p>
                 
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2 text-sm text-gray-400">
-                    <div className="w-1.5 h-1.5 bg-purple-400 rounded-full"></div>
-                    <span>Make.com & Zapier Pro</span>
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3 text-sm text-gray-700">
+                    <div className="w-2 h-2 bg-gray-800 rounded-full"></div>
+                    <span>Make.com, Zapier & n8n Enterprise</span>
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-gray-400">
-                    <div className="w-1.5 h-1.5 bg-green-400 rounded-full"></div>
-                    <span>API personalizada</span>
+                  <div className="flex items-center gap-3 text-sm text-gray-700">
+                    <div className="w-2 h-2 bg-gray-800 rounded-full"></div>
+                    <span>APIs personalizadas y webhooks</span>
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-gray-400">
-                    <div className="w-1.5 h-1.5 bg-blue-400 rounded-full"></div>
-                    <span>Monitoreo en tiempo real</span>
+                  <div className="flex items-center gap-3 text-sm text-gray-700">
+                    <div className="w-2 h-2 bg-teal-600 rounded-full"></div>
+                    <span>Monitoreo y analítica en tiempo real</span>
                   </div>
                 </div>
               </div>
@@ -291,84 +271,84 @@ const Index = () => {
 
             {/* Card 3 - Integraciones */}
             <div className="group relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-green-600 to-blue-600 rounded-2xl blur opacity-20 group-hover:opacity-40 transition-opacity"></div>
-              <div className="relative bg-gray-900/80 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-8 hover:border-green-400/50 transition-all duration-300">
-                <div className="flex items-center justify-between mb-6">
-                  <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-blue-500 rounded-xl flex items-center justify-center">
+              <div className="bg-white border border-gray-200 rounded-xl p-8 hover:border-blue-300 hover:shadow-lg transition-all duration-300">
+                <div className="flex items-center justify-between mb-8">
+                  <div className="w-16 h-16 bg-teal-600 rounded-lg flex items-center justify-center">
                     <Settings className="w-8 h-8 text-white" />
                   </div>
-                  <div className="px-3 py-1 bg-blue-500/20 text-blue-400 text-xs font-medium rounded-full">
-                    CUSTOM
+                  <div className="px-4 py-2 bg-gray-100 text-gray-700 text-xs font-semibold rounded-full tracking-wide">
+                    PERSONALIZADO
                   </div>
                 </div>
                 
-                <h3 className="text-2xl font-bold text-white mb-4">Stack Tecnológico Total</h3>
-                <p className="text-gray-300 mb-6 leading-relaxed">
-                  Integración completa de CRM, marketing automation, analítica avanzada 
-                  y todas las herramientas que necesitas en un ecosistema unificado.
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">Stack Tecnológico Completo</h3>
+                <p className="text-gray-600 mb-8 leading-relaxed">
+                  Integración total de CRM, marketing automation, analítica avanzada 
+                  y todas las herramientas empresariales en un ecosistema unificado.
                 </p>
                 
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2 text-sm text-gray-400">
-                    <div className="w-1.5 h-1.5 bg-green-400 rounded-full"></div>
-                    <span>HubSpot, Salesforce, Pipedrive</span>
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3 text-sm text-gray-700">
+                    <div className="w-2 h-2 bg-teal-600 rounded-full"></div>
+                    <span>HubSpot, Salesforce, Pipedrive CRM</span>
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-gray-400">
-                    <div className="w-1.5 h-1.5 bg-blue-400 rounded-full"></div>
-                    <span>Marketing automation completo</span>
+                  <div className="flex items-center gap-3 text-sm text-gray-700">
+                    <div className="w-2 h-2 bg-teal-600 rounded-full"></div>
+                    <span>Marketing automation & email flows</span>
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-gray-400">
-                    <div className="w-1.5 h-1.5 bg-purple-400 rounded-full"></div>
-                    <span>Business Intelligence & BI</span>
+                  <div className="flex items-center gap-3 text-sm text-gray-700">
+                    <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
+                    <span>Business Intelligence & dashboards</span>
                   </div>
                 </div>
               </div>
             </div>
           </div>
           
-          {/* CTA Premium */}
+          {/* CTA Profesional */}
           <div className="text-center">
             <Button 
               onClick={handleWhatsAppClick}
-              className="group relative px-12 py-4 bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white rounded-xl font-bold text-xl transform hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-green-500/25"
+              className="px-12 py-4 bg-gray-900 hover:bg-gray-800 text-white rounded-lg font-semibold text-xl transition-all duration-300 shadow-lg hover:shadow-xl"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-green-400 to-blue-400 rounded-xl blur opacity-30 group-hover:opacity-50 transition-opacity"></div>
-              <div className="relative flex items-center gap-3">
-                <span>Implementar Ecosistema IA</span>
-                <div className="w-2 h-2 bg-green-300 rounded-full animate-pulse"></div>
-              </div>
+              <MessageCircle className="w-6 h-6 mr-3" />
+              Implementar Ecosistema IA Enterprise
             </Button>
           </div>
         </div>
       </section>
 
-      {/* Metodología Élite */}
-      <section className="relative py-32 bg-gradient-to-b from-white via-gray-50 to-white overflow-hidden">
-        {/* Elementos decorativos */}
+      {/* Metodología Empresarial */}
+      <section className="relative py-24 bg-gray-50 overflow-hidden">
+        {/* Elementos decorativos sutiles */}
         <div className="absolute inset-0">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-blue-100 rounded-full opacity-50 blur-3xl"></div>
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-100 rounded-full opacity-50 blur-3xl"></div>
+          <div className="absolute top-20 left-10 w-64 h-64 bg-blue-100/30 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-20 right-10 w-80 h-80 bg-teal-100/30 rounded-full blur-3xl"></div>
         </div>
 
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="text-center mb-20">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 border border-blue-200 rounded-full mb-6">
-              <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
-              <span className="text-blue-600 font-medium">Metodología Probada</span>
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="text-center mb-20 space-y-8">
+            <div className="inline-flex items-center gap-3 px-6 py-3 bg-white border border-gray-200 rounded-full shadow-sm">
+              <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
+              <span className="text-gray-700 font-medium text-sm tracking-wide">METODOLOGÍA EMPRESARIAL</span>
             </div>
             
-            <h2 className="text-4xl md:text-6xl font-bold mb-6">
-              <span className="text-gray-900">Proceso de</span>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-8 text-gray-900 leading-tight">
+              Proceso de
               <br />
-              <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-green-600 bg-clip-text text-transparent">
-                Transformación Total
-              </span>
+              <span className="text-blue-600">Transformación Integral</span>
             </h2>
             
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Nuestra metodología única garantiza resultados medibles en cada fase 
-              de tu transformación digital con inteligencia artificial.
-            </p>
+            <div className="max-w-4xl mx-auto space-y-6">
+              <p className="text-xl text-gray-600 leading-relaxed">
+                Metodología probada que garantiza resultados medibles en cada fase 
+                de tu transformación digital empresarial.
+              </p>
+              <p className="text-lg text-gray-500 leading-relaxed">
+                Desde la evaluación inicial hasta la implementación completa, 
+                acompañamos cada etapa con expertise técnico y estratégico.
+              </p>
+            </div>
           </div>
           
           {/* Proceso en pasos */}
