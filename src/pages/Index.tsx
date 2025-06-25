@@ -59,7 +59,7 @@ const Index = () => {
     <div className="min-h-screen bg-white font-lato">
       
       {/* Hero Section Profesional */}
-      <section className="relative min-h-screen bg-gray-900 text-white overflow-hidden">
+      <section className="relative min-h-screen bg-gray-900 text-white overflow-hidden pt-8">
         {/* Fondo sutil y profesional */}
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-black"></div>
@@ -75,6 +75,42 @@ const Index = () => {
             backgroundImage: 'radial-gradient(circle, rgba(100, 116, 139, 0.3) 1px, transparent 1px)',
             backgroundSize: '48px 48px'
           }}></div>
+        </div>
+
+        {/* Elementos dinámicos flotantes */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {/* Líneas de datos flotantes */}
+          {Array.from({length: 3}).map((_, i) => (
+            <div
+              key={i}
+              className="absolute h-px bg-gradient-to-r from-transparent via-blue-400/30 to-transparent animate-pulse"
+              style={{
+                top: `${25 + i * 20}%`,
+                left: '-50%',
+                width: '200%',
+                animationDuration: `${4 + i}s`,
+                animationDelay: `${i * 1.5}s`
+              }}
+            ></div>
+          ))}
+          
+          {/* Círculos flotantes */}
+          <div className="absolute top-20 right-20 w-32 h-32 border border-blue-400/20 rounded-full animate-pulse" style={{animationDuration: '3s'}}></div>
+          <div className="absolute bottom-32 left-16 w-24 h-24 border border-teal-400/20 rounded-full animate-pulse" style={{animationDuration: '4s', animationDelay: '1s'}}></div>
+          
+          {/* Partículas de datos */}
+          {Array.from({length: 8}).map((_, i) => (
+            <div
+              key={i}
+              className="absolute w-2 h-2 bg-blue-400/40 rounded-full animate-ping"
+              style={{
+                top: `${Math.random() * 100}%`,
+                left: `${Math.random() * 100}%`,
+                animationDuration: `${2 + Math.random() * 3}s`,
+                animationDelay: `${Math.random() * 2}s`
+              }}
+            ></div>
+          ))}
         </div>
 
         {/* Contenido principal */}
@@ -128,19 +164,22 @@ const Index = () => {
               </Button>
             </div>
 
-            {/* Métricas realistas C-Level */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 pt-24">
-              <div className="text-center space-y-4">
-                <div className="text-5xl md:text-6xl font-bold text-blue-400">185%</div>
-                <div className="text-gray-400 text-sm tracking-wide uppercase font-medium">Incremento Revenue Promedio</div>
+            {/* Métricas específicas RevOps + IA */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-16 pt-24 pb-16">
+              <div className="text-center space-y-4 p-6 bg-gray-800/30 rounded-xl border border-gray-700/30">
+                <div className="text-5xl md:text-6xl font-bold text-blue-400">40%</div>
+                <div className="text-gray-300 text-sm tracking-wide uppercase font-medium">Reducción CAC (Customer Acquisition Cost)</div>
+                <div className="text-gray-500 text-xs">vs. procesos manuales tradicionales</div>
               </div>
-              <div className="text-center space-y-4">
-                <div className="text-5xl md:text-6xl font-bold text-teal-400">35%</div>
-                <div className="text-gray-400 text-sm tracking-wide uppercase font-medium">Reducción Costos Operacionales</div>
+              <div className="text-center space-y-4 p-6 bg-gray-800/30 rounded-xl border border-gray-700/30">
+                <div className="text-5xl md:text-6xl font-bold text-teal-400">3.2x</div>
+                <div className="text-gray-300 text-sm tracking-wide uppercase font-medium">Incremento en Lead-to-Customer Rate</div>
+                <div className="text-gray-500 text-xs">con scoring predictivo + nurturing IA</div>
               </div>
-              <div className="text-center space-y-4">
-                <div className="text-5xl md:text-6xl font-bold text-blue-400">12m</div>
-                <div className="text-gray-400 text-sm tracking-wide uppercase font-medium">ROI Break-Even Point</div>
+              <div className="text-center space-y-4 p-6 bg-gray-800/30 rounded-xl border border-gray-700/30">
+                <div className="text-5xl md:text-6xl font-bold text-blue-400">85%</div>
+                <div className="text-gray-300 text-sm tracking-wide uppercase font-medium">Automatización Sales Pipeline</div>
+                <div className="text-gray-500 text-xs">desde lead capture hasta customer success</div>
               </div>
             </div>
           </div>
