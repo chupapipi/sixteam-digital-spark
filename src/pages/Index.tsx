@@ -88,9 +88,59 @@ const Index = () => {
       alt: 'n8n Workflow Automation'
     },
     {
-      name: 'Sixteam',
-      src: '/logos/Logo-light.png',
-      alt: 'Sixteam Logo'
+      name: 'Zapier',
+      src: '/logos/zapier-logo-new.png',
+      alt: 'Zapier Automation'
+    },
+    {
+      name: 'Brevo',
+      src: '/logos/brevo.png',
+      alt: 'Brevo Email Marketing'
+    },
+    {
+      name: 'Google Ads',
+      src: '/logos/Google_Ads_logo.svg.png',
+      alt: 'Google Ads'
+    },
+    {
+      name: 'Meta Ads',
+      src: '/logos/ads meta_PNG12.png',
+      alt: 'Meta Facebook Ads'
+    },
+    {
+      name: 'Google Analytics',
+      src: '/logos/Logo_Google_Analytics.svg.png',
+      alt: 'Google Analytics'
+    },
+    {
+      name: 'WhatsApp Business',
+      src: '/logos/Whatsapp-Business-01-768x269.png',
+      alt: 'WhatsApp Business API'
+    },
+    {
+      name: 'Mailchimp',
+      src: '/logos/Mailchimp-logo.png',
+      alt: 'Mailchimp Email Marketing'
+    },
+    {
+      name: 'GoHighLevel',
+      src: '/logos/highlevel-logo.png',
+      alt: 'GoHighLevel CRM'
+    },
+    {
+      name: 'Kommo',
+      src: '/logos/kommo01.png',
+      alt: 'Kommo CRM'
+    },
+    {
+      name: 'Google Gemini',
+      src: '/logos/Google_Gemini_logo.svg.png',
+      alt: 'Google Gemini AI'
+    },
+    {
+      name: 'AtomChat',
+      src: '/logos/logo-atom-chat.png',
+      alt: 'AtomChat Live Chat'
     }
   ];
 
