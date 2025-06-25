@@ -69,77 +69,77 @@ const Index = () => {
   const partnerLogos = [
     {
       name: 'HubSpot',
-      src: '/logos/HubSpot-Logo-500x281.png',
+      src: '/HubSpot-Logo-500x281.png',
       alt: 'HubSpot CRM'
     },
     {
       name: 'Make',
-      src: '/logos/make-logo.png',
+      src: '/make-logo.png',
       alt: 'Make Automation'
     },
     {
       name: 'ManyChat',
-      src: '/logos/MANYCHAT-LOGO-PNG.png',
+      src: '/MANYCHAT-LOGO-PNG.png',
       alt: 'ManyChat Chatbots'
     },
     {
       name: 'n8n',
-      src: '/logos/N8n-logo-new.svg.png',
+      src: '/N8n-logo-new.svg.png',
       alt: 'n8n Workflow Automation'
     },
     {
       name: 'Zapier',
-      src: '/logos/zapier-logo-new.png',
+      src: '/zapier-logo-new.png',
       alt: 'Zapier Automation'
     },
     {
       name: 'Brevo',
-      src: '/logos/brevo.png',
+      src: '/brevo.png',
       alt: 'Brevo Email Marketing'
     },
     {
       name: 'Google Ads',
-      src: '/logos/Google_Ads_logo.svg.png',
+      src: '/Google_Ads_logo.svg.png',
       alt: 'Google Ads'
     },
     {
       name: 'Meta Ads',
-      src: '/logos/ads meta_PNG12.png',
+      src: '/ads meta_PNG12.png',
       alt: 'Meta Facebook Ads'
     },
     {
       name: 'Google Analytics',
-      src: '/logos/Logo_Google_Analytics.svg.png',
+      src: '/Logo_Google_Analytics.svg.png',
       alt: 'Google Analytics'
     },
     {
       name: 'WhatsApp Business',
-      src: '/logos/Whatsapp-Business-01-768x269.png',
+      src: '/Whatsapp-Business-01-768x269.png',
       alt: 'WhatsApp Business API'
     },
     {
       name: 'Mailchimp',
-      src: '/logos/Mailchimp-logo.png',
+      src: '/Mailchimp-logo.png',
       alt: 'Mailchimp Email Marketing'
     },
     {
       name: 'GoHighLevel',
-      src: '/logos/highlevel-logo.png',
+      src: '/highlevel-logo.png',
       alt: 'GoHighLevel CRM'
     },
     {
       name: 'Kommo',
-      src: '/logos/kommo01.png',
+      src: '/kommo01.png',
       alt: 'Kommo CRM'
     },
     {
       name: 'Google Gemini',
-      src: '/logos/Google_Gemini_logo.svg.png',
+      src: '/Google_Gemini_logo.svg.png',
       alt: 'Google Gemini AI'
     },
     {
       name: 'AtomChat',
-      src: '/logos/logo-atom-chat.png',
+      src: '/logo-atom-chat.png',
       alt: 'AtomChat Live Chat'
     }
   ];
@@ -305,7 +305,6 @@ const Index = () => {
                 className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6"
                 loading="eager"
                 decoding="async"
-                fetchPriority="high"
               />
               <span className="text-gray-200 font-medium text-xs sm:text-sm tracking-wide">Sixteam.pro</span>
             </div>
@@ -772,14 +771,16 @@ const Index = () => {
               {/* Logo y descripción */}
               <div className="space-y-6">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center">
-                    <span className="text-white font-bold text-xl">S</span>
-                  </div>
+                  <img 
+                    src="/LOGO.png" 
+                    alt="Sixteam.pro" 
+                    className="w-12 h-12 object-contain"
+                  />
                   <span className="text-2xl font-bold text-white">Sixteam.pro</span>
                 </div>
                 <p className="text-gray-300 leading-relaxed">
-                  Elite AI Automation Agency. Transformamos empresas con inteligencia artificial 
-                  de vanguardia y automatización enterprise.
+                  Integramos áreas de Marketing, ventas y servicio bajo una estrategia de RevOps potenciada con IA. 
+                  Más que implementadores, somos tus socios estratégicos en transformación digital.
                 </p>
                 <div className="flex gap-4">
                   <div className="px-3 py-1 bg-green-500/20 text-green-400 text-xs font-medium rounded-full">
@@ -793,23 +794,23 @@ const Index = () => {
 
               {/* Servicios */}
               <div className="space-y-6">
-                <h3 className="text-xl font-bold text-white">Servicios Premium</h3>
+                <h3 className="text-xl font-bold text-white">Nuestros Servicios</h3>
                 <div className="space-y-3">
                   <div className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors cursor-pointer">
                     <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
-                    <span>IA Conversacional GPT-4</span>
+                    <span>Consultoría Estratégica</span>
                   </div>
                   <div className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors cursor-pointer">
-                                          <div className="w-2 h-2 bg-teal-600 rounded-full"></div>
-                    <span>Hiperrautomatización</span>
+                    <div className="w-2 h-2 bg-teal-600 rounded-full"></div>
+                    <span>Implementación de CRM</span>
                   </div>
                   <div className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors cursor-pointer">
                     <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                    <span>RevOps + IA</span>
+                    <span>Soluciones de IA</span>
                   </div>
                   <div className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors cursor-pointer">
                     <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
-                    <span>Stack Tecnológico Total</span>
+                    <span>Operación y Mantenimiento</span>
                   </div>
                 </div>
               </div>
@@ -839,7 +840,7 @@ const Index = () => {
           <div className="py-8">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <div className="text-gray-400 text-sm">
-                © 2024 Sixteam.pro - Elite AI Automation Agency. Todos los derechos reservados.
+                © 2024 Sixteam.pro - Socios Estratégicos en RevOps + IA. Todos los derechos reservados.
               </div>
               <div className="flex items-center gap-6 text-gray-400 text-sm">
                 <span className="hover:text-white transition-colors cursor-pointer">Privacidad</span>
