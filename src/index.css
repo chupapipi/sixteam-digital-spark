@@ -78,9 +78,9 @@
     will-change: auto;
   }
 
-  /* Reducir motion para usuarios que lo prefieren */
+  /* Reducir motion para usuarios que lo prefieren - Excepto nuestras animaciones de red */
   @media (prefers-reduced-motion: reduce) {
-    *,
+    *:not(.animate-ping):not([style*="animation"]):not(.animate-pulse-node):not(.animate-line-glow):not(.animate-travel-line1):not(.animate-travel-line2):not(.animate-travel-line3):not(.animate-travel-line4):not(.animate-float-random1):not(.animate-float-random2):not(.animate-float-random3):not(.animate-float-random4):not(.animate-float-random5),
     *::before,
     *::after {
       animation-duration: 0.01ms !important;
@@ -109,6 +109,8 @@
   .animate-ping-slow {
     animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
   }
+
+
 
   /* Mejorar rendimiento de scroll */
   .overflow-hidden {
@@ -271,4 +273,196 @@
 
 .glow-button:hover::before {
   left: 100%;
+}
+
+/* Animaciones específicas para Hero Section */
+@keyframes slideRight {
+  0% { transform: translateX(-100%) rotate(-12deg); opacity: 0; }
+  10% { opacity: 0.6; }
+  90% { opacity: 0.6; }
+  100% { transform: translateX(100%) rotate(-12deg); opacity: 0; }
+}
+
+@keyframes slideLeft {
+  0% { transform: translateX(100%) rotate(12deg); opacity: 0; }
+  10% { opacity: 0.4; }
+  90% { opacity: 0.4; }
+  100% { transform: translateX(-100%) rotate(12deg); opacity: 0; }
+}
+
+/* Animaciones para red de nodos conectados - FUERA DE @layer */
+.animate-pulse-node {
+  animation: pulseNode 2s ease-in-out infinite !important;
+  box-shadow: 0 0 10px rgba(0, 191, 165, 0.8) !important;
+}
+
+.animate-line-glow {
+  animation: lineGlow 3s ease-in-out infinite !important;
+}
+
+.animate-travel-line1 {
+  animation: travelLine1 4s linear infinite !important;
+  box-shadow: 0 0 6px rgba(0, 191, 165, 0.9) !important;
+}
+
+.animate-travel-line2 {
+  animation: travelLine2 5s linear infinite !important;
+  box-shadow: 0 0 6px rgba(29, 112, 162, 0.9) !important;
+}
+
+.animate-travel-line3 {
+  animation: travelLine3 3.5s linear infinite !important;
+  box-shadow: 0 0 6px rgba(0, 191, 165, 0.9) !important;
+}
+
+.animate-travel-line4 {
+  animation: travelLine4 4.5s linear infinite !important;
+  box-shadow: 0 0 6px rgba(29, 112, 162, 0.9) !important;
+}
+
+.animate-float-random1 {
+  animation: floatRandom1 8s ease-in-out infinite !important;
+}
+
+.animate-float-random2 {
+  animation: floatRandom2 10s ease-in-out infinite !important;
+}
+
+.animate-float-random3 {
+  animation: floatRandom3 6s ease-in-out infinite !important;
+}
+
+.animate-float-random4 {
+  animation: floatRandom4 9s ease-in-out infinite !important;
+}
+
+.animate-float-random5 {
+  animation: floatRandom5 7s ease-in-out infinite !important;
+}
+
+/* Definiciones de keyframes */
+
+/* Pulso suave para nodos principales */
+@keyframes pulseNode {
+  0%, 100% { 
+    transform: scale(1); 
+    opacity: 0.8;
+    box-shadow: 0 0 10px rgba(0, 191, 165, 0.8);
+  }
+  50% { 
+    transform: scale(1.2); 
+    opacity: 1;
+    box-shadow: 0 0 20px rgba(0, 191, 165, 1);
+  }
+}
+
+/* Resplandor para líneas */
+@keyframes lineGlow {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+}
+
+/* Nódulos que viajan por las líneas */
+@keyframes travelLine1 {
+  0% { transform: translate(0, 0) rotate(8deg); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translate(400px, 32px) rotate(8deg); opacity: 0; }
+}
+
+@keyframes travelLine2 {
+  0% { transform: translate(0, 0) rotate(-45deg); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translate(180px, -180px) rotate(-45deg); opacity: 0; }
+}
+
+@keyframes travelLine3 {
+  0% { transform: translate(0, 0) rotate(40deg); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translate(120px, 77px) rotate(40deg); opacity: 0; }
+}
+
+@keyframes travelLine4 {
+  0% { transform: translate(0, 0) rotate(10deg); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translate(320px, 56px) rotate(10deg); opacity: 0; }
+}
+
+/* Partículas flotantes aleatorias */
+@keyframes floatRandom1 {
+  0%, 100% { transform: translate(0, 0); opacity: 0.3; }
+  25% { transform: translate(50px, -30px); opacity: 0.8; }
+  50% { transform: translate(-20px, 40px); opacity: 0.5; }
+  75% { transform: translate(30px, 20px); opacity: 0.7; }
+}
+
+@keyframes floatRandom2 {
+  0%, 100% { transform: translate(0, 0); opacity: 0.4; }
+  33% { transform: translate(-40px, -50px); opacity: 0.7; }
+  66% { transform: translate(60px, 30px); opacity: 0.6; }
+}
+
+@keyframes floatRandom3 {
+  0%, 100% { transform: translate(0, 0); opacity: 0.3; }
+  30% { transform: translate(80px, -20px); opacity: 0.8; }
+  70% { transform: translate(-30px, 50px); opacity: 0.5; }
+}
+
+@keyframes floatRandom4 {
+  0%, 100% { transform: translate(0, 0); opacity: 0.4; }
+  20% { transform: translate(-60px, 40px); opacity: 0.7; }
+  40% { transform: translate(20px, -30px); opacity: 0.6; }
+  60% { transform: translate(-40px, -10px); opacity: 0.8; }
+  80% { transform: translate(50px, 30px); opacity: 0.5; }
+}
+
+@keyframes floatRandom5 {
+  0%, 100% { transform: translate(0, 0); opacity: 0.3; }
+  35% { transform: translate(40px, 60px); opacity: 0.7; }
+  65% { transform: translate(-50px, -40px); opacity: 0.6; }
+}
+
+/* Animaciones simples que SÍ funcionan */
+@keyframes moveHorizontal1 {
+  0% { transform: translateX(0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateX(400px); opacity: 0; }
+}
+
+@keyframes moveDiagonal1 {
+  0% { transform: translate(0, 0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translate(-150px, 150px); opacity: 0; }
+}
+
+@keyframes floatUp1 {
+  0%, 100% { transform: translate(0, 0); opacity: 0.4; }
+  25% { transform: translate(30px, -20px); opacity: 0.8; }
+  50% { transform: translate(-20px, 30px); opacity: 0.6; }
+  75% { transform: translate(40px, 10px); opacity: 0.7; }
+}
+
+@keyframes floatUp2 {
+  0%, 100% { transform: translate(0, 0); opacity: 0.3; }
+  33% { transform: translate(-30px, -40px); opacity: 0.8; }
+  66% { transform: translate(50px, 20px); opacity: 0.6; }
+}
+
+/* Animación para efecto typewriter */
+.typewriter-cursor {
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
 }

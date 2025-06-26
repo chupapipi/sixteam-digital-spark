@@ -1,49 +1,272 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from '@/components/ui/carousel';
 import { MessageCircle, Target, Settings, Brain, Headphones, CheckCircle, Star, Zap, Bot } from 'lucide-react';
 import Footer from '@/components/Footer';
+import ChatSection from '@/components/ChatSection';
 
 const Index = () => {
-  const [carouselApi, setCarouselApi] = useState(null);
+  const [carouselApi, setCarouselApi] = useState<CarouselApi>();
+  const [animationsLoaded, setAnimationsLoaded] = useState(false);
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const [displayText, setDisplayText] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+  const words = ['comerciales', 'de marketing', 'de servicio'];
+
+  // Cargar animaciones después de que la página esté completamente cargada
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setAnimationsLoaded(true);
+    }, 1000); // Delay de 1 segundo después de que se monte el componente
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Inicializar el efecto typewriter
+  useEffect(() => {
+    // Pequeño delay antes de empezar a escribir
+    const initTimer = setTimeout(() => {
+      setDisplayText('');
+    }, 1500);
+
+    return () => clearTimeout(initTimer);
+  }, []);
+
+  // Efecto typewriter para escribir y borrar palabras
+  useEffect(() => {
+    const currentWord = words[currentWordIndex];
+    
+    const timeout = setTimeout(() => {
+      if (!isDeleting) {
+        // Escribiendo letra a letra
+        if (displayText.length < currentWord.length) {
+          setDisplayText(currentWord.substring(0, displayText.length + 1));
+        } else {
+          // Palabra completa, esperar y luego empezar a borrar
+          setTimeout(() => setIsDeleting(true), 1500); // Pausa de 1.5s con palabra completa
+        }
+      } else {
+        // Borrando letra a letra (más rápido)
+        if (displayText.length > 0) {
+          setDisplayText(displayText.substring(0, displayText.length - 1));
+        } else {
+          // Palabra borrada completamente, cambiar a siguiente palabra
+          setIsDeleting(false);
+          setCurrentWordIndex((prev) => (prev + 1) % words.length);
+        }
+      }
+    }, isDeleting ? 50 : 100); // Borrar más rápido (50ms) que escribir (100ms)
+
+    return () => clearTimeout(timeout);
+  }, [displayText, isDeleting, currentWordIndex, words]);
+
+  // Efecto para dibujar líneas de conexión dinámicas entre puntos
+  useEffect(() => {
+    if (!animationsLoaded) return;
+
+    const canvas = document.getElementById('connectionLines') as HTMLCanvasElement;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    // Configurar canvas
+    const resizeCanvas = () => {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    };
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Función para obtener posición de un punto en cualquier momento
+    const getPointPosition = (pointIndex: number, time: number) => {
+      const rect = canvas.getBoundingClientRect();
+      const basePositions = [
+        { x: 0.15 * canvas.width, y: 0.20 * canvas.height },  // Punto 1
+        { x: 0.80 * canvas.width, y: 0.70 * canvas.height },  // Punto 2
+        { x: 0.70 * canvas.width, y: 0.40 * canvas.height },  // Punto 3
+        { x: 0.25 * canvas.width, y: 0.60 * canvas.height },  // Punto 4
+        { x: 0.50 * canvas.width, y: 0.30 * canvas.height },  // Punto 5
+      ];
+
+      const base = basePositions[pointIndex];
+      let offset = { x: 0, y: 0 };
+
+      // Calcular offset basado en la animación CSS
+      switch (pointIndex) {
+        case 0: // movePoint1 - 12s
+          const progress1 = (time % 12000) / 12000;
+          if (progress1 < 0.25) {
+            const t = progress1 / 0.25;
+            offset = { x: 100 * t, y: 50 * t };
+          } else if (progress1 < 0.5) {
+            const t = (progress1 - 0.25) / 0.25;
+            offset = { x: 100 + 100 * t, y: 50 - 80 * t };
+          } else if (progress1 < 0.75) {
+            const t = (progress1 - 0.5) / 0.25;
+            offset = { x: 200 - 150 * t, y: -30 + 110 * t };
+          } else {
+            const t = (progress1 - 0.75) / 0.25;
+            offset = { x: 50 - 50 * t, y: 80 - 80 * t };
+          }
+          break;
+        case 1: // movePoint2 - 15s
+          const progress2 = (time % 15000) / 15000;
+          if (progress2 < 0.2) {
+            const t = progress2 / 0.2;
+            offset = { x: -80 * t, y: -60 * t };
+          } else if (progress2 < 0.4) {
+            const t = (progress2 - 0.2) / 0.2;
+            offset = { x: -80 - 70 * t, y: -60 + 100 * t };
+          } else if (progress2 < 0.6) {
+            const t = (progress2 - 0.4) / 0.2;
+            offset = { x: -150 + 100 * t, y: 40 - 60 * t };
+          } else if (progress2 < 0.8) {
+            const t = (progress2 - 0.6) / 0.2;
+            offset = { x: -50 - 70 * t, y: -20 + 50 * t };
+          } else {
+            const t = (progress2 - 0.8) / 0.2;
+            offset = { x: -120 + 120 * t, y: 30 - 30 * t };
+          }
+          break;
+        case 2: // movePoint3 - 10s
+          const progress3 = (time % 10000) / 10000;
+          if (progress3 < 0.33) {
+            const t = progress3 / 0.33;
+            offset = { x: -100 * t, y: 70 * t };
+          } else if (progress3 < 0.66) {
+            const t = (progress3 - 0.33) / 0.33;
+            offset = { x: -100 + 180 * t, y: 70 - 120 * t };
+          } else {
+            const t = (progress3 - 0.66) / 0.34;
+            offset = { x: 80 - 80 * t, y: -50 + 50 * t };
+          }
+          break;
+        case 3: // movePoint4 - 18s
+          const progress4 = (time % 18000) / 18000;
+          if (progress4 < 0.16) {
+            const t = progress4 / 0.16;
+            offset = { x: 120 * t, y: -40 * t };
+          } else if (progress4 < 0.32) {
+            const t = (progress4 - 0.16) / 0.16;
+            offset = { x: 120 - 40 * t, y: -40 + 100 * t };
+          } else if (progress4 < 0.48) {
+            const t = (progress4 - 0.32) / 0.16;
+            offset = { x: 80 - 140 * t, y: 60 + 20 * t };
+          } else if (progress4 < 0.64) {
+            const t = (progress4 - 0.48) / 0.16;
+            offset = { x: -60 - 60 * t, y: 80 - 110 * t };
+          } else if (progress4 < 0.8) {
+            const t = (progress4 - 0.64) / 0.16;
+            offset = { x: -120 + 160 * t, y: -30 - 30 * t };
+          } else {
+            const t = (progress4 - 0.8) / 0.2;
+            offset = { x: 40 - 40 * t, y: -60 + 60 * t };
+          }
+          break;
+        case 4: // movePoint5 - 8s
+          const progress5 = (time % 8000) / 8000;
+          if (progress5 < 0.25) {
+            const t = progress5 / 0.25;
+            offset = { x: -70 * t, y: -50 * t };
+          } else if (progress5 < 0.5) {
+            const t = (progress5 - 0.25) / 0.25;
+            offset = { x: -70 + 160 * t, y: -50 + 90 * t };
+          } else if (progress5 < 0.75) {
+            const t = (progress5 - 0.5) / 0.25;
+            offset = { x: 90 - 130 * t, y: 40 + 30 * t };
+          } else {
+            const t = (progress5 - 0.75) / 0.25;
+            offset = { x: -40 + 40 * t, y: 70 - 70 * t };
+          }
+          break;
+      }
+
+      return { x: base.x + offset.x, y: base.y + offset.y };
+    };
+
+    // Función de animación
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      const time = Date.now();
+      const points = [];
+      
+      // Obtener posiciones actuales de todos los puntos
+      for (let i = 0; i < 5; i++) {
+        points.push(getPointPosition(i, time));
+      }
+
+      // Dibujar líneas entre puntos cercanos
+      ctx.strokeStyle = '#00bfa5';
+      ctx.lineWidth = 1;
+      ctx.globalAlpha = 0.3;
+
+      for (let i = 0; i < points.length; i++) {
+        for (let j = i + 1; j < points.length; j++) {
+          const distance = Math.sqrt(
+            Math.pow(points[i].x - points[j].x, 2) + 
+            Math.pow(points[i].y - points[j].y, 2)
+          );
+          
+          // Solo dibujar líneas si los puntos están lo suficientemente cerca
+          if (distance < 300) {
+            ctx.globalAlpha = Math.max(0.1, 0.4 - distance / 1000);
+            ctx.beginPath();
+            ctx.moveTo(points[i].x, points[i].y);
+            ctx.lineTo(points[j].x, points[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      requestAnimationFrame(animate);
+    };
+
+    animate();
+
+    return () => {
+      window.removeEventListener('resize', resizeCanvas);
+    };
+  }, [animationsLoaded]);
 
   const handleWhatsAppClick = () => {
     window.open('https://wa.me/+573023515392?text=Hola%2C%20me%20interesa%20agendar%20una%20cita%20para%20conocer%20más%20sobre%20los%20servicios%20de%20Sixteam.pro', '_blank');
   };
+  
+    // Auto-scroll del carrusel cada 8 segundos (solo cuando esté visible)
+    useEffect(() => {
+      if (!carouselApi) return;
 
-  // Auto-scroll del carrusel cada 2 segundos (solo cuando esté visible)
-  useEffect(() => {
-    if (!carouselApi) return;
+      // Observer para detectar cuando el carrusel está visible
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const interval = setInterval(() => {
+                carouselApi.scrollNext();
+              }, 8000);
 
-    // Observer para detectar cuando el carrusel está visible
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const interval = setInterval(() => {
-              carouselApi.scrollNext();
-            }, 1000);
+              // Limpiar cuando el carrusel no esté visible
+              return () => clearInterval(interval);
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
 
-            // Limpiar cuando el carrusel no esté visible
-            return () => clearInterval(interval);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
+      const carouselElement = document.querySelector('[data-carousel="main"]');
+      if (carouselElement) {
+        observer.observe(carouselElement);
+      }
 
-    const carouselElement = document.querySelector('[data-carousel="main"]');
-    if (carouselElement) {
-      observer.observe(carouselElement);
-    }
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [carouselApi]);
-
-  const services = [
+      return () => {
+        observer.disconnect();
+      };
+    }, [carouselApi]);
+  
+    const services = [
     {
       icon: Target,
       title: 'Consultoría Estratégica',
@@ -186,153 +409,204 @@ const Index = () => {
     <div className="min-h-screen bg-white font-lato">
       
       {/* Hero Section Profesional */}
-      <section className="relative min-h-screen bg-gray-900 text-white overflow-hidden pt-8">
-        {/* Fondo base con color específico */}
-        <div className="absolute inset-0 bg-[#0a2342]"></div>
+      <section className="relative bg-[#0a2342] text-white overflow-hidden pt-4 sm:pt-6 lg:pt-8 pb-8 sm:pb-12 lg:pb-16">
+        {/* Fondo base con degradado sutil */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0a2342] via-[#1d70a2]/20 to-[#0a2342]"></div>
         
-        {/* Gradiente central para legibilidad */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0a2342]/90 via-[#0a2342]/60 to-[#0a2342]/90"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0a2342]/70 via-transparent to-[#0a2342]/70"></div>
+        {/* Fondo sólido sin degradado complicado */}
         
-        {/* Círculos pequeños animados de fondo - Reducidos para mejor rendimiento */}
-        <div className="absolute inset-0 overflow-hidden">
-          {Array.from({length: 15}).map((_, i) => (
-            <div
-              key={i}
-              className={`absolute rounded-full border border-[#00bfa5]/20 animate-pulse ${i > 9 ? 'hidden md:block' : ''}`}
-              style={{
-                width: `${Math.random() * 20 + 10}px`,
-                height: `${Math.random() * 20 + 10}px`,
-                top: `${Math.random() * 100}%`,
-                left: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 2}s`,
-                animationDuration: `${2 + Math.random() * 1}s`
+        {/* Red de nodos conectados con líneas dinámicas */}
+        {animationsLoaded && (
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            {/* Nodos principales fijos con animación simple */}
+            <div 
+              className="absolute w-3 h-3 bg-[#00bfa5] rounded-full animate-pulse" 
+              style={{ 
+                top: '20%', 
+                left: '15%',
+                boxShadow: '0 0 10px rgba(0, 191, 165, 0.8)',
+                animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
               }}
             ></div>
-          ))}
-        </div>
+            <div 
+              className="absolute w-3 h-3 bg-[#1d70a2] rounded-full animate-pulse" 
+              style={{ 
+                top: '70%', 
+                left: '80%',
+                boxShadow: '0 0 10px rgba(29, 112, 162, 0.8)',
+                animation: 'pulse 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+              }}
+            ></div>
+            <div 
+              className="absolute w-3 h-3 bg-[#00bfa5] rounded-full animate-pulse" 
+              style={{ 
+                top: '40%', 
+                left: '70%',
+                boxShadow: '0 0 10px rgba(0, 191, 165, 0.8)',
+                animation: 'pulse 1.8s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+              }}
+            ></div>
+            <div 
+              className="absolute w-3 h-3 bg-[#1d70a2] rounded-full animate-pulse" 
+              style={{ 
+                top: '60%', 
+                left: '25%',
+                boxShadow: '0 0 10px rgba(29, 112, 162, 0.8)',
+                animation: 'pulse 2.2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+              }}
+            ></div>
+            <div 
+              className="absolute w-3 h-3 bg-[#00bfa5] rounded-full animate-pulse hidden md:block" 
+              style={{ 
+                top: '30%', 
+                left: '50%',
+                boxShadow: '0 0 10px rgba(0, 191, 165, 0.8)',
+                animation: 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+              }}
+            ></div>
+            
+            {/* Líneas conectoras con glow animado */}
+            <div 
+              className="absolute bg-gradient-to-r from-transparent via-[#00bfa5]/40 to-transparent h-px animate-pulse" 
+              style={{ 
+                top: '20%', 
+                left: '15%', 
+                width: '55%', 
+                transformOrigin: 'left', 
+                transform: 'rotate(8deg)',
+                animation: 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+              }}
+            ></div>
+            <div 
+              className="absolute bg-gradient-to-r from-transparent via-[#1d70a2]/40 to-transparent h-px animate-pulse" 
+              style={{ 
+                top: '40%', 
+                left: '70%', 
+                width: '25%', 
+                transformOrigin: 'left', 
+                transform: 'rotate(-45deg)',
+                animation: 'pulse 3.5s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+              }}
+            ></div>
+            
+            {/* Partículas móviles simples */}
+            <div 
+              className="absolute w-2 h-2 bg-[#00bfa5] rounded-full" 
+              style={{ 
+                top: '20%', 
+                left: '15%',
+                boxShadow: '0 0 6px rgba(0, 191, 165, 0.9)',
+                animation: 'moveHorizontal1 4s linear infinite'
+              }}
+            ></div>
+            <div 
+              className="absolute w-2 h-2 bg-[#1d70a2] rounded-full" 
+              style={{ 
+                top: '40%', 
+                left: '70%',
+                boxShadow: '0 0 6px rgba(29, 112, 162, 0.9)',
+                animation: 'moveDiagonal1 5s linear infinite'
+              }}
+            ></div>
+            <div 
+              className="absolute w-1 h-1 bg-[#00bfa5]/80 rounded-full" 
+              style={{ 
+                top: '10%', 
+                left: '30%',
+                animation: 'floatUp1 8s ease-in-out infinite'
+              }}
+            ></div>
+            <div 
+              className="absolute w-1 h-1 bg-[#1d70a2]/80 rounded-full" 
+              style={{ 
+                top: '80%', 
+                left: '60%',
+                animation: 'floatUp2 10s ease-in-out infinite'
+              }}
+            ></div>
+          </div>
+        )}
         
-        {/* Líneas de luz dinámicas - Optimizadas */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {/* Líneas horizontales de datos - Reducidas */}
-          {Array.from({length: 3}).map((_, i) => (
-            <div
-              key={`h-${i}`}
-              className={`absolute h-px bg-gradient-to-r from-transparent via-[#00bfa5]/30 to-transparent animate-pulse ${i > 1 ? 'hidden lg:block' : ''}`}
+        {/* Líneas de flujo en movimiento continuo - solo cuando las animaciones estén cargadas */}
+        {animationsLoaded && (
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <div 
+              className="absolute h-px bg-gradient-to-r from-transparent via-[#00bfa5]/40 to-transparent transform -rotate-12" 
               style={{
-                top: `${30 + i * 20}%`,
-                left: '-20%',
-                width: '140%',
-                animationDelay: `${i * 0.8}s`,
-                animationDuration: `${3 + i * 0.5}s`,
-                transform: `rotate(${Math.random() * 4 - 2}deg)`
+                top: '35%',
+                left: '-100%',
+                width: '300%',
+                animation: 'slideRight 8s infinite linear !important'
               }}
             ></div>
-          ))}
-          
-          {/* Líneas verticales - Reducidas */}
-          {Array.from({length: 2}).map((_, i) => (
-            <div
-              key={`v-${i}`}
-              className="absolute w-px bg-gradient-to-b from-transparent via-[#1d70a2]/20 to-transparent animate-pulse hidden lg:block"
+            <div 
+              className="absolute h-px bg-gradient-to-r from-transparent via-[#1d70a2]/30 to-transparent transform rotate-12" 
               style={{
-                left: `${30 + i * 40}%`,
-                top: '-10%',
-                height: '120%',
-                animationDelay: `${i * 1}s`,
-                animationDuration: `${4 + i * 0.5}s`
+                top: '65%',
+                left: '-100%',
+                width: '300%',
+                animation: 'slideLeft 10s infinite linear !important',
+                animationDelay: '2s'
               }}
             ></div>
-          ))}
-          
-          {/* Nodos de conexión - Reducidos */}
-          {Array.from({length: 6}).map((_, i) => (
-            <div
-              key={`node-${i}`}
-              className={`absolute w-2 h-2 rounded-full bg-[#00bfa5]/40 animate-ping ${i > 3 ? 'hidden lg:block' : ''}`}
+            <div 
+              className="absolute h-px bg-gradient-to-r from-transparent via-[#00bfa5]/20 to-transparent transform -rotate-6 hidden lg:block" 
               style={{
-                top: `${20 + Math.random() * 60}%`,
-                left: `${15 + Math.random() * 70}%`,
-                animationDelay: `${Math.random() * 1.5}s`,
-                animationDuration: `${1.5 + Math.random() * 1}s`
+                top: '50%',
+                left: '-100%',
+                width: '300%',
+                animation: 'slideRight 12s infinite linear !important',
+                animationDelay: '4s'
               }}
             ></div>
-          ))}
-          
-          {/* Efectos de partículas - Reducidos */}
-          {Array.from({length: 8}).map((_, i) => (
-            <div
-              key={`particle-${i}`}
-              className={`absolute w-1 h-1 bg-[#00bfa5]/60 rounded-full animate-ping ${i > 4 ? 'hidden lg:block' : ''}`}
-              style={{
-                top: `${Math.random() * 100}%`,
-                left: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 3}s`,
-                animationDuration: `${2 + Math.random() * 2}s`
-              }}
-            ></div>
-          ))}
-        </div>
-        
-        {/* Efecto de flujo de datos en movimiento */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute w-full h-2 bg-gradient-to-r from-transparent via-[#00bfa5]/20 to-transparent transform -rotate-12 animate-pulse" 
-               style={{
-                 top: '30%',
-                 left: '-50%',
-                 width: '200%',
-                 animationDuration: '3s'
-               }}></div>
-          <div className="absolute w-full h-1 bg-gradient-to-r from-transparent via-[#1d70a2]/30 to-transparent transform rotate-12 animate-pulse" 
-               style={{
-                 top: '60%',
-                 left: '-50%',
-                 width: '200%',
-                 animationDuration: '4s',
-                 animationDelay: '1s'
-               }}></div>
-        </div>
+          </div>
+        )}
 
         {/* Contenido principal */}
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 min-h-screen flex items-center justify-center">
-          <div className="text-center max-w-7xl mx-auto space-y-8 sm:space-y-12 lg:space-y-16 py-8 sm:py-12 lg:py-0">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center max-w-7xl mx-auto space-y-4 sm:space-y-6 lg:space-y-8 py-8 sm:py-12 lg:py-16">
             
             {/* Etiqueta profesional */}
-            <div className="inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-6 lg:px-8 py-2 sm:py-3 lg:py-4 bg-gray-800/70 border border-gray-600/50 rounded-full backdrop-blur-sm">
-              <img 
-                src="/LOGO.png" 
-                alt="Sixteam Logo" 
-                className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6"
-                loading="eager"
-                decoding="async"
-              />
-              <span className="text-gray-200 font-medium text-xs sm:text-sm tracking-wide">Sixteam.pro</span>
+            <div className="inline-flex items-center gap-2 px-3 sm:px-4 lg:px-6 py-1.5 sm:py-2 lg:py-3 bg-gray-800/70 border border-gray-600/50 rounded-full backdrop-blur-sm">
+              <div className="text-sm sm:text-base lg:text-lg font-bold font-poppins tracking-tight whitespace-nowrap">
+                <span className="text-white">Process</span>
+                <span className="text-white mx-0.5">+</span>
+                <span className="text-white">Technology</span>
+                <span className="text-white mx-0.5">+</span>
+                <span className="text-blue-400">People</span>
+                <span className="text-white mx-0.5">=</span>
+                <span className="text-green-400 font-bold">Growth</span>
+              </div>
             </div>
 
-            {/* Título principal profesional */}
-            <div className="space-y-4 sm:space-y-6 lg:space-y-8">
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold leading-tight tracking-tight px-4 sm:px-0">
-                <span className="text-white">¿Tus procesos</span>
+            {/* Título principal profesional con animación */}
+            <div className="space-y-3 sm:space-y-4 lg:space-y-6">
+              <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold leading-tight tracking-tight px-4 sm:px-0">
+                <span className="text-white font-extrabold">¿Tus procesos</span>
                 <br />
-                <span className="text-gray-300">comerciales te están</span>
+                <span className="text-white">
+                  <span 
+                    className="inline-block min-w-[200px] sm:min-w-[300px] lg:min-w-[400px] text-center relative"
+                  >
+                    {displayText}
+                    <span className="typewriter-cursor ml-1">|</span>
+                  </span> te están
+                </span>
                 <br />
                 <span className="bg-gradient-to-r from-blue-400 to-teal-400 bg-clip-text text-transparent">
                   impidiendo crecer?
                 </span>
               </h1>
               
-              <div className="max-w-5xl mx-auto space-y-4 sm:space-y-6 pt-4 sm:pt-6 px-4 sm:px-6 lg:px-0">
+              <div className="max-w-5xl mx-auto space-y-3 sm:space-y-4 pt-3 sm:pt-4 px-4 sm:px-6 lg:px-0">
                 <p className="text-xl sm:text-2xl lg:text-3xl text-gray-300 leading-relaxed font-medium">
                   Integramos áreas de Marketing, ventas y servicio bajo una estrategia de RevOps potenciada con IA
-                </p>
-                <p className="text-base sm:text-lg text-gray-400 leading-relaxed">
-                  En Sixteam.pro combinamos Procesos, Tecnología y Personas para que puedas enfocarte en el crecimiento de tu negocio
                 </p>
               </div>
             </div>
 
             {/* CTA Button único a WhatsApp */}
-            <div className="flex justify-center items-center pt-4 sm:pt-6 lg:pt-8 px-4 sm:px-0">
+            <div className="flex justify-center items-center pt-3 sm:pt-4 lg:pt-6 px-4 sm:px-0">
               <Button 
                 onClick={handleWhatsAppClick}
                 className="w-full sm:w-auto px-6 sm:px-8 lg:px-12 py-3 sm:py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold text-base sm:text-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 max-w-sm sm:max-w-none"
@@ -346,6 +620,9 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* Sección de Chat con IA Integrada - SIN padding top para continuidad perfecta */}
+      <ChatSection />
 
       {/* Ecosistema de IA - Sección Profesional */}
       <section className="relative py-12 sm:py-16 lg:py-24 bg-white overflow-hidden">
@@ -361,12 +638,15 @@ const Index = () => {
           {/* Título de sección para C-Level */}
           <div className="text-center mb-12 sm:mb-16 lg:mb-20 space-y-6 sm:space-y-8">
             <div className="inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2 sm:py-3 bg-gray-100 border border-gray-200 rounded-full">
-              <img 
-                src="/lovable-uploads/3b066a0e-1bea-4907-b036-3b460d543754.png" 
-                alt="Sixteam.pro Logo"
-                className="w-4 h-4 sm:w-5 sm:h-5"
-              />
-              <span className="text-gray-700 font-medium text-xs sm:text-sm tracking-wide">Sixteam.pro</span>
+              <div className="text-sm font-bold font-poppins tracking-tight whitespace-nowrap">
+                <span className="text-gray-800">Process</span>
+                <span className="text-gray-800 mx-1">+</span>
+                <span className="text-gray-800">Technology</span>
+                <span className="text-gray-800 mx-1">+</span>
+                <span className="text-blue-600">People</span>
+                <span className="text-gray-800 mx-1">=</span>
+                <span className="text-green-600 font-bold">Growth</span>
+              </div>
             </div>
             
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-6 sm:mb-8 text-gray-900 leading-tight px-4 sm:px-0">
@@ -506,6 +786,9 @@ const Index = () => {
               opts={{
                 align: "start",
                 loop: true,
+                duration: 50,
+                dragFree: false,
+                skipSnaps: false,
               }}
               setApi={setCarouselApi}
               className="w-full"
