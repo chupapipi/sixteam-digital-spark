@@ -1,12 +1,34 @@
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import compression from 'compression';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
 const port = process.env.PORT || 3000;
+
+// Middleware de compresión GZIP/Brotli
+app.use(compression({
+  // Filtrar qué archivos comprimir
+  filter: (req, res) => {
+    // No comprimir si ya está comprimido
+    if (req.headers['x-no-compression']) {
+      return false;
+    }
+    // Comprimir todo lo que sea compatible
+    return compression.filter(req, res);
+  },
+  // Nivel de compresión (6 es un buen balance)
+  level: 6,
+  // Umbral mínimo para comprimir
+  threshold: 1024,
+  // Configuraciones adicionales
+  chunkSize: 16 * 1024,
+  windowBits: 15,
+  memLevel: 8,
+}));
 
 // Middleware para configurar tipos MIME correctos
 app.use((req, res, next) => {

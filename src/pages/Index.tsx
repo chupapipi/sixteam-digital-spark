@@ -659,12 +659,12 @@ const Index = () => {
             </div>
 
             {/* CTA Button único a WhatsApp */}
-            <div className="flex justify-center items-center pt-1 sm:pt-2 lg:pt-3 px-4">
+            <div className="flex justify-center items-center -mt-2 sm:-mt-4 md:-mt-6 lg:-mt-8 xl:-mt-10 mb-4 sm:mb-6 md:mb-8 lg:mb-12 xl:mb-16 px-4">
               <Button 
                 onClick={handleWhatsAppClick}
-                className="w-full sm:w-auto px-4 sm:px-6 md:px-8 lg:px-10 py-2 sm:py-3 md:py-3 lg:py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold text-sm sm:text-base md:text-lg lg:text-xl transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 max-w-sm sm:max-w-md md:max-w-lg"
+                className="w-auto px-3 sm:px-4 md:px-5 lg:px-6 py-1.5 sm:py-2 md:py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold text-xs sm:text-sm md:text-base transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 max-w-xs sm:max-w-sm"
               >
-                <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5 md:w-5 md:h-5 lg:w-6 lg:h-6 mr-2 sm:mr-3" />
+                <MessageCircle className="w-3 h-3 sm:w-4 sm:h-4 md:w-4 md:h-4 mr-1.5 sm:mr-2" />
                 <span className="text-center">Solicita un Diagnóstico Inicial SIN COSTO</span>
               </Button>
             </div>
