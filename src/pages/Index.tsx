@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, lazy, Suspense } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from '@/components/ui/carousel';
 import { MessageCircle, Target, Settings, Brain, Headphones, CheckCircle, Star, Zap, Bot } from 'lucide-react';
 import Footer from '@/components/Footer';
-import ChatSection from '@/components/ChatSection';
+
+// Lazy load componentes no críticos para mejorar LCP
+const ChatSection = lazy(() => import('@/components/ChatSection'));
 
 const Index = () => {
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
@@ -12,26 +14,68 @@ const Index = () => {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [displayText, setDisplayText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
   const words = ['comerciales', 'de marketing', 'de servicio'];
 
-  // Cargar animaciones después de que la página esté completamente cargada
+  // Preload de imágenes críticas para LCP
   useEffect(() => {
+    const criticalImages = [
+      '/LOGO.png',
+      '/logos/HubSpot-Logo-500x281.png',
+      '/logos/make-logo.png',
+      '/logos/Google_Ads_logo.svg.png',
+      '/logos/zapier-logo-new.png'
+    ];
+
+    let loadedCount = 0;
+    const totalImages = criticalImages.length;
+
+    criticalImages.forEach(src => {
+      const img = new Image();
+      img.onload = () => {
+        loadedCount++;
+        if (loadedCount === totalImages) {
+          setImagesLoaded(true);
+        }
+      };
+      img.onerror = () => {
+        loadedCount++;
+        if (loadedCount === totalImages) {
+          setImagesLoaded(true);
+        }
+      };
+      img.src = src;
+    });
+
+    // Fallback timeout
+    const fallbackTimer = setTimeout(() => {
+      setImagesLoaded(true);
+    }, 2000);
+
+    return () => clearTimeout(fallbackTimer);
+  }, []);
+
+  // Cargar animaciones después de LCP
+  useEffect(() => {
+    if (!imagesLoaded) return;
+
     const timer = setTimeout(() => {
       setAnimationsLoaded(true);
-    }, 1000); // Delay de 1 segundo después de que se monte el componente
+    }, 500); // Reducido a 500ms
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [imagesLoaded]);
 
-  // Inicializar el efecto typewriter
+  // Inicializar el efecto typewriter solo después de que las imágenes críticas estén cargadas
   useEffect(() => {
-    // Pequeño delay antes de empezar a escribir
+    if (!imagesLoaded) return;
+
     const initTimer = setTimeout(() => {
       setDisplayText('');
-    }, 1500);
+    }, 1000); // Reducido delay inicial
 
     return () => clearTimeout(initTimer);
-  }, []);
+  }, [imagesLoaded]);
 
   // Efecto typewriter para escribir y borrar palabras
   useEffect(() => {
@@ -232,7 +276,7 @@ const Index = () => {
   }, [animationsLoaded]);
 
   const handleWhatsAppClick = () => {
-    window.open('https://wa.me/+573023515392?text=Hola%2C%20me%20interesa%20agendar%20una%20cita%20para%20conocer%20más%20sobre%20los%20servicios%20de%20Sixteam.pro', '_blank');
+    window.open('https://wa.me/+573023515392?text=Hola%2C%20me%20interesa%20agendar%20una%20cita%20para%20conocer%20m%C3%A1s%20sobre%20los%20servicios%20de%20Sixteam.pro', '_blank');
   };
   
     // Auto-scroll del carrusel cada 8 segundos (solo cuando esté visible)
@@ -406,10 +450,10 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white font-lato">
+    <div className="min-h-screen bg-[#0a2342] font-lato">
       
       {/* Hero Section Profesional */}
-      <section className="relative bg-[#0a2342] text-white overflow-hidden pt-4 sm:pt-6 lg:pt-8 pb-8 sm:pb-12 lg:pb-16">
+      <section className="relative bg-[#0a2342] text-white overflow-hidden pt-4 sm:pt-6 lg:pt-8 pb-16 sm:pb-20 lg:pb-24">
         {/* Fondo base con degradado sutil */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#0a2342] via-[#1d70a2]/20 to-[#0a2342]"></div>
         
@@ -563,8 +607,8 @@ const Index = () => {
         )}
 
         {/* Contenido principal */}
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center max-w-7xl mx-auto space-y-4 sm:space-y-6 lg:space-y-8 py-8 sm:py-12 lg:py-16">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 max-w-none">
+          <div className="text-center space-y-4 sm:space-y-6 lg:space-y-8 py-8 sm:py-12 lg:py-16">
             
             {/* Etiqueta profesional */}
             <div className="inline-flex items-center gap-2 px-3 sm:px-4 lg:px-6 py-1.5 sm:py-2 lg:py-3 bg-gray-800/70 border border-gray-600/50 rounded-full backdrop-blur-sm">
@@ -616,13 +660,69 @@ const Index = () => {
               </Button>
             </div>
 
-
+            {/* Carrusel de Logos de Tecnologías - DESPUÉS del hero title para mejor LCP */}
+            <div className="w-full px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
+              <Carousel 
+                setApi={setCarouselApi} 
+                className="w-full mx-auto"
+                opts={{
+                  align: "center",
+                  loop: true,
+                  duration: 50,
+                  skipSnaps: false,
+                  containScroll: "trimSnaps"
+                }}
+              >
+                <CarouselContent className="-ml-2 md:-ml-4">
+                  {[
+                    { src: "/logos/HubSpot-Logo-500x281.png", alt: "HubSpot - CRM y Marketing", loading: "eager" as const },
+                    { src: "/logos/make-logo.png", alt: "Make - Automatización", loading: "eager" as const },
+                    { src: "/logos/Google_Ads_logo.svg.png", alt: "Google Ads", loading: "eager" as const },
+                    { src: "/logos/zapier-logo-new.png", alt: "Zapier - Automatización", loading: "eager" as const },
+                    { src: "/logos/N8n-logo-new.svg.png", alt: "N8N - Automatización", loading: "lazy" as const },
+                    { src: "/logos/Mailchimp-logo.png", alt: "Mailchimp - Email Marketing", loading: "lazy" as const },
+                    { src: "/logos/brevo.png", alt: "Brevo - Email Marketing", loading: "lazy" as const },
+                    { src: "/logos/highlevel-logo.png", alt: "HighLevel - CRM", loading: "lazy" as const },
+                    { src: "/logos/kommo01.png", alt: "Kommo - CRM", loading: "lazy" as const },
+                    { src: "/logos/wappp.png", alt: "WhatsApp Business", loading: "lazy" as const },
+                    { src: "/logos/logo-atom-chat.png", alt: "Atom Chat", loading: "lazy" as const },
+                    { src: "/logos/MANYCHAT-LOGO-PNG.png", alt: "ManyChat - Chatbots", loading: "lazy" as const },
+                    { src: "/logos/Google_Gemini_logo.svg.png", alt: "Google Gemini IA", loading: "lazy" as const },
+                    { src: "/logos/Logo_Google_Analytics.svg.png", alt: "Google Analytics", loading: "lazy" as const },
+                    { src: "/logos/ads meta_PNG12.png", alt: "Meta Ads", loading: "lazy" as const },
+                  ].map((logo, index) => (
+                    <CarouselItem key={index} className="basis-1/3 sm:basis-1/4 md:basis-1/5 lg:basis-1/6 xl:basis-1/8 pl-2 md:pl-4">
+                      <div className="p-1 h-16 sm:h-20 flex items-center justify-center">
+                        <img 
+                          src={logo.src} 
+                          alt={logo.alt}
+                          loading={logo.loading}
+                          decoding={index < 4 ? "sync" : "async"}
+                          className="max-h-full w-auto object-contain filter brightness-90 hover:brightness-110 transition-all duration-300 hover:scale-105" 
+                          style={{
+                            contentVisibility: index < 4 ? 'auto' : 'auto',
+                            containIntrinsicSize: '120px 80px'
+                          }}
+                          onLoad={index < 4 ? () => {
+                            // Marcar como cargada para las imágenes críticas
+                            const img = event?.target as HTMLImageElement;
+                            if (img) img.classList.add('loaded');
+                          } : undefined}
+                        />
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+              </Carousel>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Sección de Chat con IA Integrada - SIN padding top para continuidad perfecta */}
-      <ChatSection />
+      <Suspense fallback={<div>Loading chat section...</div>}>
+        <ChatSection />
+      </Suspense>
 
       {/* Ecosistema de IA - Sección Profesional */}
       <section className="relative py-12 sm:py-16 lg:py-24 bg-white overflow-hidden">
@@ -688,26 +788,26 @@ const Index = () => {
       </section>
 
       {/* Nueva sección: Nuestro Ciclo de Servicio */}
-      <section className="relative py-12 sm:py-16 lg:py-24 bg-gray-50 overflow-hidden">
+      <section className="relative py-12 sm:py-16 lg:py-24 bg-[#0a2342] overflow-hidden">
         {/* Fondo sutil */}
         <div className="absolute inset-0">
           <div className="absolute inset-0" style={{
-            backgroundImage: 'radial-gradient(circle, rgba(100, 116, 139, 0.08) 1px, transparent 1px)',
+            backgroundImage: 'radial-gradient(circle, rgba(29, 112, 162, 0.15) 1px, transparent 1px)',
             backgroundSize: '32px 32px'
           }}></div>
         </div>
 
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 max-w-none">
           {/* Título de la nueva sección */}
           <div className="text-center mb-12 sm:mb-16 lg:mb-20 space-y-6 sm:space-y-8">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-6 sm:mb-8 text-gray-900 leading-tight px-4 sm:px-0">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-6 sm:mb-8 text-white leading-tight px-4 sm:px-0">
               Nuestro Ciclo de Servicio para tu
               <br />
-              <span className="text-blue-600">Transformación Digital</span>
+              <span className="text-blue-400">Transformación Digital</span>
             </h2>
             
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-0">
-              <p className="text-lg sm:text-xl text-gray-600 leading-relaxed">
+              <p className="text-lg sm:text-xl text-gray-300 leading-relaxed">
                 Entendemos que la verdadera transformación digital no se logra de manera aislada, sino con un socio estratégico que facilite este proceso. Por eso, diseñamos un ciclo de servicio para acompañarte en cada etapa y garantizar el resultado deseado.
               </p>
             </div>
@@ -718,15 +818,15 @@ const Index = () => {
             
             {services.map((service, index) => (
               <div key={index} className="group relative">
-                <div className="bg-white border border-gray-200 rounded-xl p-6 sm:p-8 hover:border-blue-300 hover:shadow-lg transition-all duration-300 h-full">
+                <div className="bg-gray-800/60 backdrop-blur-sm border border-gray-600/40 rounded-xl p-6 sm:p-8 hover:border-blue-400/50 hover:shadow-xl transition-all duration-300 h-full">
                   <div className="flex items-center justify-center mb-6 sm:mb-8">
-                    <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gray-800 rounded-lg flex items-center justify-center">
+                    <div className="w-12 h-12 sm:w-16 sm:h-16 bg-blue-600 rounded-lg flex items-center justify-center">
                       <service.icon className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                     </div>
                   </div>
                   
-                  <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4 text-center">{service.title}</h3>
-                  <p className="text-gray-600 leading-relaxed text-sm sm:text-base text-center">
+                  <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4 text-center">{service.title}</h3>
+                  <p className="text-gray-300 leading-relaxed text-sm sm:text-base text-center">
                     {service.description}
                   </p>
                 </div>
@@ -738,7 +838,7 @@ const Index = () => {
           <div className="text-center px-4 sm:px-0">
             <Button 
               onClick={handleWhatsAppClick}
-              className="w-full sm:w-auto px-8 sm:px-12 py-3 sm:py-4 bg-gray-900 hover:bg-gray-800 text-white rounded-lg font-semibold text-base sm:text-lg lg:text-xl transition-all duration-300 shadow-lg hover:shadow-xl max-w-md sm:max-w-none"
+              className="w-full sm:w-auto px-8 sm:px-12 py-3 sm:py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold text-base sm:text-lg lg:text-xl transition-all duration-300 shadow-lg hover:shadow-xl max-w-md sm:max-w-none"
             >
               <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3" />
               <span className="text-sm sm:text-base lg:text-lg">Conoce más sobre estos servicios</span>
@@ -748,32 +848,32 @@ const Index = () => {
       </section>
 
       {/* Herramientas y Tecnologías */}
-      <section className="relative py-12 sm:py-16 lg:py-24 bg-gray-50 overflow-hidden">
+      <section className="relative py-12 sm:py-16 lg:py-24 bg-[#0a2342] overflow-hidden">
         {/* Elementos decorativos sutiles */}
         <div className="absolute inset-0">
-          <div className="absolute top-10 sm:top-20 left-5 sm:left-10 w-32 sm:w-64 h-32 sm:h-64 bg-blue-100/30 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-10 sm:bottom-20 right-5 sm:right-10 w-40 sm:w-80 h-40 sm:h-80 bg-teal-100/30 rounded-full blur-3xl"></div>
+          <div className="absolute top-10 sm:top-20 left-5 sm:left-10 w-32 sm:w-64 h-32 sm:h-64 bg-blue-500/20 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-10 sm:bottom-20 right-5 sm:right-10 w-40 sm:w-80 h-40 sm:h-80 bg-teal-500/20 rounded-full blur-3xl"></div>
         </div>
 
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 max-w-none">
           <div className="text-center mb-12 sm:mb-16 lg:mb-20 space-y-6 sm:space-y-8">
-            <div className="inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2 sm:py-3 bg-white border border-gray-200 rounded-full shadow-sm">
-              <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-              <span className="text-gray-700 font-medium text-xs sm:text-sm tracking-wide">TECNOLOGÍAS LÍDERES</span>
+            <div className="inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2 sm:py-3 bg-gray-800/60 border border-gray-600/40 rounded-full shadow-sm">
+              <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+              <span className="text-gray-200 font-medium text-xs sm:text-sm tracking-wide">TECNOLOGÍAS LÍDERES</span>
             </div>
             
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-6 sm:mb-8 text-gray-900 leading-tight px-4 sm:px-0">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-6 sm:mb-8 text-white leading-tight px-4 sm:px-0">
               Herramientas que
               <br />
-              <span className="text-blue-600">Utilizamos</span>
+              <span className="text-blue-400">Utilizamos</span>
             </h2>
             
             <div className="max-w-4xl mx-auto space-y-4 sm:space-y-6 px-4 sm:px-6 lg:px-0">
-              <p className="text-lg sm:text-xl text-gray-600 leading-relaxed">
+              <p className="text-lg sm:text-xl text-gray-300 leading-relaxed">
                 Trabajamos con las mejores plataformas y herramientas del mercado para garantizar 
                 resultados excepcionales en tu transformación digital.
               </p>
-              <p className="text-base sm:text-lg text-gray-500 leading-relaxed">
+              <p className="text-base sm:text-lg text-gray-400 leading-relaxed">
                 Cada herramienta está cuidadosamente seleccionada para maximizar 
                 el rendimiento y la escalabilidad de tu operación.
               </p>
@@ -828,7 +928,7 @@ const Index = () => {
           <div className="text-center mt-12 sm:mt-16 px-4 sm:px-0">
             <Button 
               onClick={handleWhatsAppClick}
-              className="w-full sm:w-auto px-8 sm:px-10 py-3 sm:py-4 bg-gray-900 hover:bg-gray-800 text-white rounded-lg font-semibold text-base sm:text-lg transition-all duration-300 shadow-lg hover:shadow-xl max-w-md sm:max-w-none"
+              className="w-full sm:w-auto px-8 sm:px-10 py-3 sm:py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold text-base sm:text-lg transition-all duration-300 shadow-lg hover:shadow-xl max-w-md sm:max-w-none"
             >
               <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3" />
               <span className="text-sm sm:text-base lg:text-lg">Conoce Nuestras Integraciones</span>
@@ -838,16 +938,16 @@ const Index = () => {
       </section>
 
       {/* Más que implementadores, tus Socios Estratégicos */}
-      <section className="relative py-12 sm:py-16 lg:py-24 bg-gray-900 overflow-hidden">
+      <section className="relative py-12 sm:py-16 lg:py-24 bg-[#0a2342] overflow-hidden">
         {/* Fondo sutil empresarial */}
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-black"></div>
-          <div className="absolute top-1/4 left-1/4 w-32 sm:w-64 h-32 sm:h-64 bg-blue-600/10 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-40 sm:w-80 h-40 sm:h-80 bg-teal-600/10 rounded-full blur-3xl"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-[#0a2342] via-[#1d70a2]/20 to-[#0a2342]"></div>
+          <div className="absolute top-1/4 left-1/4 w-32 sm:w-64 h-32 sm:h-64 bg-blue-600/20 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-40 sm:w-80 h-40 sm:h-80 bg-teal-600/20 rounded-full blur-3xl"></div>
         </div>
 
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-6xl mx-auto">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 max-w-none">
+          <div className="max-w-none mx-auto">
             {/* Título profesional */}
             <div className="text-center mb-12 sm:mb-16 lg:mb-20 space-y-6 sm:space-y-8">
               <div className="inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2 sm:py-3 bg-gray-800/60 border border-gray-600/40 rounded-full">
@@ -938,34 +1038,34 @@ const Index = () => {
       </section>
 
       {/* Casos de Éxito Elite */}
-      <section className="relative py-16 sm:py-24 lg:py-32 bg-gradient-to-b from-gray-50 via-white to-gray-50 overflow-hidden">
+      <section className="relative py-16 sm:py-24 lg:py-32 bg-[#0a2342] overflow-hidden">
         {/* Elementos decorativos flotantes */}
         <div className="absolute inset-0">
-          <div className="absolute top-8 sm:top-16 right-8 sm:right-16 w-16 sm:w-32 h-16 sm:h-32 border border-blue-200 rounded-full opacity-30 animate-spin" style={{animationDuration: '20s'}}></div>
-          <div className="absolute bottom-8 sm:bottom-16 left-8 sm:left-16 w-24 sm:w-48 h-24 sm:h-48 border border-gray-200 rounded-full opacity-20 animate-spin" style={{animationDuration: '30s'}}></div>
+          <div className="absolute top-8 sm:top-16 right-8 sm:right-16 w-16 sm:w-32 h-16 sm:h-32 border border-blue-400/30 rounded-full opacity-50 animate-spin" style={{animationDuration: '20s'}}></div>
+          <div className="absolute bottom-8 sm:bottom-16 left-8 sm:left-16 w-24 sm:w-48 h-24 sm:h-48 border border-teal-400/20 rounded-full opacity-30 animate-spin" style={{animationDuration: '30s'}}></div>
         </div>
 
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 max-w-none">
           <div className="text-center mb-12 sm:mb-16 lg:mb-20">
-            <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1 sm:py-2 bg-green-50 border border-green-200 rounded-full mb-4 sm:mb-6">
-              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-              <span className="text-green-600 font-medium text-xs sm:text-sm">Resultados Verificados</span>
+            <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1 sm:py-2 bg-green-500/20 border border-green-400/40 rounded-full mb-4 sm:mb-6">
+              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+              <span className="text-green-300 font-medium text-xs sm:text-sm">Resultados Verificados</span>
             </div>
             
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-6 px-4 sm:px-0">
-              <span className="text-gray-900">Transformaciones</span>
+              <span className="text-white">Transformaciones</span>
               <br />
-              <span className="text-blue-600">de Alto Impacto</span>
+              <span className="text-blue-400">de Alto Impacto</span>
             </h2>
             
-            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed px-4 sm:px-6 lg:px-0">
+            <p className="text-lg sm:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed px-4 sm:px-6 lg:px-0">
               Empresas líderes confían en nosotros para revolucionar sus operaciones 
               con inteligencia artificial y automatización de vanguardia.
             </p>
           </div>
           
           {/* Grid de testimonios premium */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {testimonials.map((testimonial, index) => (
               <div 
                 key={index} 
@@ -973,10 +1073,10 @@ const Index = () => {
                 style={{ animationDelay: `${index * 0.2}s` }}
               >
                 {/* Glow effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-teal-500/10 rounded-3xl blur opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-teal-500/20 rounded-3xl blur opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 
                 {/* Card principal */}
-                <div className="relative bg-white border border-gray-200 rounded-3xl p-10 hover:border-blue-300 hover:shadow-2xl transition-all duration-500 group-hover:-translate-y-2">
+                <div className="relative bg-gray-800/60 backdrop-blur-sm border border-gray-600/40 rounded-3xl p-10 hover:border-blue-400/50 hover:shadow-2xl transition-all duration-500 group-hover:-translate-y-2">
                   
                   {/* Header con estrellas y badge */}
                   <div className="flex items-center justify-between mb-8">
@@ -985,18 +1085,18 @@ const Index = () => {
                         <Star key={i} className="w-6 h-6 text-yellow-400 fill-current" />
                       ))}
                     </div>
-                    <div className="px-3 py-1 bg-green-100 text-green-600 text-sm font-medium rounded-full">
+                    <div className="px-3 py-1 bg-green-500/20 text-green-300 text-sm font-medium rounded-full">
                       VERIFICADO
                     </div>
                   </div>
                   
                   {/* Quote con diseño elegante */}
                   <div className="relative mb-8">
-                    <div className="absolute -top-4 -left-4 text-6xl text-blue-200 font-serif">"</div>
-                    <p className="text-lg text-gray-700 leading-relaxed italic relative z-10 pl-8">
+                    <div className="absolute -top-4 -left-4 text-6xl text-blue-400/30 font-serif">"</div>
+                    <p className="text-lg text-gray-200 leading-relaxed italic relative z-10 pl-8">
                       {testimonial.text}
                     </p>
-                    <div className="absolute -bottom-4 -right-4 text-6xl text-blue-200 font-serif rotate-180">"</div>
+                    <div className="absolute -bottom-4 -right-4 text-6xl text-blue-400/30 font-serif rotate-180">"</div>
                   </div>
                   
                   {/* Información del cliente con avatar */}
@@ -1005,13 +1105,13 @@ const Index = () => {
                       {testimonial.name.charAt(0)}
                     </div>
                     <div>
-                      <p className="font-bold text-gray-900 text-lg">{testimonial.name}</p>
-                      <p className="text-gray-600 font-medium">{testimonial.company}</p>
+                      <p className="font-bold text-white text-lg">{testimonial.name}</p>
+                      <p className="text-gray-300 font-medium">{testimonial.company}</p>
                     </div>
                   </div>
                   
                   {/* Línea decorativa */}
-                  <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-blue-600 rounded-full"></div>
+                  <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-blue-400 rounded-full"></div>
                 </div>
               </div>
             ))}
@@ -1019,7 +1119,7 @@ const Index = () => {
           
           {/* CTA final poderoso */}
           <div className="text-center mt-20">
-            <div className="max-w-3xl mx-auto bg-gradient-to-r from-blue-600 to-teal-600 rounded-3xl p-8 text-white">
+            <div className="bg-gradient-to-r from-blue-600 to-teal-600 rounded-3xl p-8 text-white">
               <h3 className="text-2xl md:text-3xl font-bold mb-4">
                 ¿Quieres ser el próximo caso de éxito?
               </h3>
@@ -1038,15 +1138,15 @@ const Index = () => {
       </section>
 
       {/* Footer Elite */}
-      <footer className="relative bg-black text-white overflow-hidden">
+      <footer className="relative bg-[#0a2342] text-white overflow-hidden">
         {/* Fondo futurista */}
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-950/30 via-gray-950/30 to-teal-950/30"></div>
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl"></div>
-                      <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-teal-500/5 rounded-full blur-3xl"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-[#0a2342] via-[#1d70a2]/20 to-[#0a2342]"></div>
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-teal-500/10 rounded-full blur-3xl"></div>
         </div>
 
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="container mx-auto px-4 relative z-10 max-w-none">
           {/* Sección principal del footer */}
           <div className="py-16 border-b border-gray-800">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-center">

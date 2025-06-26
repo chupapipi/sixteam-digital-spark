@@ -1,41 +1,49 @@
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
-import Servicios from "./pages/Servicios";
-import CasosExito from "./pages/CasosExito";
-import Nosotros from "./pages/Nosotros";
-import Contacto from "./pages/Contacto";
-import NotFound from "./pages/NotFound";
-import WhatsAppButton from "./components/WhatsAppButton";
+import { Suspense, lazy } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import { Toaster } from '@/components/ui/sonner';
+import Header from '@/components/Header';
+import WhatsAppButton from '@/components/WhatsAppButton';
+import './App.css';
 
-const queryClient = new QueryClient();
+// Lazy load de páginas para code splitting
+const Index = lazy(() => import('@/pages/Index'));
+const Servicios = lazy(() => import('@/pages/Servicios'));
+const CasosExito = lazy(() => import('@/pages/CasosExito'));
+const Nosotros = lazy(() => import('@/pages/Nosotros'));
+const Contacto = lazy(() => import('@/pages/Contacto'));
+const NotFound = lazy(() => import('@/pages/NotFound'));
 
-const App = () => {
+// Loading component optimizado
+const PageLoading = () => (
+  <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#0a2342] to-[#1d70a2]">
+    <div className="flex flex-col items-center space-y-4">
+      <div className="loading-spinner"></div>
+      <p className="text-white/80 text-sm">Cargando...</p>
+    </div>
+  </div>
+);
+
+function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
+    <div className="min-h-screen bg-gradient-to-br from-[#0a2342] to-[#1d70a2]">
+      <Header />
+      
+      <main className="relative">
+        <Suspense fallback={<PageLoading />}>
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/servicios" element={<Servicios />} />
             <Route path="/casos-exito" element={<CasosExito />} />
             <Route path="/nosotros" element={<Nosotros />} />
             <Route path="/contacto" element={<Contacto />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
-          
-          {/* Botón personalizado de WhatsApp con SVG */}
-          <WhatsAppButton />
-        </BrowserRouter>
-      </TooltipProvider>
-    </QueryClientProvider>
+        </Suspense>
+      </main>
+      
+      <WhatsAppButton />
+    </div>
   );
-};
+}
 
 export default App;
