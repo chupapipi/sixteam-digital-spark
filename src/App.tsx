@@ -25,7 +25,7 @@ const PageLoading = () => (
 
 function App() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0a2342] to-[#1d70a2]">
+    <div className="min-h-screen bg-gradient-to-br from-[#0a2342] to-[#1d70a2] w-full">
       <Header />
       
       <main className="relative">

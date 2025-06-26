@@ -453,119 +453,130 @@ const Index = () => {
     <div className="min-h-screen bg-[#0a2342] font-lato">
       
       {/* Hero Section Profesional */}
-      <section className="relative bg-[#0a2342] text-white overflow-hidden pt-4 sm:pt-6 lg:pt-8 pb-16 sm:pb-20 lg:pb-24">
+      <section className="relative bg-[#0a2342] text-white overflow-hidden min-h-screen flex items-center justify-center">
         {/* Fondo base con degradado sutil */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#0a2342] via-[#1d70a2]/20 to-[#0a2342]"></div>
         
         {/* Fondo sólido sin degradado complicado */}
         
-        {/* Red de nodos conectados con líneas dinámicas */}
+        {/* Efectos dinámicos mejorados - Círculos flotantes grandes */}
         {animationsLoaded && (
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            {/* Nodos principales fijos con animación simple */}
+            {/* Círculos flotantes grandes - Verde/Teal */}
             <div 
-              className="absolute w-3 h-3 bg-[#00bfa5] rounded-full animate-pulse" 
+              className="absolute rounded-full bg-gradient-to-br from-teal-400/30 to-green-500/20 blur-xl" 
               style={{ 
-                top: '20%', 
-                left: '15%',
-                boxShadow: '0 0 10px rgba(0, 191, 165, 0.8)',
-                animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+                width: '250px',
+                height: '250px',
+                top: '15%', 
+                left: '8%',
+                animation: 'float1 8s ease-in-out infinite'
               }}
             ></div>
             <div 
-              className="absolute w-3 h-3 bg-[#1d70a2] rounded-full animate-pulse" 
+              className="absolute rounded-full bg-gradient-to-br from-green-400/25 to-teal-500/15 blur-lg" 
               style={{ 
-                top: '70%', 
-                left: '80%',
-                boxShadow: '0 0 10px rgba(29, 112, 162, 0.8)',
-                animation: 'pulse 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite'
-              }}
-            ></div>
-            <div 
-              className="absolute w-3 h-3 bg-[#00bfa5] rounded-full animate-pulse" 
-              style={{ 
-                top: '40%', 
-                left: '70%',
-                boxShadow: '0 0 10px rgba(0, 191, 165, 0.8)',
-                animation: 'pulse 1.8s cubic-bezier(0.4, 0, 0.6, 1) infinite'
-              }}
-            ></div>
-            <div 
-              className="absolute w-3 h-3 bg-[#1d70a2] rounded-full animate-pulse" 
-              style={{ 
+                width: '180px',
+                height: '180px',
                 top: '60%', 
-                left: '25%',
-                boxShadow: '0 0 10px rgba(29, 112, 162, 0.8)',
-                animation: 'pulse 2.2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+                right: '12%',
+                animation: 'float2 10s ease-in-out infinite reverse'
               }}
             ></div>
             <div 
-              className="absolute w-3 h-3 bg-[#00bfa5] rounded-full animate-pulse hidden md:block" 
+              className="absolute rounded-full bg-gradient-to-br from-teal-500/20 to-green-400/25 blur-lg" 
               style={{ 
-                top: '30%', 
-                left: '50%',
-                boxShadow: '0 0 10px rgba(0, 191, 165, 0.8)',
-                animation: 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+                width: '320px',
+                height: '320px',
+                top: '35%', 
+                right: '20%',
+                animation: 'float3 12s ease-in-out infinite'
               }}
             ></div>
             
-            {/* Líneas conectoras con glow animado */}
+            {/* Círculos flotantes grandes - Morado/Púrpura */}
             <div 
-              className="absolute bg-gradient-to-r from-transparent via-[#00bfa5]/40 to-transparent h-px animate-pulse" 
+              className="absolute rounded-full bg-gradient-to-br from-purple-500/25 to-indigo-600/20 blur-xl" 
+              style={{ 
+                width: '280px',
+                height: '280px',
+                top: '45%', 
+                left: '5%',
+                animation: 'float4 9s ease-in-out infinite'
+              }}
+            ></div>
+            <div 
+              className="absolute rounded-full bg-gradient-to-br from-indigo-500/20 to-purple-400/25 blur-lg" 
+              style={{ 
+                width: '200px',
+                height: '200px',
+                top: '25%', 
+                right: '8%',
+                animation: 'float5 11s ease-in-out infinite reverse'
+              }}
+            ></div>
+            
+            {/* Partículas pequeñas brillantes */}
+            <div 
+              className="absolute w-4 h-4 bg-teal-400 rounded-full opacity-80" 
               style={{ 
                 top: '20%', 
                 left: '15%', 
-                width: '55%', 
-                transformOrigin: 'left', 
-                transform: 'rotate(8deg)',
-                animation: 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+                boxShadow: '0 0 20px rgba(20, 184, 166, 0.9)',
+                animation: 'twinkle1 3s ease-in-out infinite'
               }}
             ></div>
             <div 
-              className="absolute bg-gradient-to-r from-transparent via-[#1d70a2]/40 to-transparent h-px animate-pulse" 
+              className="absolute w-3 h-3 bg-green-400 rounded-full opacity-70" 
               style={{ 
-                top: '40%', 
-                left: '70%', 
-                width: '25%', 
-                transformOrigin: 'left', 
-                transform: 'rotate(-45deg)',
-                animation: 'pulse 3.5s cubic-bezier(0.4, 0, 0.6, 1) infinite'
-              }}
-            ></div>
-            
-            {/* Partículas móviles simples */}
-            <div 
-              className="absolute w-2 h-2 bg-[#00bfa5] rounded-full" 
-              style={{ 
-                top: '20%', 
-                left: '15%',
-                boxShadow: '0 0 6px rgba(0, 191, 165, 0.9)',
-                animation: 'moveHorizontal1 4s linear infinite'
+                top: '70%', 
+                left: '80%',
+                boxShadow: '0 0 15px rgba(34, 197, 94, 0.8)',
+                animation: 'twinkle2 4s ease-in-out infinite'
               }}
             ></div>
             <div 
-              className="absolute w-2 h-2 bg-[#1d70a2] rounded-full" 
+              className="absolute w-5 h-5 bg-purple-400 rounded-full opacity-75" 
               style={{ 
                 top: '40%', 
                 left: '70%',
-                boxShadow: '0 0 6px rgba(29, 112, 162, 0.9)',
-                animation: 'moveDiagonal1 5s linear infinite'
+                boxShadow: '0 0 25px rgba(168, 85, 247, 0.9)',
+                animation: 'twinkle3 2.5s ease-in-out infinite'
               }}
             ></div>
             <div 
-              className="absolute w-1 h-1 bg-[#00bfa5]/80 rounded-full" 
+              className="absolute w-2 h-2 bg-indigo-400 rounded-full opacity-85" 
               style={{ 
-                top: '10%', 
-                left: '30%',
-                animation: 'floatUp1 8s ease-in-out infinite'
+                top: '60%', 
+                left: '25%',
+                boxShadow: '0 0 12px rgba(99, 102, 241, 0.8)',
+                animation: 'twinkle4 3.5s ease-in-out infinite'
+              }}
+            ></div>
+            
+            {/* Partículas en movimiento */}
+            <div 
+              className="absolute w-1 h-1 bg-teal-300 rounded-full opacity-60" 
+              style={{ 
+                top: '30%', 
+                left: '40%',
+                animation: 'drift1 15s linear infinite'
               }}
             ></div>
             <div 
-              className="absolute w-1 h-1 bg-[#1d70a2]/80 rounded-full" 
+              className="absolute w-1 h-1 bg-purple-300 rounded-full opacity-50" 
               style={{ 
                 top: '80%', 
                 left: '60%',
-                animation: 'floatUp2 10s ease-in-out infinite'
+                animation: 'drift2 18s linear infinite'
+              }}
+            ></div>
+            <div 
+              className="absolute w-1 h-1 bg-green-300 rounded-full opacity-70" 
+              style={{ 
+                top: '10%', 
+                left: '85%',
+                animation: 'drift3 20s linear infinite'
               }}
             ></div>
           </div>
@@ -607,114 +618,58 @@ const Index = () => {
         )}
 
         {/* Contenido principal */}
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 max-w-none">
-          <div className="text-center space-y-4 sm:space-y-6 lg:space-y-8 py-8 sm:py-12 lg:py-16">
+        <div className="w-full px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="max-w-7xl mx-auto text-center space-y-12 sm:space-y-16 lg:space-y-20">
             
             {/* Etiqueta profesional */}
-            <div className="inline-flex items-center gap-2 px-3 sm:px-4 lg:px-6 py-1.5 sm:py-2 lg:py-3 bg-gray-800/70 border border-gray-600/50 rounded-full backdrop-blur-sm">
-              <div className="text-sm sm:text-base lg:text-lg font-bold font-poppins tracking-tight whitespace-nowrap">
+            <div className="inline-flex items-center gap-2 sm:gap-3 px-3 sm:px-4 md:px-6 lg:px-8 py-2 sm:py-3 lg:py-4 bg-gray-800/70 border border-gray-600/50 rounded-full backdrop-blur-sm mt-8 sm:mt-12 lg:mt-16 mb-8 sm:mb-12 lg:mb-16">
+              <div className="text-sm sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold font-poppins tracking-tight whitespace-nowrap">
                 <span className="text-white">Process</span>
-                <span className="text-white mx-0.5">+</span>
+                <span className="text-white mx-0.5 sm:mx-1">+</span>
                 <span className="text-white">Technology</span>
-                <span className="text-white mx-0.5">+</span>
+                <span className="text-white mx-0.5 sm:mx-1">+</span>
                 <span className="text-blue-400">People</span>
-                <span className="text-white mx-0.5">=</span>
+                <span className="text-white mx-0.5 sm:mx-1">=</span>
                 <span className="text-green-400 font-bold">Growth</span>
               </div>
             </div>
 
             {/* Título principal profesional con animación */}
-            <div className="space-y-3 sm:space-y-4 lg:space-y-6">
-              <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold leading-tight tracking-tight px-4 sm:px-0">
-                <span className="text-white font-extrabold">¿Tus procesos</span>
-                <br />
-                <span className="text-white">
+            <div className="space-y-6 sm:space-y-8 lg:space-y-12">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-[115px] font-bold leading-[0.9] tracking-tight">
+                <span className="text-white font-extrabold block">¿Tus procesos</span>
+                <span className="text-white block">
                   <span 
-                    className="inline-block min-w-[200px] sm:min-w-[300px] lg:min-w-[400px] text-center relative"
+                    className="inline-block min-w-[120px] sm:min-w-[180px] md:min-w-[220px] lg:min-w-[280px] xl:min-w-[350px] 2xl:min-w-[400px] text-center relative"
                   >
                     {displayText}
-                    <span className="typewriter-cursor ml-1">|</span>
-                  </span> te están
+                    <span className="typewriter-cursor ml-1 text-white"></span>
+                  </span>te están
                 </span>
-                <br />
-                <span className="bg-gradient-to-r from-blue-400 to-teal-400 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-blue-400 to-teal-400 bg-clip-text text-transparent block">
                   impidiendo crecer?
                 </span>
               </h1>
               
-              <div className="max-w-5xl mx-auto space-y-3 sm:space-y-4 pt-3 sm:pt-4 px-4 sm:px-6 lg:px-0">
-                <p className="text-xl sm:text-2xl lg:text-3xl text-gray-300 leading-relaxed font-medium">
+              <div className="max-w-5xl mx-auto space-y-4 sm:space-y-6 pt-4 sm:pt-6 lg:pt-8">
+                <p className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl text-gray-300 leading-relaxed font-medium px-4">
                   Integramos áreas de Marketing, ventas y servicio bajo una estrategia de RevOps potenciada con IA
                 </p>
               </div>
             </div>
 
             {/* CTA Button único a WhatsApp */}
-            <div className="flex justify-center items-center pt-3 sm:pt-4 lg:pt-6 px-4 sm:px-0">
+            <div className="flex justify-center items-center pt-1 sm:pt-2 lg:pt-3 px-4">
               <Button 
                 onClick={handleWhatsAppClick}
-                className="w-full sm:w-auto px-6 sm:px-8 lg:px-12 py-3 sm:py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold text-base sm:text-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 max-w-sm sm:max-w-none"
+                className="w-full sm:w-auto px-4 sm:px-6 md:px-8 lg:px-10 py-2 sm:py-3 md:py-3 lg:py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold text-sm sm:text-base md:text-lg lg:text-xl transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 max-w-sm sm:max-w-md md:max-w-lg"
               >
-                <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3" />
-                <span className="text-sm sm:text-base lg:text-lg">Solicita un Diagnóstico Inicial SIN COSTO</span>
+                <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5 md:w-5 md:h-5 lg:w-6 lg:h-6 mr-2 sm:mr-3" />
+                <span className="text-center">Solicita un Diagnóstico Inicial SIN COSTO</span>
               </Button>
             </div>
 
-            {/* Carrusel de Logos de Tecnologías - DESPUÉS del hero title para mejor LCP */}
-            <div className="w-full px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
-              <Carousel 
-                setApi={setCarouselApi} 
-                className="w-full mx-auto"
-                opts={{
-                  align: "center",
-                  loop: true,
-                  duration: 50,
-                  skipSnaps: false,
-                  containScroll: "trimSnaps"
-                }}
-              >
-                <CarouselContent className="-ml-2 md:-ml-4">
-                  {[
-                    { src: "/logos/HubSpot-Logo-500x281.png", alt: "HubSpot - CRM y Marketing", loading: "eager" as const },
-                    { src: "/logos/make-logo.png", alt: "Make - Automatización", loading: "eager" as const },
-                    { src: "/logos/Google_Ads_logo.svg.png", alt: "Google Ads", loading: "eager" as const },
-                    { src: "/logos/zapier-logo-new.png", alt: "Zapier - Automatización", loading: "eager" as const },
-                    { src: "/logos/N8n-logo-new.svg.png", alt: "N8N - Automatización", loading: "lazy" as const },
-                    { src: "/logos/Mailchimp-logo.png", alt: "Mailchimp - Email Marketing", loading: "lazy" as const },
-                    { src: "/logos/brevo.png", alt: "Brevo - Email Marketing", loading: "lazy" as const },
-                    { src: "/logos/highlevel-logo.png", alt: "HighLevel - CRM", loading: "lazy" as const },
-                    { src: "/logos/kommo01.png", alt: "Kommo - CRM", loading: "lazy" as const },
-                    { src: "/logos/wappp.png", alt: "WhatsApp Business", loading: "lazy" as const },
-                    { src: "/logos/logo-atom-chat.png", alt: "Atom Chat", loading: "lazy" as const },
-                    { src: "/logos/MANYCHAT-LOGO-PNG.png", alt: "ManyChat - Chatbots", loading: "lazy" as const },
-                    { src: "/logos/Google_Gemini_logo.svg.png", alt: "Google Gemini IA", loading: "lazy" as const },
-                    { src: "/logos/Logo_Google_Analytics.svg.png", alt: "Google Analytics", loading: "lazy" as const },
-                    { src: "/logos/ads meta_PNG12.png", alt: "Meta Ads", loading: "lazy" as const },
-                  ].map((logo, index) => (
-                    <CarouselItem key={index} className="basis-1/3 sm:basis-1/4 md:basis-1/5 lg:basis-1/6 xl:basis-1/8 pl-2 md:pl-4">
-                      <div className="p-1 h-16 sm:h-20 flex items-center justify-center">
-                        <img 
-                          src={logo.src} 
-                          alt={logo.alt}
-                          loading={logo.loading}
-                          decoding={index < 4 ? "sync" : "async"}
-                          className="max-h-full w-auto object-contain filter brightness-90 hover:brightness-110 transition-all duration-300 hover:scale-105" 
-                          style={{
-                            contentVisibility: index < 4 ? 'auto' : 'auto',
-                            containIntrinsicSize: '120px 80px'
-                          }}
-                          onLoad={index < 4 ? () => {
-                            // Marcar como cargada para las imágenes críticas
-                            const img = event?.target as HTMLImageElement;
-                            if (img) img.classList.add('loaded');
-                          } : undefined}
-                        />
-                      </div>
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-              </Carousel>
-            </div>
+
           </div>
         </div>
       </section>

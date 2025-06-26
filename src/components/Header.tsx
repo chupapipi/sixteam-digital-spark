@@ -30,7 +30,7 @@ const Header = () => {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <header className="bg-gray-900 shadow-sm sticky top-0 z-50 font-lato">
+    <header className="bg-gray-900 shadow-sm sticky top-0 z-50 font-lato opacity-0 pointer-events-none h-0 overflow-hidden">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center py-5">
           {/* Frase Principal como Logo */}
