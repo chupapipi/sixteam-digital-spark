@@ -1,8 +1,5 @@
-
-
 import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Menu, X, MessageCircle, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
 const Header = () => {
@@ -20,6 +17,7 @@ const Header = () => {
         'Consultoría Estratégica',
         'Implementación de CRM',
         'Soluciones de IA',
+        'Implementaciones de Chatbot',
         'Operación y Mantenimiento'
       ]
     },
@@ -30,28 +28,21 @@ const Header = () => {
 
   const isActive = (path: string) => location.pathname === path;
 
-  const handleWhatsAppClick = () => {
-    window.open('https://wa.me/+573023515392?text=Hola%2C%20me%20interesa%20agendar%20una%20cita%20para%20conocer%20más%20sobre%20los%20servicios%20de%20Sixteam.pro', '_blank');
-  };
-
   return (
-    <header className="bg-white shadow-sm sticky top-0 z-50 font-lato">
+    <header className="bg-gray-900 shadow-sm sticky top-0 z-50 font-lato opacity-0 pointer-events-none h-0 overflow-hidden">
       <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center py-4">
-          {/* Logo */}
-          <Link to="/" className="flex items-center space-x-3">
-            <div className="text-sm font-bold font-poppins tracking-tight whitespace-nowrap">
-              <span className="text-gray-800">Process</span>
-              <span className="text-gray-800 mx-1">+</span>
-              <span className="text-gray-800">Technology</span>
-              <span className="text-gray-800 mx-1">+</span>
-              <span className="text-blue-600">People</span>
-              <span className="text-gray-800 mx-1">=</span>
-              <span className="text-green-600 font-bold">Growth</span>
+        <div className="flex justify-between items-center py-5">
+          {/* Frase Principal como Logo */}
+          <Link to="/" className="flex items-center">
+            <div className="text-2xl sm:text-3xl font-bold font-poppins tracking-tight whitespace-nowrap leading-tight">
+              <span className="text-white">Process</span>
+              <span className="text-white mx-0.5">+</span>
+              <span className="text-white">Technology</span>
+              <span className="text-white mx-0.5">+</span>
+              <span className="text-blue-400">People</span>
+              <span className="text-white mx-0.5">=</span>
+              <span className="text-green-400 font-bold">Growth</span>
             </div>
-            <span className="text-2xl font-poppins font-bold text-sixteam-navy">
-              Sixteam.pro
-            </span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -65,8 +56,8 @@ const Header = () => {
               >
                 <Link
                   to={item.path}
-                  className={`flex items-center text-sm font-medium transition-colors hover:text-sixteam-blue ${
-                    isActive(item.path) ? 'text-sixteam-blue' : 'text-sixteam-navy'
+                  className={`flex items-center text-sm font-medium transition-colors hover:text-blue-400 ${
+                    isActive(item.path) ? 'text-blue-400' : 'text-white'
                   }`}
                 >
                   {item.name}
@@ -89,13 +80,7 @@ const Header = () => {
                 )}
               </div>
             ))}
-            <Button 
-              onClick={handleWhatsAppClick}
-              className="bg-sixteam-teal hover:bg-sixteam-teal/90 text-white glow-button"
-            >
-              <MessageCircle className="w-4 h-4 mr-2" />
-              WhatsApp
-            </Button>
+
           </nav>
 
           {/* Mobile Menu Button */}
@@ -104,36 +89,30 @@ const Header = () => {
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? (
-              <X className="w-6 h-6 text-sixteam-navy" />
+              <X className="w-6 h-6 text-white" />
             ) : (
-              <Menu className="w-6 h-6 text-sixteam-navy" />
+              <Menu className="w-6 h-6 text-white" />
             )}
           </button>
         </div>
 
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
-          <div className="md:hidden pb-4 border-t border-gray-200">
-            <nav className="flex flex-col space-y-4 pt-4">
+          <div className="md:hidden pb-5 border-t border-gray-700">
+            <nav className="flex flex-col space-y-1 pt-5">
               {navItems.map((item) => (
                 <Link
                   key={item.name}
                   to={item.path}
-                  className={`text-sm font-medium transition-colors hover:text-sixteam-blue ${
-                    isActive(item.path) ? 'text-sixteam-blue' : 'text-sixteam-navy'
+                  className={`text-sm font-medium transition-colors hover:text-blue-400 ${
+                    isActive(item.path) ? 'text-blue-400' : 'text-white'
                   }`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {item.name}
                 </Link>
               ))}
-              <Button 
-                onClick={handleWhatsAppClick}
-                className="bg-sixteam-teal hover:bg-sixteam-teal/90 text-white w-fit"
-              >
-                <MessageCircle className="w-4 h-4 mr-2" />
-                WhatsApp
-              </Button>
+
             </nav>
           </div>
         )}

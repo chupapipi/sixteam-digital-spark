@@ -1,18 +1,337 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, lazy, Suspense } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from '@/components/ui/carousel';
 import { MessageCircle, Target, Settings, Brain, Headphones, CheckCircle, Star, Zap, Bot } from 'lucide-react';
 import Footer from '@/components/Footer';
+import SolutionsInteractiveGrid from '@/components/SolutionsInteractiveGrid';
+
+// Lazy load componentes no críticos para mejorar LCP
+const ChatSection = lazy(() => import('@/components/ChatSection'));
 
 const Index = () => {
-  const [carouselApi, setCarouselApi] = useState(null);
+  const [carouselApi, setCarouselApi] = useState<CarouselApi>();
+  const [animationsLoaded, setAnimationsLoaded] = useState(false);
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const [displayText, setDisplayText] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
+  const words = ['comerciales', 'de marketing', 'de servicio'];
+
+  // Preload de imágenes críticas para LCP
+  useEffect(() => {
+    const criticalImages = [
+      '/LOGO.png',
+      '/logos/HubSpot-Logo-500x281.png',
+      '/logos/make-logo.png',
+      '/logos/Google_Ads_logo.svg.png',
+      '/logos/zapier-logo-new.png'
+    ];
+
+    let loadedCount = 0;
+    const totalImages = criticalImages.length;
+
+    criticalImages.forEach(src => {
+      const img = new Image();
+      img.onload = () => {
+        loadedCount++;
+        if (loadedCount === totalImages) {
+          setImagesLoaded(true);
+        }
+      };
+      img.onerror = () => {
+        loadedCount++;
+        if (loadedCount === totalImages) {
+          setImagesLoaded(true);
+        }
+      };
+      img.src = src;
+    });
+
+    // Fallback timeout
+    const fallbackTimer = setTimeout(() => {
+      setImagesLoaded(true);
+    }, 2000);
+
+    return () => clearTimeout(fallbackTimer);
+  }, []);
+
+  // Cargar animaciones después de LCP
+  useEffect(() => {
+    if (!imagesLoaded) return;
+
+    const timer = setTimeout(() => {
+      setAnimationsLoaded(true);
+    }, 500); // Reducido a 500ms
+
+    return () => clearTimeout(timer);
+  }, [imagesLoaded]);
+
+  // Inicializar el efecto typewriter solo después de que las imágenes críticas estén cargadas
+  useEffect(() => {
+    if (!imagesLoaded) return;
+
+    const initTimer = setTimeout(() => {
+      setDisplayText('');
+    }, 1000); // Reducido delay inicial
+
+    return () => clearTimeout(initTimer);
+  }, [imagesLoaded]);
+
+  // Efecto typewriter para escribir y borrar palabras
+  useEffect(() => {
+    const currentWord = words[currentWordIndex];
+    
+    const timeout = setTimeout(() => {
+      if (!isDeleting) {
+        // Escribiendo letra a letra
+        if (displayText.length < currentWord.length) {
+          setDisplayText(currentWord.substring(0, displayText.length + 1));
+        } else {
+          // Palabra completa, esperar y luego empezar a borrar
+          setTimeout(() => setIsDeleting(true), 1500); // Pausa de 1.5s con palabra completa
+        }
+      } else {
+        // Borrando letra a letra (más rápido)
+        if (displayText.length > 0) {
+          setDisplayText(displayText.substring(0, displayText.length - 1));
+        } else {
+          // Palabra borrada completamente, cambiar a siguiente palabra
+          setIsDeleting(false);
+          setCurrentWordIndex((prev) => (prev + 1) % words.length);
+        }
+      }
+    }, isDeleting ? 50 : 100); // Borrar más rápido (50ms) que escribir (100ms)
+
+    return () => clearTimeout(timeout);
+  }, [displayText, isDeleting, currentWordIndex, words]);
+
+  // Efecto para dibujar líneas de conexión dinámicas entre puntos
+  useEffect(() => {
+    if (!animationsLoaded) return;
+
+    const canvas = document.getElementById('connectionLines') as HTMLCanvasElement;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    // Configurar canvas
+    const resizeCanvas = () => {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    };
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Función para obtener posición de un punto en cualquier momento
+    const getPointPosition = (pointIndex: number, time: number) => {
+      const rect = canvas.getBoundingClientRect();
+      const basePositions = [
+        { x: 0.15 * canvas.width, y: 0.20 * canvas.height },  // Punto 1
+        { x: 0.80 * canvas.width, y: 0.70 * canvas.height },  // Punto 2
+        { x: 0.70 * canvas.width, y: 0.40 * canvas.height },  // Punto 3
+        { x: 0.25 * canvas.width, y: 0.60 * canvas.height },  // Punto 4
+        { x: 0.50 * canvas.width, y: 0.30 * canvas.height },  // Punto 5
+      ];
+
+      const base = basePositions[pointIndex];
+      let offset = { x: 0, y: 0 };
+
+      // Calcular offset basado en la animación CSS
+      switch (pointIndex) {
+        case 0: // movePoint1 - 12s
+          const progress1 = (time % 12000) / 12000;
+          if (progress1 < 0.25) {
+            const t = progress1 / 0.25;
+            offset = { x: 100 * t, y: 50 * t };
+          } else if (progress1 < 0.5) {
+            const t = (progress1 - 0.25) / 0.25;
+            offset = { x: 100 + 100 * t, y: 50 - 80 * t };
+          } else if (progress1 < 0.75) {
+            const t = (progress1 - 0.5) / 0.25;
+            offset = { x: 200 - 150 * t, y: -30 + 110 * t };
+          } else {
+            const t = (progress1 - 0.75) / 0.25;
+            offset = { x: 50 - 50 * t, y: 80 - 80 * t };
+          }
+          break;
+        case 1: // movePoint2 - 15s
+          const progress2 = (time % 15000) / 15000;
+          if (progress2 < 0.2) {
+            const t = progress2 / 0.2;
+            offset = { x: -80 * t, y: -60 * t };
+          } else if (progress2 < 0.4) {
+            const t = (progress2 - 0.2) / 0.2;
+            offset = { x: -80 - 70 * t, y: -60 + 100 * t };
+          } else if (progress2 < 0.6) {
+            const t = (progress2 - 0.4) / 0.2;
+            offset = { x: -150 + 100 * t, y: 40 - 60 * t };
+          } else if (progress2 < 0.8) {
+            const t = (progress2 - 0.6) / 0.2;
+            offset = { x: -50 - 70 * t, y: -20 + 50 * t };
+          } else {
+            const t = (progress2 - 0.8) / 0.2;
+            offset = { x: -120 + 120 * t, y: 30 - 30 * t };
+          }
+          break;
+        case 2: // movePoint3 - 10s
+          const progress3 = (time % 10000) / 10000;
+          if (progress3 < 0.33) {
+            const t = progress3 / 0.33;
+            offset = { x: -100 * t, y: 70 * t };
+          } else if (progress3 < 0.66) {
+            const t = (progress3 - 0.33) / 0.33;
+            offset = { x: -100 + 180 * t, y: 70 - 120 * t };
+          } else {
+            const t = (progress3 - 0.66) / 0.34;
+            offset = { x: 80 - 80 * t, y: -50 + 50 * t };
+          }
+          break;
+        case 3: // movePoint4 - 18s
+          const progress4 = (time % 18000) / 18000;
+          if (progress4 < 0.16) {
+            const t = progress4 / 0.16;
+            offset = { x: 120 * t, y: -40 * t };
+          } else if (progress4 < 0.32) {
+            const t = (progress4 - 0.16) / 0.16;
+            offset = { x: 120 - 40 * t, y: -40 + 100 * t };
+          } else if (progress4 < 0.48) {
+            const t = (progress4 - 0.32) / 0.16;
+            offset = { x: 80 - 140 * t, y: 60 + 20 * t };
+          } else if (progress4 < 0.64) {
+            const t = (progress4 - 0.48) / 0.16;
+            offset = { x: -60 - 60 * t, y: 80 - 110 * t };
+          } else if (progress4 < 0.8) {
+            const t = (progress4 - 0.64) / 0.16;
+            offset = { x: -120 + 160 * t, y: -30 - 30 * t };
+          } else {
+            const t = (progress4 - 0.8) / 0.2;
+            offset = { x: 40 - 40 * t, y: -60 + 60 * t };
+          }
+          break;
+        case 4: // movePoint5 - 8s
+          const progress5 = (time % 8000) / 8000;
+          if (progress5 < 0.25) {
+            const t = progress5 / 0.25;
+            offset = { x: -70 * t, y: -50 * t };
+          } else if (progress5 < 0.5) {
+            const t = (progress5 - 0.25) / 0.25;
+            offset = { x: -70 + 160 * t, y: -50 + 90 * t };
+          } else if (progress5 < 0.75) {
+            const t = (progress5 - 0.5) / 0.25;
+            offset = { x: 90 - 130 * t, y: 40 + 30 * t };
+          } else {
+            const t = (progress5 - 0.75) / 0.25;
+            offset = { x: -40 + 40 * t, y: 70 - 70 * t };
+          }
+          break;
+      }
+
+      return { x: base.x + offset.x, y: base.y + offset.y };
+    };
+
+    // Función de animación
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      const time = Date.now();
+      const points = [];
+      
+      // Obtener posiciones actuales de todos los puntos
+      for (let i = 0; i < 5; i++) {
+        points.push(getPointPosition(i, time));
+      }
+
+      // Dibujar líneas entre puntos cercanos
+      ctx.strokeStyle = '#00bfa5';
+      ctx.lineWidth = 1;
+      ctx.globalAlpha = 0.3;
+
+      for (let i = 0; i < points.length; i++) {
+        for (let j = i + 1; j < points.length; j++) {
+          const distance = Math.sqrt(
+            Math.pow(points[i].x - points[j].x, 2) + 
+            Math.pow(points[i].y - points[j].y, 2)
+          );
+          
+          // Solo dibujar líneas si los puntos están lo suficientemente cerca
+          if (distance < 300) {
+            ctx.globalAlpha = Math.max(0.1, 0.4 - distance / 1000);
+            ctx.beginPath();
+            ctx.moveTo(points[i].x, points[i].y);
+            ctx.lineTo(points[j].x, points[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      requestAnimationFrame(animate);
+    };
+
+    animate();
+
+    return () => {
+      window.removeEventListener('resize', resizeCanvas);
+    };
+  }, [animationsLoaded]);
 
   const handleWhatsAppClick = () => {
-    window.open('https://wa.me/+573023515392?text=Hola%2C%20me%20interesa%20agendar%20una%20cita%20para%20conocer%20más%20sobre%20los%20servicios%20de%20Sixteam.pro', '_blank');
+    window.open('https://wa.me/+573023515392?text=Hola%2C%20me%20interesa%20conocer%20más%20sobre%20los%20servicios%20de%20Sixteam.pro', '_blank');
   };
 
-  // Auto-scroll del carrusel cada 2 segundos (solo cuando esté visible)
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
+
+  const handleServiceClick = (service: any) => {
+    if (service.name === 'Consultoría Estratégica') {
+      handleWhatsAppClick();
+    } else {
+      scrollToSection(service.sectionId);
+    }
+  };
+
+  const footerServices = [
+    {
+      name: 'Consultoría Estratégica',
+      sectionId: 'servicio-consultoria-estrategica',
+      color: 'bg-blue-400',
+      isWhatsApp: true
+    },
+    {
+      name: 'Implementación de CRM',
+      sectionId: 'servicio-implementacion-de-crm',
+      color: 'bg-teal-600',
+      isWhatsApp: false
+    },
+    {
+      name: 'Soluciones de IA',
+      sectionId: 'servicio-soluciones-de-ia',
+      color: 'bg-green-400',
+      isWhatsApp: false
+    },
+    {
+      name: 'Implementaciones de Chatbot',
+      sectionId: 'soluciones-especializadas',
+      color: 'bg-purple-400',
+      isWhatsApp: false
+    },
+    {
+      name: 'Operación y Mantenimiento',
+      sectionId: 'servicio-operacion-y-mantenimiento',
+      color: 'bg-yellow-400',
+      isWhatsApp: false
+    }
+  ];
+
+  // Auto-scroll del carrusel cada 8 segundos (solo cuando esté visible)
   useEffect(() => {
     if (!carouselApi) return;
 
@@ -23,7 +342,7 @@ const Index = () => {
           if (entry.isIntersecting) {
             const interval = setInterval(() => {
               carouselApi.scrollNext();
-            }, 1000);
+            }, 8000);
 
             // Limpiar cuando el carrusel no esté visible
             return () => clearInterval(interval);
@@ -42,8 +361,8 @@ const Index = () => {
       observer.disconnect();
     };
   }, [carouselApi]);
-
-  const services = [
+  
+    const services = [
     {
       icon: Target,
       title: 'Consultoría Estratégica',
@@ -183,162 +502,222 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white font-lato">
+    <div className="min-h-screen bg-[#0a2342] font-lato">
       
       {/* Hero Section Profesional */}
-      <section className="relative min-h-screen bg-gray-900 text-white overflow-hidden pt-8">
-        {/* Fondo base con color específico */}
-        <div className="absolute inset-0 bg-[#0a2342]"></div>
+      <section className="relative bg-[#0a2342] text-white overflow-hidden min-h-screen flex items-center justify-center">
+        {/* Fondo base con degradado sutil */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0a2342] via-[#1d70a2]/20 to-[#0a2342]"></div>
         
-        {/* Gradiente central para legibilidad */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0a2342]/90 via-[#0a2342]/60 to-[#0a2342]/90"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0a2342]/70 via-transparent to-[#0a2342]/70"></div>
+        {/* Fondo sólido sin degradado complicado */}
         
-        {/* Círculos pequeños animados de fondo - Reducidos para mejor rendimiento */}
-        <div className="absolute inset-0 overflow-hidden">
-          {Array.from({length: 15}).map((_, i) => (
-            <div
-              key={i}
-              className={`absolute rounded-full border border-[#00bfa5]/20 animate-pulse ${i > 9 ? 'hidden md:block' : ''}`}
-              style={{
-                width: `${Math.random() * 20 + 10}px`,
-                height: `${Math.random() * 20 + 10}px`,
-                top: `${Math.random() * 100}%`,
-                left: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 2}s`,
-                animationDuration: `${2 + Math.random() * 1}s`
+        {/* Efectos dinámicos mejorados - Círculos flotantes grandes */}
+        {animationsLoaded && (
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            {/* Círculos flotantes grandes - Verde/Teal */}
+            <div 
+              className="absolute rounded-full bg-gradient-to-br from-teal-400/30 to-green-500/20 blur-xl" 
+              style={{ 
+                width: '250px',
+                height: '250px',
+                top: '15%', 
+                left: '8%',
+                animation: 'float1 8s ease-in-out infinite'
               }}
             ></div>
-          ))}
-        </div>
+            <div 
+              className="absolute rounded-full bg-gradient-to-br from-green-400/25 to-teal-500/15 blur-lg" 
+              style={{ 
+                width: '180px',
+                height: '180px',
+                top: '60%', 
+                right: '12%',
+                animation: 'float2 10s ease-in-out infinite reverse'
+              }}
+            ></div>
+            <div 
+              className="absolute rounded-full bg-gradient-to-br from-teal-500/20 to-green-400/25 blur-lg" 
+              style={{ 
+                width: '320px',
+                height: '320px',
+                top: '35%', 
+                right: '20%',
+                animation: 'float3 12s ease-in-out infinite'
+              }}
+            ></div>
+            
+            {/* Círculos flotantes grandes - Morado/Púrpura */}
+            <div 
+              className="absolute rounded-full bg-gradient-to-br from-purple-500/25 to-indigo-600/20 blur-xl" 
+              style={{ 
+                width: '280px',
+                height: '280px',
+                top: '45%', 
+                left: '5%',
+                animation: 'float4 9s ease-in-out infinite'
+              }}
+            ></div>
+            <div 
+              className="absolute rounded-full bg-gradient-to-br from-indigo-500/20 to-purple-400/25 blur-lg" 
+              style={{ 
+                width: '200px',
+                height: '200px',
+                top: '25%', 
+                right: '8%',
+                animation: 'float5 11s ease-in-out infinite reverse'
+              }}
+            ></div>
+            
+            {/* Partículas pequeñas brillantes */}
+            <div 
+              className="absolute w-4 h-4 bg-teal-400 rounded-full opacity-80" 
+              style={{ 
+                top: '20%', 
+                left: '15%', 
+                boxShadow: '0 0 20px rgba(20, 184, 166, 0.9)',
+                animation: 'twinkle1 3s ease-in-out infinite'
+              }}
+            ></div>
+            <div 
+              className="absolute w-3 h-3 bg-green-400 rounded-full opacity-70" 
+              style={{ 
+                top: '70%', 
+                left: '80%',
+                boxShadow: '0 0 15px rgba(34, 197, 94, 0.8)',
+                animation: 'twinkle2 4s ease-in-out infinite'
+              }}
+            ></div>
+            <div 
+              className="absolute w-5 h-5 bg-purple-400 rounded-full opacity-75" 
+              style={{ 
+                top: '40%', 
+                left: '70%',
+                boxShadow: '0 0 25px rgba(168, 85, 247, 0.9)',
+                animation: 'twinkle3 2.5s ease-in-out infinite'
+              }}
+            ></div>
+            <div 
+              className="absolute w-2 h-2 bg-indigo-400 rounded-full opacity-85" 
+              style={{ 
+                top: '60%', 
+                left: '25%',
+                boxShadow: '0 0 12px rgba(99, 102, 241, 0.8)',
+                animation: 'twinkle4 3.5s ease-in-out infinite'
+              }}
+            ></div>
+            
+            {/* Partículas en movimiento */}
+            <div 
+              className="absolute w-1 h-1 bg-teal-300 rounded-full opacity-60" 
+              style={{ 
+                top: '30%', 
+                left: '40%',
+                animation: 'drift1 15s linear infinite'
+              }}
+            ></div>
+            <div 
+              className="absolute w-1 h-1 bg-purple-300 rounded-full opacity-50" 
+              style={{ 
+                top: '80%', 
+                left: '60%',
+                animation: 'drift2 18s linear infinite'
+              }}
+            ></div>
+            <div 
+              className="absolute w-1 h-1 bg-green-300 rounded-full opacity-70" 
+              style={{ 
+                top: '10%', 
+                left: '85%',
+                animation: 'drift3 20s linear infinite'
+              }}
+            ></div>
+          </div>
+        )}
         
-        {/* Líneas de luz dinámicas - Optimizadas */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {/* Líneas horizontales de datos - Reducidas */}
-          {Array.from({length: 3}).map((_, i) => (
-            <div
-              key={`h-${i}`}
-              className={`absolute h-px bg-gradient-to-r from-transparent via-[#00bfa5]/30 to-transparent animate-pulse ${i > 1 ? 'hidden lg:block' : ''}`}
+        {/* Líneas de flujo en movimiento continuo - solo cuando las animaciones estén cargadas */}
+        {animationsLoaded && (
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <div 
+              className="absolute h-px bg-gradient-to-r from-transparent via-[#00bfa5]/40 to-transparent transform -rotate-12" 
               style={{
-                top: `${30 + i * 20}%`,
-                left: '-20%',
-                width: '140%',
-                animationDelay: `${i * 0.8}s`,
-                animationDuration: `${3 + i * 0.5}s`,
-                transform: `rotate(${Math.random() * 4 - 2}deg)`
+                top: '35%',
+                left: '-100%',
+                width: '300%',
+                animation: 'slideRight 8s infinite linear !important'
               }}
             ></div>
-          ))}
-          
-          {/* Líneas verticales - Reducidas */}
-          {Array.from({length: 2}).map((_, i) => (
-            <div
-              key={`v-${i}`}
-              className="absolute w-px bg-gradient-to-b from-transparent via-[#1d70a2]/20 to-transparent animate-pulse hidden lg:block"
+            <div 
+              className="absolute h-px bg-gradient-to-r from-transparent via-[#1d70a2]/30 to-transparent transform rotate-12" 
               style={{
-                left: `${30 + i * 40}%`,
-                top: '-10%',
-                height: '120%',
-                animationDelay: `${i * 1}s`,
-                animationDuration: `${4 + i * 0.5}s`
+                top: '65%',
+                left: '-100%',
+                width: '300%',
+                animation: 'slideLeft 10s infinite linear !important',
+                animationDelay: '2s'
               }}
             ></div>
-          ))}
-          
-          {/* Nodos de conexión - Reducidos */}
-          {Array.from({length: 6}).map((_, i) => (
-            <div
-              key={`node-${i}`}
-              className={`absolute w-2 h-2 rounded-full bg-[#00bfa5]/40 animate-ping ${i > 3 ? 'hidden lg:block' : ''}`}
+            <div 
+              className="absolute h-px bg-gradient-to-r from-transparent via-[#00bfa5]/20 to-transparent transform -rotate-6 hidden lg:block" 
               style={{
-                top: `${20 + Math.random() * 60}%`,
-                left: `${15 + Math.random() * 70}%`,
-                animationDelay: `${Math.random() * 1.5}s`,
-                animationDuration: `${1.5 + Math.random() * 1}s`
+                top: '50%',
+                left: '-100%',
+                width: '300%',
+                animation: 'slideRight 12s infinite linear !important',
+                animationDelay: '4s'
               }}
             ></div>
-          ))}
-          
-          {/* Efectos de partículas - Reducidos */}
-          {Array.from({length: 8}).map((_, i) => (
-            <div
-              key={`particle-${i}`}
-              className={`absolute w-1 h-1 bg-[#00bfa5]/60 rounded-full animate-ping ${i > 4 ? 'hidden lg:block' : ''}`}
-              style={{
-                top: `${Math.random() * 100}%`,
-                left: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 3}s`,
-                animationDuration: `${2 + Math.random() * 2}s`
-              }}
-            ></div>
-          ))}
-        </div>
-        
-        {/* Efecto de flujo de datos en movimiento */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute w-full h-2 bg-gradient-to-r from-transparent via-[#00bfa5]/20 to-transparent transform -rotate-12 animate-pulse" 
-               style={{
-                 top: '30%',
-                 left: '-50%',
-                 width: '200%',
-                 animationDuration: '3s'
-               }}></div>
-          <div className="absolute w-full h-1 bg-gradient-to-r from-transparent via-[#1d70a2]/30 to-transparent transform rotate-12 animate-pulse" 
-               style={{
-                 top: '60%',
-                 left: '-50%',
-                 width: '200%',
-                 animationDuration: '4s',
-                 animationDelay: '1s'
-               }}></div>
-        </div>
+          </div>
+        )}
 
         {/* Contenido principal */}
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 min-h-screen flex items-center justify-center">
-          <div className="text-center max-w-7xl mx-auto space-y-8 sm:space-y-12 lg:space-y-16 py-8 sm:py-12 lg:py-0">
+        <div className="w-full px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="max-w-7xl mx-auto text-center space-y-12 sm:space-y-16 lg:space-y-20">
             
             {/* Etiqueta profesional */}
-            <div className="inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-6 lg:px-8 py-2 sm:py-3 lg:py-4 bg-gray-800/70 border border-gray-600/50 rounded-full backdrop-blur-sm">
-              <img 
-                src="/LOGO.png" 
-                alt="Sixteam Logo" 
-                className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6"
-                loading="eager"
-                decoding="async"
-              />
-              <span className="text-gray-200 font-medium text-xs sm:text-sm tracking-wide">Sixteam.pro</span>
+            <div className="inline-flex items-center gap-2 sm:gap-3 px-3 sm:px-4 md:px-6 lg:px-8 py-2 sm:py-3 lg:py-4 bg-gray-800/70 border border-gray-600/50 rounded-full backdrop-blur-sm mt-8 sm:mt-12 lg:mt-16 mb-8 sm:mb-12 lg:mb-16">
+              <div className="text-sm sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold font-poppins tracking-tight whitespace-nowrap">
+                <span className="text-white">Process</span>
+                <span className="text-white mx-0.5 sm:mx-1">+</span>
+                <span className="text-white">Technology</span>
+                <span className="text-white mx-0.5 sm:mx-1">+</span>
+                <span className="text-blue-400">People</span>
+                <span className="text-white mx-0.5 sm:mx-1">=</span>
+                <span className="text-green-400 font-bold">Growth</span>
+              </div>
             </div>
 
-            {/* Título principal profesional */}
-            <div className="space-y-4 sm:space-y-6 lg:space-y-8">
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold leading-tight tracking-tight px-4 sm:px-0">
-                <span className="text-white">¿Tus procesos</span>
-                <br />
-                <span className="text-gray-300">comerciales te están</span>
-                <br />
-                <span className="bg-gradient-to-r from-blue-400 to-teal-400 bg-clip-text text-transparent">
+            {/* Título principal profesional con animación */}
+            <div className="space-y-6 sm:space-y-8 lg:space-y-12">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-[115px] font-bold leading-[0.9] tracking-tight">
+                <span className="text-white font-extrabold block">¿Tus procesos</span>
+                <span className="text-white block">
+                  <span 
+                    className="inline-block min-w-[120px] sm:min-w-[180px] md:min-w-[220px] lg:min-w-[280px] xl:min-w-[350px] 2xl:min-w-[400px] text-center relative"
+                  >
+                    {displayText}
+                    <span className="typewriter-cursor ml-1 text-white"></span>
+                  </span>te están
+                </span>
+                <span className="bg-gradient-to-r from-blue-400 to-teal-400 bg-clip-text text-transparent block">
                   impidiendo crecer?
                 </span>
               </h1>
               
-              <div className="max-w-5xl mx-auto space-y-4 sm:space-y-6 pt-4 sm:pt-6 px-4 sm:px-6 lg:px-0">
-                <p className="text-xl sm:text-2xl lg:text-3xl text-gray-300 leading-relaxed font-medium">
+              <div className="max-w-5xl mx-auto space-y-4 sm:space-y-6 pt-4 sm:pt-6 lg:pt-8">
+                <p className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl text-gray-300 leading-relaxed font-medium px-4">
                   Integramos áreas de Marketing, ventas y servicio bajo una estrategia de RevOps potenciada con IA
-                </p>
-                <p className="text-base sm:text-lg text-gray-400 leading-relaxed">
-                  En Sixteam.pro combinamos Procesos, Tecnología y Personas para que puedas enfocarte en el crecimiento de tu negocio
                 </p>
               </div>
             </div>
 
             {/* CTA Button único a WhatsApp */}
-            <div className="flex justify-center items-center pt-4 sm:pt-6 lg:pt-8 px-4 sm:px-0">
+            <div className="flex justify-center items-center -mt-2 sm:-mt-4 md:-mt-6 lg:-mt-8 xl:-mt-10 mb-4 sm:mb-6 md:mb-8 lg:mb-12 xl:mb-16 px-4">
               <Button 
                 onClick={handleWhatsAppClick}
-                className="w-full sm:w-auto px-6 sm:px-8 lg:px-12 py-3 sm:py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold text-base sm:text-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 max-w-sm sm:max-w-none"
+                className="w-auto px-3 sm:px-4 md:px-5 lg:px-6 py-1.5 sm:py-2 md:py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold text-xs sm:text-sm md:text-base transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 max-w-xs sm:max-w-sm"
               >
-                <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3" />
-                <span className="text-sm sm:text-base lg:text-lg">Solicita un Diagnóstico Inicial SIN COSTO</span>
+                <MessageCircle className="w-3 h-3 sm:w-4 sm:h-4 md:w-4 md:h-4 mr-1.5 sm:mr-2" />
+                <span className="text-center">Solicita un Diagnóstico Inicial SIN COSTO</span>
               </Button>
             </div>
 
@@ -346,6 +725,11 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* Sección de Chat con IA Integrada - SIN padding top para continuidad perfecta */}
+      <Suspense fallback={<div>Loading chat section...</div>}>
+        <ChatSection />
+      </Suspense>
 
       {/* Ecosistema de IA - Sección Profesional */}
       <section className="relative py-12 sm:py-16 lg:py-24 bg-white overflow-hidden">
@@ -361,12 +745,15 @@ const Index = () => {
           {/* Título de sección para C-Level */}
           <div className="text-center mb-12 sm:mb-16 lg:mb-20 space-y-6 sm:space-y-8">
             <div className="inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2 sm:py-3 bg-gray-100 border border-gray-200 rounded-full">
-              <img 
-                src="/lovable-uploads/3b066a0e-1bea-4907-b036-3b460d543754.png" 
-                alt="Sixteam.pro Logo"
-                className="w-4 h-4 sm:w-5 sm:h-5"
-              />
-              <span className="text-gray-700 font-medium text-xs sm:text-sm tracking-wide">Sixteam.pro</span>
+              <div className="text-sm font-bold font-poppins tracking-tight whitespace-nowrap">
+                <span className="text-gray-800">Process</span>
+                <span className="text-gray-800 mx-1">+</span>
+                <span className="text-gray-800">Technology</span>
+                <span className="text-gray-800 mx-1">+</span>
+                <span className="text-blue-600">People</span>
+                <span className="text-gray-800 mx-1">=</span>
+                <span className="text-green-600 font-bold">Growth</span>
+              </div>
             </div>
             
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-6 sm:mb-8 text-gray-900 leading-tight px-4 sm:px-0">
@@ -407,27 +794,27 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Nueva sección: Nuestro Ciclo de Servicio */}
-      <section className="relative py-12 sm:py-16 lg:py-24 bg-gray-50 overflow-hidden">
-        {/* Fondo sutil */}
+      {/* Servicios Principales */}
+      <section id="servicios-principales" className="relative py-12 sm:py-16 lg:py-24 bg-[#0a2342] overflow-hidden">
+        {/* Fondo con patrón */}
         <div className="absolute inset-0">
           <div className="absolute inset-0" style={{
-            backgroundImage: 'radial-gradient(circle, rgba(100, 116, 139, 0.08) 1px, transparent 1px)',
+            backgroundImage: 'radial-gradient(circle, rgba(29, 112, 162, 0.15) 1px, transparent 1px)',
             backgroundSize: '32px 32px'
           }}></div>
         </div>
 
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 max-w-none">
           {/* Título de la nueva sección */}
           <div className="text-center mb-12 sm:mb-16 lg:mb-20 space-y-6 sm:space-y-8">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-6 sm:mb-8 text-gray-900 leading-tight px-4 sm:px-0">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-6 sm:mb-8 text-white leading-tight px-4 sm:px-0">
               Nuestro Ciclo de Servicio para tu
               <br />
-              <span className="text-blue-600">Transformación Digital</span>
+              <span className="text-blue-400">Transformación Digital</span>
             </h2>
             
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-0">
-              <p className="text-lg sm:text-xl text-gray-600 leading-relaxed">
+              <p className="text-lg sm:text-xl text-gray-300 leading-relaxed">
                 Entendemos que la verdadera transformación digital no se logra de manera aislada, sino con un socio estratégico que facilite este proceso. Por eso, diseñamos un ciclo de servicio para acompañarte en cada etapa y garantizar el resultado deseado.
               </p>
             </div>
@@ -437,16 +824,16 @@ const Index = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-10 mb-12 sm:mb-16 lg:mb-20 px-4 sm:px-0">
             
             {services.map((service, index) => (
-              <div key={index} className="group relative">
-                <div className="bg-white border border-gray-200 rounded-xl p-6 sm:p-8 hover:border-blue-300 hover:shadow-lg transition-all duration-300 h-full">
+              <div key={index} className="group relative" id={`servicio-${service.title.toLowerCase().replace(/\s+/g, '-').replace(/ó/g, 'o').replace(/í/g, 'i')}`}>
+                <div className="bg-gray-800/60 backdrop-blur-sm border border-gray-600/40 rounded-xl p-6 sm:p-8 hover:border-blue-400/50 hover:shadow-xl transition-all duration-300 h-full">
                   <div className="flex items-center justify-center mb-6 sm:mb-8">
-                    <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gray-800 rounded-lg flex items-center justify-center">
+                    <div className="w-12 h-12 sm:w-16 sm:h-16 bg-blue-600 rounded-lg flex items-center justify-center">
                       <service.icon className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                     </div>
                   </div>
                   
-                  <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4 text-center">{service.title}</h3>
-                  <p className="text-gray-600 leading-relaxed text-sm sm:text-base text-center">
+                  <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4 text-center">{service.title}</h3>
+                  <p className="text-gray-300 leading-relaxed text-sm sm:text-base text-center">
                     {service.description}
                   </p>
                 </div>
@@ -458,7 +845,7 @@ const Index = () => {
           <div className="text-center px-4 sm:px-0">
             <Button 
               onClick={handleWhatsAppClick}
-              className="w-full sm:w-auto px-8 sm:px-12 py-3 sm:py-4 bg-gray-900 hover:bg-gray-800 text-white rounded-lg font-semibold text-base sm:text-lg lg:text-xl transition-all duration-300 shadow-lg hover:shadow-xl max-w-md sm:max-w-none"
+              className="w-full sm:w-auto px-8 sm:px-12 py-3 sm:py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold text-base sm:text-lg lg:text-xl transition-all duration-300 shadow-lg hover:shadow-xl max-w-md sm:max-w-none"
             >
               <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3" />
               <span className="text-sm sm:text-base lg:text-lg">Conoce más sobre estos servicios</span>
@@ -467,33 +854,79 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Herramientas y Tecnologías */}
-      <section className="relative py-12 sm:py-16 lg:py-24 bg-gray-50 overflow-hidden">
-        {/* Elementos decorativos sutiles */}
+      {/* Nuestras Soluciones Especializadas */}
+      <section id="soluciones-especializadas" className="relative py-12 sm:py-16 lg:py-24 bg-[#0a2342] overflow-hidden">
+        {/* Fondo decorativo */}
         <div className="absolute inset-0">
-          <div className="absolute top-10 sm:top-20 left-5 sm:left-10 w-32 sm:w-64 h-32 sm:h-64 bg-blue-100/30 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-10 sm:bottom-20 right-5 sm:right-10 w-40 sm:w-80 h-40 sm:h-80 bg-teal-100/30 rounded-full blur-3xl"></div>
+          <div className="absolute top-20 left-20 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-20 right-20 w-80 h-80 bg-teal-500/10 rounded-full blur-3xl"></div>
         </div>
 
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 max-w-none">
+          {/* Título centrado */}
           <div className="text-center mb-12 sm:mb-16 lg:mb-20 space-y-6 sm:space-y-8">
-            <div className="inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2 sm:py-3 bg-white border border-gray-200 rounded-full shadow-sm">
-              <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-              <span className="text-gray-700 font-medium text-xs sm:text-sm tracking-wide">TECNOLOGÍAS LÍDERES</span>
+            <div className="inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2 sm:py-3 bg-blue-600/20 border border-blue-400/40 rounded-full">
+              <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+              <span className="text-blue-300 font-medium text-xs sm:text-sm tracking-wide">SOLUCIONES ESPECIALIZADAS</span>
             </div>
             
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-6 sm:mb-8 text-gray-900 leading-tight px-4 sm:px-0">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-6 sm:mb-8 text-white leading-tight px-4 sm:px-0">
+              Transformamos tu Negocio con
+              <br />
+              <span className="text-blue-400">Soluciones Integrales</span>
+            </h2>
+            
+            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-0">
+              <p className="text-lg sm:text-xl text-gray-300 leading-relaxed">
+                Desde chatbots inteligentes hasta estrategias completas de RevOps, ofrecemos soluciones 
+                personalizadas que impulsan el crecimiento sostenible de tu empresa.
+              </p>
+            </div>
+          </div>
+
+          {/* Grid interactivo con soluciones */}
+          <SolutionsInteractiveGrid />
+
+          {/* CTA */}
+          <div className="text-center mt-12 sm:mt-16 px-4 sm:px-0">
+            <Button 
+              onClick={handleWhatsAppClick}
+              className="w-full sm:w-auto px-8 sm:px-12 py-3 sm:py-4 bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 text-white rounded-lg font-semibold text-base sm:text-lg transition-all duration-300 shadow-lg hover:shadow-xl max-w-md sm:max-w-none"
+            >
+              <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3" />
+              <span className="text-sm sm:text-base lg:text-lg">Descubre Nuestras Soluciones</span>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Herramientas y Tecnologías */}
+      <section className="relative py-12 sm:py-16 lg:py-24 bg-[#0a2342] overflow-hidden">
+        {/* Elementos decorativos sutiles */}
+        <div className="absolute inset-0">
+          <div className="absolute top-10 sm:top-20 left-5 sm:left-10 w-32 sm:w-64 h-32 sm:h-64 bg-blue-500/20 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-10 sm:bottom-20 right-5 sm:right-10 w-40 sm:w-80 h-40 sm:h-80 bg-teal-500/20 rounded-full blur-3xl"></div>
+        </div>
+
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 max-w-none">
+          <div className="text-center mb-12 sm:mb-16 lg:mb-20 space-y-6 sm:space-y-8">
+            <div className="inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2 sm:py-3 bg-gray-800/60 border border-gray-600/40 rounded-full shadow-sm">
+              <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+              <span className="text-gray-200 font-medium text-xs sm:text-sm tracking-wide">TECNOLOGÍAS LÍDERES</span>
+            </div>
+            
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-6 sm:mb-8 text-white leading-tight px-4 sm:px-0">
               Herramientas que
               <br />
-              <span className="text-blue-600">Utilizamos</span>
+              <span className="text-blue-400">Utilizamos</span>
             </h2>
             
             <div className="max-w-4xl mx-auto space-y-4 sm:space-y-6 px-4 sm:px-6 lg:px-0">
-              <p className="text-lg sm:text-xl text-gray-600 leading-relaxed">
+              <p className="text-lg sm:text-xl text-gray-300 leading-relaxed">
                 Trabajamos con las mejores plataformas y herramientas del mercado para garantizar 
                 resultados excepcionales en tu transformación digital.
               </p>
-              <p className="text-base sm:text-lg text-gray-500 leading-relaxed">
+              <p className="text-base sm:text-lg text-gray-400 leading-relaxed">
                 Cada herramienta está cuidadosamente seleccionada para maximizar 
                 el rendimiento y la escalabilidad de tu operación.
               </p>
@@ -506,6 +939,9 @@ const Index = () => {
               opts={{
                 align: "start",
                 loop: true,
+                duration: 50,
+                dragFree: false,
+                skipSnaps: false,
               }}
               setApi={setCarouselApi}
               className="w-full"
@@ -545,7 +981,7 @@ const Index = () => {
           <div className="text-center mt-12 sm:mt-16 px-4 sm:px-0">
             <Button 
               onClick={handleWhatsAppClick}
-              className="w-full sm:w-auto px-8 sm:px-10 py-3 sm:py-4 bg-gray-900 hover:bg-gray-800 text-white rounded-lg font-semibold text-base sm:text-lg transition-all duration-300 shadow-lg hover:shadow-xl max-w-md sm:max-w-none"
+              className="w-full sm:w-auto px-8 sm:px-10 py-3 sm:py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold text-base sm:text-lg transition-all duration-300 shadow-lg hover:shadow-xl max-w-md sm:max-w-none"
             >
               <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3" />
               <span className="text-sm sm:text-base lg:text-lg">Conoce Nuestras Integraciones</span>
@@ -555,16 +991,16 @@ const Index = () => {
       </section>
 
       {/* Más que implementadores, tus Socios Estratégicos */}
-      <section className="relative py-12 sm:py-16 lg:py-24 bg-gray-900 overflow-hidden">
+      <section className="relative py-12 sm:py-16 lg:py-24 bg-[#0a2342] overflow-hidden">
         {/* Fondo sutil empresarial */}
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-black"></div>
-          <div className="absolute top-1/4 left-1/4 w-32 sm:w-64 h-32 sm:h-64 bg-blue-600/10 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-40 sm:w-80 h-40 sm:h-80 bg-teal-600/10 rounded-full blur-3xl"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-[#0a2342] via-[#1d70a2]/20 to-[#0a2342]"></div>
+          <div className="absolute top-1/4 left-1/4 w-32 sm:w-64 h-32 sm:h-64 bg-blue-600/20 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-40 sm:w-80 h-40 sm:h-80 bg-teal-600/20 rounded-full blur-3xl"></div>
         </div>
 
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-6xl mx-auto">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 max-w-none">
+          <div className="max-w-none mx-auto">
             {/* Título profesional */}
             <div className="text-center mb-12 sm:mb-16 lg:mb-20 space-y-6 sm:space-y-8">
               <div className="inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2 sm:py-3 bg-gray-800/60 border border-gray-600/40 rounded-full">
@@ -616,7 +1052,7 @@ const Index = () => {
               </div>
               
               {/* Lado derecho - Lista de ventajas */}
-              <div className="space-y-4 sm:space-y-6 px-4 sm:px-0">
+              <div className="space-y-4 sm:space-y-6 px-4 sm:px-0 pt-14 sm:pt-16">
                 {advantages.map((advantage, index) => (
                   <div 
                     key={index} 
@@ -655,34 +1091,34 @@ const Index = () => {
       </section>
 
       {/* Casos de Éxito Elite */}
-      <section className="relative py-16 sm:py-24 lg:py-32 bg-gradient-to-b from-gray-50 via-white to-gray-50 overflow-hidden">
+      <section className="relative py-16 sm:py-24 lg:py-32 bg-[#0a2342] overflow-hidden">
         {/* Elementos decorativos flotantes */}
         <div className="absolute inset-0">
-          <div className="absolute top-8 sm:top-16 right-8 sm:right-16 w-16 sm:w-32 h-16 sm:h-32 border border-blue-200 rounded-full opacity-30 animate-spin" style={{animationDuration: '20s'}}></div>
-          <div className="absolute bottom-8 sm:bottom-16 left-8 sm:left-16 w-24 sm:w-48 h-24 sm:h-48 border border-gray-200 rounded-full opacity-20 animate-spin" style={{animationDuration: '30s'}}></div>
+          <div className="absolute top-8 sm:top-16 right-8 sm:right-16 w-16 sm:w-32 h-16 sm:h-32 border border-blue-400/30 rounded-full opacity-50 animate-spin" style={{animationDuration: '20s'}}></div>
+          <div className="absolute bottom-8 sm:bottom-16 left-8 sm:left-16 w-24 sm:w-48 h-24 sm:h-48 border border-teal-400/20 rounded-full opacity-30 animate-spin" style={{animationDuration: '30s'}}></div>
         </div>
 
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 max-w-none">
           <div className="text-center mb-12 sm:mb-16 lg:mb-20">
-            <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1 sm:py-2 bg-green-50 border border-green-200 rounded-full mb-4 sm:mb-6">
-              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-              <span className="text-green-600 font-medium text-xs sm:text-sm">Resultados Verificados</span>
+            <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1 sm:py-2 bg-green-500/20 border border-green-400/40 rounded-full mb-4 sm:mb-6">
+              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+              <span className="text-green-300 font-medium text-xs sm:text-sm">Resultados Verificados</span>
             </div>
             
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-6 px-4 sm:px-0">
-              <span className="text-gray-900">Transformaciones</span>
+              <span className="text-white">Transformaciones</span>
               <br />
-              <span className="text-blue-600">de Alto Impacto</span>
+              <span className="text-blue-400">de Alto Impacto</span>
             </h2>
             
-            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed px-4 sm:px-6 lg:px-0">
+            <p className="text-lg sm:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed px-4 sm:px-6 lg:px-0">
               Empresas líderes confían en nosotros para revolucionar sus operaciones 
               con inteligencia artificial y automatización de vanguardia.
             </p>
           </div>
           
           {/* Grid de testimonios premium */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {testimonials.map((testimonial, index) => (
               <div 
                 key={index} 
@@ -690,10 +1126,10 @@ const Index = () => {
                 style={{ animationDelay: `${index * 0.2}s` }}
               >
                 {/* Glow effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-teal-500/10 rounded-3xl blur opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-teal-500/20 rounded-3xl blur opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 
                 {/* Card principal */}
-                <div className="relative bg-white border border-gray-200 rounded-3xl p-10 hover:border-blue-300 hover:shadow-2xl transition-all duration-500 group-hover:-translate-y-2">
+                <div className="relative bg-gray-800/60 backdrop-blur-sm border border-gray-600/40 rounded-3xl p-10 hover:border-blue-400/50 hover:shadow-2xl transition-all duration-500 group-hover:-translate-y-2">
                   
                   {/* Header con estrellas y badge */}
                   <div className="flex items-center justify-between mb-8">
@@ -702,18 +1138,18 @@ const Index = () => {
                         <Star key={i} className="w-6 h-6 text-yellow-400 fill-current" />
                       ))}
                     </div>
-                    <div className="px-3 py-1 bg-green-100 text-green-600 text-sm font-medium rounded-full">
+                    <div className="px-3 py-1 bg-green-500/20 text-green-300 text-sm font-medium rounded-full">
                       VERIFICADO
                     </div>
                   </div>
                   
                   {/* Quote con diseño elegante */}
                   <div className="relative mb-8">
-                    <div className="absolute -top-4 -left-4 text-6xl text-blue-200 font-serif">"</div>
-                    <p className="text-lg text-gray-700 leading-relaxed italic relative z-10 pl-8">
+                    <div className="absolute -top-4 -left-4 text-6xl text-blue-400/30 font-serif">"</div>
+                    <p className="text-lg text-gray-200 leading-relaxed italic relative z-10 pl-8">
                       {testimonial.text}
                     </p>
-                    <div className="absolute -bottom-4 -right-4 text-6xl text-blue-200 font-serif rotate-180">"</div>
+                    <div className="absolute -bottom-4 -right-4 text-6xl text-blue-400/30 font-serif rotate-180">"</div>
                   </div>
                   
                   {/* Información del cliente con avatar */}
@@ -722,13 +1158,13 @@ const Index = () => {
                       {testimonial.name.charAt(0)}
                     </div>
                     <div>
-                      <p className="font-bold text-gray-900 text-lg">{testimonial.name}</p>
-                      <p className="text-gray-600 font-medium">{testimonial.company}</p>
+                      <p className="font-bold text-white text-lg">{testimonial.name}</p>
+                      <p className="text-gray-300 font-medium">{testimonial.company}</p>
                     </div>
                   </div>
                   
                   {/* Línea decorativa */}
-                  <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-blue-600 rounded-full"></div>
+                  <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-blue-400 rounded-full"></div>
                 </div>
               </div>
             ))}
@@ -736,7 +1172,7 @@ const Index = () => {
           
           {/* CTA final poderoso */}
           <div className="text-center mt-20">
-            <div className="max-w-3xl mx-auto bg-gradient-to-r from-blue-600 to-teal-600 rounded-3xl p-8 text-white">
+            <div className="bg-gradient-to-r from-blue-600 to-teal-600 rounded-3xl p-8 text-white">
               <h3 className="text-2xl md:text-3xl font-bold mb-4">
                 ¿Quieres ser el próximo caso de éxito?
               </h3>
@@ -755,15 +1191,15 @@ const Index = () => {
       </section>
 
       {/* Footer Elite */}
-      <footer className="relative bg-black text-white overflow-hidden">
+      <footer className="relative bg-[#0a2342] text-white overflow-hidden">
         {/* Fondo futurista */}
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-950/30 via-gray-950/30 to-teal-950/30"></div>
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl"></div>
-                      <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-teal-500/5 rounded-full blur-3xl"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-[#0a2342] via-[#1d70a2]/20 to-[#0a2342]"></div>
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-teal-500/10 rounded-full blur-3xl"></div>
         </div>
 
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="container mx-auto px-4 relative z-10 max-w-none">
           {/* Sección principal del footer */}
           <div className="py-16 border-b border-gray-800">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-center">
@@ -796,22 +1232,16 @@ const Index = () => {
               <div className="space-y-6">
                 <h3 className="text-xl font-bold text-white">Nuestros Servicios</h3>
                 <div className="space-y-3">
-                  <div className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors cursor-pointer">
-                    <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
-                    <span>Consultoría Estratégica</span>
-                  </div>
-                  <div className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors cursor-pointer">
-                    <div className="w-2 h-2 bg-teal-600 rounded-full"></div>
-                    <span>Implementación de CRM</span>
-                  </div>
-                  <div className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors cursor-pointer">
-                    <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                    <span>Soluciones de IA</span>
-                  </div>
-                  <div className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors cursor-pointer">
-                    <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
-                    <span>Operación y Mantenimiento</span>
-                  </div>
+                  {footerServices.map((service, index) => (
+                    <button
+                      key={index}
+                      onClick={() => handleServiceClick(service)}
+                      className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors cursor-pointer w-full text-left"
+                    >
+                      <div className={`w-2 h-2 ${service.color} rounded-full`}></div>
+                      <span>{service.name}</span>
+                    </button>
+                  ))}
                 </div>
               </div>
 

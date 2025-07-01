@@ -7,31 +7,127 @@
     <title>🚀 Sixteam.pro - Elite AI Automation Agency</title>
     <meta name="description" content="Impulsamos el crecimiento digital de tu negocio con IA y automatización. Combinamos procesos, tecnología y personas para tu transformación digital." />
     
-    <!-- Preload de recursos críticos -->
+    <!-- DNS prefetch y preconnect ANTES de preloads para CORS -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link rel="dns-prefetch" href="https://wa.me">
+    <link rel="dns-prefetch" href="https://n8n-n8n.5raxun.easypanel.host">
+    
+    <!-- Preconnect crítico -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://n8n-n8n.5raxun.easypanel.host" crossorigin>
+    
+    <!-- Preload crítico SOLO para imágenes above-the-fold -->
     <link rel="preload" href="/LOGO.png" as="image" type="image/png" />
     <link rel="preload" href="/logos/HubSpot-Logo-500x281.png" as="image" type="image/png" />
     <link rel="preload" href="/logos/make-logo.png" as="image" type="image/png" />
     
-    <!-- DNS prefetch para recursos externos -->
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-    <link rel="dns-prefetch" href="https://wa.me">
+    <!-- Preload crítico de fuentes CON crossorigin -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&display=swap" as="style" crossorigin="anonymous" />
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;500;600&display=swap" as="style" crossorigin="anonymous" />
     
-    <!-- Google Fonts optimizadas - Async loading -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Lato:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Lato:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
+    <!-- Critical CSS inline para prevenir FOUC -->
+    <style>
+      /* Critical CSS - Solo elementos above the fold */
+      html {
+        font-display: swap;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      
+      body {
+        font-family: 'Lato', system-ui, sans-serif;
+        font-display: swap;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(135deg, #0a2342 0%, #1d70a2 100%);
+        color: white;
+      }
+      
+      /* Hero section crítico */
+      .hero-container {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+      }
+      
+      /* Título crítico */
+      .hero-title {
+        font-family: 'Poppins', system-ui, sans-serif;
+        font-weight: 900;
+        line-height: 0.85;
+        text-align: center;
+        margin: 0;
+        padding: 0 1rem;
+      }
+      
+      /* Optimizar imágenes críticas */
+      img[loading="eager"] {
+        content-visibility: auto;
+        contain-intrinsic-size: auto;
+      }
+      
+      /* Loading spinner crítico */
+      .loading-spinner {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 3px solid rgba(255,255,255,.3);
+        border-radius: 50%;
+        border-top-color: #fff;
+        animation: spin 1s ease-in-out infinite;
+      }
+      
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+    </style>
+    
+    <!-- Google Fonts optimizadas con display=swap y crossorigin -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&display=swap" rel="stylesheet" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;500;600&display=swap" rel="stylesheet" crossorigin="anonymous" />
     
     <!-- Meta tags para rendimiento -->
     <meta name="theme-color" content="#0a2342" />
     <meta name="robots" content="index, follow" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     
-    <!-- Critical CSS será inyectado aquí por Vite -->
+    <!-- PWA optimizado -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    
+    <!-- Optimización para móvil -->
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
   </head>
   <body>
+    <!-- Loading placeholder crítico -->
+    <div id="initial-loader" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #0a2342 0%, #1d70a2 100%); display: flex; align-items: center; justify-content: center; z-index: 9999;">
+      <div class="loading-spinner"></div>
+    </div>
+    
     <div id="root"></div>
+    
+    <!-- Script para remover loader después de que React cargue -->
+    <script>
+      // Remover loader cuando React tome control
+      document.addEventListener('DOMContentLoaded', function() {
+        const loader = document.getElementById('initial-loader');
+        if (loader) {
+          setTimeout(() => {
+            loader.style.opacity = '0';
+            setTimeout(() => loader.remove(), 300);
+          }, 100);
+        }
+      });
+    </script>
+    
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
