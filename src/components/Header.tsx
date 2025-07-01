@@ -1,5 +1,3 @@
-
-
 import React, { useState } from 'react';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
@@ -19,6 +17,7 @@ const Header = () => {
         'Consultoría Estratégica',
         'Implementación de CRM',
         'Soluciones de IA',
+        'Implementaciones de Chatbot',
         'Operación y Mantenimiento'
       ]
     },

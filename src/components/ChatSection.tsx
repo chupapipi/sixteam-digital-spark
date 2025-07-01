@@ -287,7 +287,8 @@ const ChatSection = () => {
                     onChange={(e) => setInputText(e.target.value)}
                     onKeyPress={handleKeyPress}
                     placeholder="Escribe tu pregunta..."
-                    className="w-full pl-3 pr-10 sm:pl-4 sm:pr-12 py-2 sm:py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base"
+                    className="w-full pl-3 pr-10 sm:pl-4 sm:pr-12 py-2 sm:py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base !text-gray-900 placeholder:!text-gray-500"
+                    style={{ color: '#111827' }}
                     disabled={isLoading}
                   />
                   <div className="absolute right-2 sm:right-3 top-1/2 transform -translate-y-1/2">

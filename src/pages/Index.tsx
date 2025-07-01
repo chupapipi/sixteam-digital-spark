@@ -4,6 +4,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from '@/components/ui/carousel';
 import { MessageCircle, Target, Settings, Brain, Headphones, CheckCircle, Star, Zap, Bot } from 'lucide-react';
 import Footer from '@/components/Footer';
+import SolutionsInteractiveGrid from '@/components/SolutionsInteractiveGrid';
 
 // Lazy load componentes no críticos para mejorar LCP
 const ChatSection = lazy(() => import('@/components/ChatSection'));
@@ -276,39 +277,90 @@ const Index = () => {
   }, [animationsLoaded]);
 
   const handleWhatsAppClick = () => {
-    window.open('https://wa.me/+573023515392?text=Hola%2C%20me%20interesa%20agendar%20una%20cita%20para%20conocer%20m%C3%A1s%20sobre%20los%20servicios%20de%20Sixteam.pro', '_blank');
+    window.open('https://wa.me/+573023515392?text=Hola%2C%20me%20interesa%20conocer%20más%20sobre%20los%20servicios%20de%20Sixteam.pro', '_blank');
   };
-  
-    // Auto-scroll del carrusel cada 8 segundos (solo cuando esté visible)
-    useEffect(() => {
-      if (!carouselApi) return;
 
-      // Observer para detectar cuando el carrusel está visible
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              const interval = setInterval(() => {
-                carouselApi.scrollNext();
-              }, 8000);
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
 
-              // Limpiar cuando el carrusel no esté visible
-              return () => clearInterval(interval);
-            }
-          });
-        },
-        { threshold: 0.1 }
-      );
+  const handleServiceClick = (service: any) => {
+    if (service.name === 'Consultoría Estratégica') {
+      handleWhatsAppClick();
+    } else {
+      scrollToSection(service.sectionId);
+    }
+  };
 
-      const carouselElement = document.querySelector('[data-carousel="main"]');
-      if (carouselElement) {
-        observer.observe(carouselElement);
-      }
+  const footerServices = [
+    {
+      name: 'Consultoría Estratégica',
+      sectionId: 'servicio-consultoria-estrategica',
+      color: 'bg-blue-400',
+      isWhatsApp: true
+    },
+    {
+      name: 'Implementación de CRM',
+      sectionId: 'servicio-implementacion-de-crm',
+      color: 'bg-teal-600',
+      isWhatsApp: false
+    },
+    {
+      name: 'Soluciones de IA',
+      sectionId: 'servicio-soluciones-de-ia',
+      color: 'bg-green-400',
+      isWhatsApp: false
+    },
+    {
+      name: 'Implementaciones de Chatbot',
+      sectionId: 'soluciones-especializadas',
+      color: 'bg-purple-400',
+      isWhatsApp: false
+    },
+    {
+      name: 'Operación y Mantenimiento',
+      sectionId: 'servicio-operacion-y-mantenimiento',
+      color: 'bg-yellow-400',
+      isWhatsApp: false
+    }
+  ];
 
-      return () => {
-        observer.disconnect();
-      };
-    }, [carouselApi]);
+  // Auto-scroll del carrusel cada 8 segundos (solo cuando esté visible)
+  useEffect(() => {
+    if (!carouselApi) return;
+
+    // Observer para detectar cuando el carrusel está visible
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const interval = setInterval(() => {
+              carouselApi.scrollNext();
+            }, 8000);
+
+            // Limpiar cuando el carrusel no esté visible
+            return () => clearInterval(interval);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    const carouselElement = document.querySelector('[data-carousel="main"]');
+    if (carouselElement) {
+      observer.observe(carouselElement);
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [carouselApi]);
   
     const services = [
     {
@@ -742,9 +794,9 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Nueva sección: Nuestro Ciclo de Servicio */}
-      <section className="relative py-12 sm:py-16 lg:py-24 bg-[#0a2342] overflow-hidden">
-        {/* Fondo sutil */}
+      {/* Servicios Principales */}
+      <section id="servicios-principales" className="relative py-12 sm:py-16 lg:py-24 bg-[#0a2342] overflow-hidden">
+        {/* Fondo con patrón */}
         <div className="absolute inset-0">
           <div className="absolute inset-0" style={{
             backgroundImage: 'radial-gradient(circle, rgba(29, 112, 162, 0.15) 1px, transparent 1px)',
@@ -772,7 +824,7 @@ const Index = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-10 mb-12 sm:mb-16 lg:mb-20 px-4 sm:px-0">
             
             {services.map((service, index) => (
-              <div key={index} className="group relative">
+              <div key={index} className="group relative" id={`servicio-${service.title.toLowerCase().replace(/\s+/g, '-').replace(/ó/g, 'o').replace(/í/g, 'i')}`}>
                 <div className="bg-gray-800/60 backdrop-blur-sm border border-gray-600/40 rounded-xl p-6 sm:p-8 hover:border-blue-400/50 hover:shadow-xl transition-all duration-300 h-full">
                   <div className="flex items-center justify-center mb-6 sm:mb-8">
                     <div className="w-12 h-12 sm:w-16 sm:h-16 bg-blue-600 rounded-lg flex items-center justify-center">
@@ -797,6 +849,52 @@ const Index = () => {
             >
               <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3" />
               <span className="text-sm sm:text-base lg:text-lg">Conoce más sobre estos servicios</span>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Nuestras Soluciones Especializadas */}
+      <section id="soluciones-especializadas" className="relative py-12 sm:py-16 lg:py-24 bg-[#0a2342] overflow-hidden">
+        {/* Fondo decorativo */}
+        <div className="absolute inset-0">
+          <div className="absolute top-20 left-20 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-20 right-20 w-80 h-80 bg-teal-500/10 rounded-full blur-3xl"></div>
+        </div>
+
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 max-w-none">
+          {/* Título centrado */}
+          <div className="text-center mb-12 sm:mb-16 lg:mb-20 space-y-6 sm:space-y-8">
+            <div className="inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2 sm:py-3 bg-blue-600/20 border border-blue-400/40 rounded-full">
+              <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+              <span className="text-blue-300 font-medium text-xs sm:text-sm tracking-wide">SOLUCIONES ESPECIALIZADAS</span>
+            </div>
+            
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-6 sm:mb-8 text-white leading-tight px-4 sm:px-0">
+              Transformamos tu Negocio con
+              <br />
+              <span className="text-blue-400">Soluciones Integrales</span>
+            </h2>
+            
+            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-0">
+              <p className="text-lg sm:text-xl text-gray-300 leading-relaxed">
+                Desde chatbots inteligentes hasta estrategias completas de RevOps, ofrecemos soluciones 
+                personalizadas que impulsan el crecimiento sostenible de tu empresa.
+              </p>
+            </div>
+          </div>
+
+          {/* Grid interactivo con soluciones */}
+          <SolutionsInteractiveGrid />
+
+          {/* CTA */}
+          <div className="text-center mt-12 sm:mt-16 px-4 sm:px-0">
+            <Button 
+              onClick={handleWhatsAppClick}
+              className="w-full sm:w-auto px-8 sm:px-12 py-3 sm:py-4 bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 text-white rounded-lg font-semibold text-base sm:text-lg transition-all duration-300 shadow-lg hover:shadow-xl max-w-md sm:max-w-none"
+            >
+              <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3" />
+              <span className="text-sm sm:text-base lg:text-lg">Descubre Nuestras Soluciones</span>
             </Button>
           </div>
         </div>
@@ -954,7 +1052,7 @@ const Index = () => {
               </div>
               
               {/* Lado derecho - Lista de ventajas */}
-              <div className="space-y-4 sm:space-y-6 px-4 sm:px-0">
+              <div className="space-y-4 sm:space-y-6 px-4 sm:px-0 pt-14 sm:pt-16">
                 {advantages.map((advantage, index) => (
                   <div 
                     key={index} 
@@ -1134,22 +1232,16 @@ const Index = () => {
               <div className="space-y-6">
                 <h3 className="text-xl font-bold text-white">Nuestros Servicios</h3>
                 <div className="space-y-3">
-                  <div className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors cursor-pointer">
-                    <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
-                    <span>Consultoría Estratégica</span>
-                  </div>
-                  <div className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors cursor-pointer">
-                    <div className="w-2 h-2 bg-teal-600 rounded-full"></div>
-                    <span>Implementación de CRM</span>
-                  </div>
-                  <div className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors cursor-pointer">
-                    <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                    <span>Soluciones de IA</span>
-                  </div>
-                  <div className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors cursor-pointer">
-                    <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
-                    <span>Operación y Mantenimiento</span>
-                  </div>
+                  {footerServices.map((service, index) => (
+                    <button
+                      key={index}
+                      onClick={() => handleServiceClick(service)}
+                      className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors cursor-pointer w-full text-left"
+                    >
+                      <div className={`w-2 h-2 ${service.color} rounded-full`}></div>
+                      <span>{service.name}</span>
+                    </button>
+                  ))}
                 </div>
               </div>
 

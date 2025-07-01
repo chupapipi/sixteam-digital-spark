@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { MessageCircle, Mail, MapPin } from 'lucide-react';
 
@@ -6,6 +5,52 @@ const Footer = () => {
   const handleWhatsAppClick = () => {
     window.open('https://wa.me/+573023515392?text=Hola%2C%20me%20interesa%20conocer%20más%20sobre%20los%20servicios%20de%20Sixteam.pro', '_blank');
   };
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
+
+  const handleServiceClick = (service: any) => {
+    if (service.name === 'Consultoría Estratégica') {
+      handleWhatsAppClick();
+    } else {
+      scrollToSection(service.sectionId);
+    }
+  };
+
+  const services = [
+    {
+      name: 'Consultoría Estratégica',
+      sectionId: 'servicio-consultoria-estrategica',
+      isWhatsApp: true
+    },
+    {
+      name: 'Implementación de CRM',
+      sectionId: 'servicio-implementacion-de-crm',
+      isWhatsApp: false
+    },
+    {
+      name: 'Soluciones de IA',
+      sectionId: 'servicio-soluciones-de-ia',
+      isWhatsApp: false
+    },
+    {
+      name: 'Implementaciones de Chatbot',
+      sectionId: 'soluciones-especializadas',
+      isWhatsApp: false
+    },
+    {
+      name: 'Operación y Mantenimiento',
+      sectionId: 'servicio-operacion-y-mantenimiento',
+      isWhatsApp: false
+    }
+  ];
 
   return (
     <footer className="gradient-bg text-white font-lato">
@@ -58,10 +103,16 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-poppins font-semibold mb-4">Servicios</h3>
             <ul className="space-y-2 text-gray-200">
-              <li>Consultoría Estratégica</li>
-              <li>Implementación de CRM</li>
-              <li>Soluciones de IA</li>
-              <li>Operación y Mantenimiento</li>
+              {services.map((service, index) => (
+                <li key={index}>
+                  <button
+                    onClick={() => handleServiceClick(service)}
+                    className="text-left text-gray-200 hover:text-white transition-colors duration-200 cursor-pointer hover:underline"
+                  >
+                    {service.name}
+                  </button>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
